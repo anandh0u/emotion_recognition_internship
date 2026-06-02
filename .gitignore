@@ -15,6 +15,7 @@ features/**/*.pt
 features/*.pt
 models/**/*.pt
 models/*.pt
+!models/best_model.pt
 results/**/*.png
 results/*.png
 results/**/*.json

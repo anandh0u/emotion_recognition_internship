@@ -304,9 +304,10 @@ def main() -> None:
         unsafe_allow_html=True,
     )
 
-    if not DEFAULT_FEATURES.exists() or not DEFAULT_CHECKPOINT.exists():
-        st.error("Missing feature cache or checkpoint. Run precompute and train first.")
+    if not DEFAULT_CHECKPOINT.exists():
+        st.error("Missing checkpoint. Run training first or include models/best_model.pt for deployment.")
         st.stop()
+    has_feature_cache = DEFAULT_FEATURES.exists()
 
     metrics = load_metrics()
     summary = metrics.get("training_summary.json", {})
@@ -327,15 +328,21 @@ def main() -> None:
         metric_card("Test UAR", f"{test_uar * 100:.2f}%")
 
     model, device = load_model(str(DEFAULT_CHECKPOINT))
-    records = load_feature_records(str(DEFAULT_FEATURES))
+    records = load_feature_records(str(DEFAULT_FEATURES)) if has_feature_cache else []
 
     with st.sidebar:
-        source = st.radio("Source", ["Dataset sample", "Upload files"], horizontal=False)
+        source_options = ["Dataset sample", "Upload files"] if has_feature_cache else ["Upload files"]
+        source = st.radio("Source", source_options, horizontal=False)
+        if not has_feature_cache:
+            st.info("Dataset samples are disabled on this deployment because the large feature cache is not bundled.")
         split = st.selectbox("Split", ["train", "val", "test"], index=2, disabled=source == "Upload files")
         sample_modality = st.selectbox("Use", ["auto", "fusion", "audio", "image"], disabled=source == "Upload files")
 
     if source == "Dataset sample":
         split_records = [record for record in records if record.get("split") == split]
+        if not split_records:
+            st.warning("No cached samples are available for this split.")
+            st.stop()
         labels = [f"{record['sample_id']} · {record['label']}" for record in split_records]
         with st.sidebar:
             selected_index = st.selectbox("Sample", range(len(split_records)), format_func=lambda index: labels[index])

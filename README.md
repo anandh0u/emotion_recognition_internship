@@ -159,6 +159,35 @@ streamlit run src/demo_app.py
 
 The demo page loads `models/best_model.pt` and `features/all_embeddings.pt`, shows dataset examples in a chat-style interface, and supports audio/image uploads.
 
+For cloud deployment, use the root entrypoint:
+
+```powershell
+streamlit run streamlit_app.py
+```
+
+The deployed app can run in upload-only mode with `models/best_model.pt`. The large feature cache `features/all_embeddings.pt` is intentionally not committed to GitHub; when it is absent, dataset-sample browsing is disabled, but audio/image uploads still work.
+
+## Deployment
+
+Recommended target for this project is Streamlit Community Cloud because the demo is a Streamlit app.
+
+Use these settings:
+
+- Repository: `anandh0u/emotion_recognition_internship`
+- Branch: `main`
+- Main file path: `streamlit_app.py`
+- Python: `3.11`
+
+Deployment files included:
+
+- `streamlit_app.py`
+- `.streamlit/config.toml`
+- `packages.txt`
+- `runtime.txt`
+- `models/best_model.pt`
+
+The app downloads Wav2Vec2 and ViT backbones from Hugging Face on first use, so the first uploaded prediction can be slow.
+
 ## 5) Zero-shot baseline
 
 ```powershell
