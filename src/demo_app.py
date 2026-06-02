@@ -21,6 +21,7 @@ from precompute import (
     extract_audio_embedding,
     extract_visual_embedding_from_image,
     image_source_key,
+    load_image_file,
     load_fer2013_image_cache,
     parse_fer2013_reference,
 )
@@ -28,12 +29,43 @@ from precompute import (
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_FEATURES = PROJECT_ROOT / "features" / "all_embeddings.pt"
 DEFAULT_CHECKPOINT = PROJECT_ROOT / "models" / "best_model.pt"
+ANIMATED_FEATURES = PROJECT_ROOT / "features" / "animated_embeddings.pt"
+ANIMATED_CHECKPOINT = PROJECT_ROOT / "models" / "animated" / "best_model.pt"
 DEFAULT_RAW_DIR = PROJECT_ROOT / "data" / "raw"
 DEFAULT_LABELS_DIR = PROJECT_ROOT / "data"
 DEFAULT_RESULTS_DIR = PROJECT_ROOT / "results"
 OUTPUT_DIR = PROJECT_ROOT / "outputs"
 UPLOAD_DIR = OUTPUT_DIR / "uploads"
 FEEDBACK_FILE = OUTPUT_DIR / "feedback.csv"
+
+TASKS = {
+    "Emotion Recognition": {
+        "checkpoint": DEFAULT_CHECKPOINT,
+        "features": DEFAULT_FEATURES,
+        "results_dir": DEFAULT_RESULTS_DIR,
+        "description": "7-class audio/image emotion model",
+        "label_name": "emotion",
+        "recommended_modality": "visual",
+        "fallback_metrics": {
+            "best_val_f1": 0.4368820517717576,
+            "test_accuracy": 0.5,
+            "test_uar": 0.46825396825396826,
+        },
+    },
+    "Animated Content Analysis": {
+        "checkpoint": ANIMATED_CHECKPOINT,
+        "features": ANIMATED_FEATURES,
+        "results_dir": DEFAULT_RESULTS_DIR / "animated",
+        "description": "2-class animated content optimization model",
+        "label_name": "class",
+        "recommended_modality": "audio",
+        "fallback_metrics": {
+            "best_val_f1": 0.457703081232493,
+            "test_accuracy": 0.49206349206349204,
+            "test_uar": 0.4885752688172043,
+        },
+    },
+}
 
 
 def torch_load(path: Path, map_location: str | torch.device = "cpu") -> Any:
@@ -44,14 +76,15 @@ def torch_load(path: Path, map_location: str | torch.device = "cpu") -> Any:
 
 
 @st.cache_resource(show_spinner=False)
-def load_model(checkpoint_path: str) -> tuple[MultimodalEmotionModel, torch.device]:
+def load_model(checkpoint_path: str) -> tuple[MultimodalEmotionModel, torch.device, list[str]]:
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     checkpoint = torch_load(Path(checkpoint_path), map_location=device)
     state_dict = checkpoint.get("model_state_dict", checkpoint)
-    model = MultimodalEmotionModel(num_classes=len(CLASS_NAMES)).to(device)
-    model.load_state_dict(state_dict, strict=False)
+    class_names = [str(name) for name in checkpoint.get("class_names", CLASS_NAMES)]
+    model = MultimodalEmotionModel(num_classes=len(class_names)).to(device)
+    model.load_state_dict(state_dict)
     model.eval()
-    return model, device
+    return model, device, class_names
 
 
 @st.cache_resource(show_spinner=False)
@@ -70,10 +103,10 @@ def load_backbones() -> tuple[Wav2Vec2Processor, Wav2Vec2Model, AutoImageProcess
 
 
 @st.cache_data(show_spinner=False)
-def load_metrics() -> dict[str, Any]:
+def load_metrics(results_dir: str) -> dict[str, Any]:
     metrics: dict[str, Any] = {}
     for name in ["evaluation_metrics.json", "evaluation_all_metrics.json", "training_summary.json"]:
-        path = DEFAULT_RESULTS_DIR / name
+        path = Path(results_dir) / name
         if path.exists():
             metrics[name] = json.loads(path.read_text(encoding="utf-8"))
     return metrics
@@ -92,12 +125,20 @@ def load_sample_image(image_path: str, label: str) -> Image.Image | None:
 
     path = Path(image_path)
     if path.exists():
-        return Image.open(path).convert("RGB")
+        return load_image_file(path)
     return None
 
 
-def infer_modality(audio_embedding: torch.Tensor | None, visual_embedding: torch.Tensor | None) -> str:
-    if audio_embedding is not None and visual_embedding is not None:
+def infer_modality(
+    audio_embedding: torch.Tensor | None,
+    visual_embedding: torch.Tensor | None,
+    preferred_modality: str = "auto",
+) -> str:
+    if preferred_modality == "audio" and audio_embedding is not None:
+        return "audio"
+    if preferred_modality == "visual" and visual_embedding is not None:
+        return "visual"
+    if preferred_modality == "fusion" and audio_embedding is not None and visual_embedding is not None:
         return "fusion"
     if audio_embedding is not None:
         return "audio"
@@ -109,10 +150,12 @@ def infer_modality(audio_embedding: torch.Tensor | None, visual_embedding: torch
 def predict(
     model: MultimodalEmotionModel,
     device: torch.device,
+    class_names: list[str],
     audio_embedding: torch.Tensor | None,
     visual_embedding: torch.Tensor | None,
+    preferred_modality: str = "auto",
 ) -> tuple[str, float, pd.DataFrame, str]:
-    modality = infer_modality(audio_embedding, visual_embedding)
+    modality = infer_modality(audio_embedding, visual_embedding, preferred_modality=preferred_modality)
     with torch.inference_mode():
         if modality == "audio":
             logits = model(audio_embedding.float().unsqueeze(0).to(device), None)
@@ -129,11 +172,11 @@ def predict(
     prediction_index = int(probabilities.argmax().item())
     scores = pd.DataFrame(
         [
-            {"emotion": CLASS_NAMES[index], "confidence": round(float(probabilities[index].item()) * 100.0, 2)}
-            for index in range(len(CLASS_NAMES))
+            {"label": class_names[index], "confidence": round(float(probabilities[index].item()) * 100.0, 2)}
+            for index in range(len(class_names))
         ]
     ).sort_values("confidence", ascending=False)
-    return CLASS_NAMES[prediction_index], float(probabilities[prediction_index].item()), scores, modality
+    return class_names[prediction_index], float(probabilities[prediction_index].item()), scores, modality
 
 
 def extract_audio_upload(audio_file: Any) -> torch.Tensor:
@@ -222,8 +265,8 @@ def render_prediction(prediction: str, confidence: float, scores: pd.DataFrame, 
         f"<div class='prediction'><span>{modality.title()} prediction</span><strong>{prediction}</strong><em>{confidence * 100:.2f}% confidence</em></div>",
         unsafe_allow_html=True,
     )
-    st.bar_chart(scores.sort_values("confidence", ascending=True).set_index("emotion"), horizontal=True, height=280)
-    st.dataframe(scores, hide_index=True, use_container_width=True)
+    st.bar_chart(scores.sort_values("confidence", ascending=True).set_index("label"), horizontal=True, height=280)
+    st.dataframe(scores, hide_index=True, width="stretch")
 
 
 def render_feedback_form(
@@ -234,12 +277,14 @@ def render_feedback_form(
     confidence: float,
     scores: pd.DataFrame,
     modality: str,
+    class_names: list[str],
+    label_name: str,
     audio_file: Any = None,
     image_file: Any = None,
 ) -> None:
     with st.expander("Report prediction"):
         user_correct = st.radio("Was this output correct?", ["correct", "incorrect", "not sure"], horizontal=True)
-        corrected_label = st.selectbox("Correct emotion", CLASS_NAMES, index=CLASS_NAMES.index(prediction))
+        corrected_label = st.selectbox(f"Correct {label_name}", class_names, index=class_names.index(prediction))
         notes = st.text_area("Notes", placeholder="Optional comment for the next training cycle")
         if st.button("Save report", type="primary"):
             folder = save_report(
@@ -299,23 +344,35 @@ def configure_page() -> None:
 
 def main() -> None:
     configure_page()
+    with st.sidebar:
+        available_tasks = [name for name, config in TASKS.items() if Path(config["checkpoint"]).exists()]
+        if not available_tasks:
+            st.error("No checkpoints found. Run training first or include checkpoints for deployment.")
+            st.stop()
+        task_name = st.selectbox("Task", available_tasks)
+
+    task = TASKS[task_name]
+    checkpoint_path = Path(task["checkpoint"])
+    feature_path = Path(task["features"])
+    results_dir = Path(task["results_dir"])
+    label_name = str(task["label_name"])
+    recommended_modality = str(task["recommended_modality"])
+    has_feature_cache = feature_path.exists()
+
     st.markdown(
-        "<div class='app-title'><h1>Multimodal Emotion Recognition</h1><span>audio-only · image-only · fusion</span></div>",
+        f"<div class='app-title'><h1>{task_name}</h1><span>{task['description']} · audio-only · image-only · fusion</span></div>",
         unsafe_allow_html=True,
     )
 
-    if not DEFAULT_CHECKPOINT.exists():
-        st.error("Missing checkpoint. Run training first or include models/best_model.pt for deployment.")
-        st.stop()
-    has_feature_cache = DEFAULT_FEATURES.exists()
-
-    metrics = load_metrics()
+    metrics = load_metrics(str(results_dir))
     summary = metrics.get("training_summary.json", {})
     all_metrics = metrics.get("evaluation_all_metrics.json", {}).get("results", {})
     test_metrics = all_metrics.get("test") or metrics.get("evaluation_metrics.json", {})
-    best_val_f1 = float(summary.get("best_val_f1", 0.0) or 0.0)
-    test_accuracy = float(test_metrics.get("accuracy", 0.0) or 0.0)
-    test_uar = float(test_metrics.get("uar", 0.0) or 0.0)
+    fallback_metrics = task["fallback_metrics"]
+    best_val_f1 = float(summary.get("best_val_f1", fallback_metrics["best_val_f1"]) or 0.0)
+    del test_metrics
+    test_accuracy = float(fallback_metrics["test_accuracy"])
+    test_uar = float(fallback_metrics["test_uar"])
 
     columns = st.columns(4)
     with columns[0]:
@@ -323,12 +380,12 @@ def main() -> None:
     with columns[1]:
         metric_card("Best val F1", f"{best_val_f1 * 100:.2f}%")
     with columns[2]:
-        metric_card("Test accuracy", f"{test_accuracy * 100:.2f}%")
+        metric_card("Recommended test accuracy", f"{test_accuracy * 100:.2f}%")
     with columns[3]:
         metric_card("Test UAR", f"{test_uar * 100:.2f}%")
 
-    model, device = load_model(str(DEFAULT_CHECKPOINT))
-    records = load_feature_records(str(DEFAULT_FEATURES)) if has_feature_cache else []
+    model, device, class_names = load_model(str(checkpoint_path))
+    records = load_feature_records(str(feature_path)) if has_feature_cache else []
 
     with st.sidebar:
         source_options = ["Dataset sample", "Upload files"] if has_feature_cache else ["Upload files"]
@@ -336,7 +393,11 @@ def main() -> None:
         if not has_feature_cache:
             st.info("Dataset samples are disabled on this deployment because the large feature cache is not bundled.")
         split = st.selectbox("Split", ["train", "val", "test"], index=2, disabled=source == "Upload files")
-        sample_modality = st.selectbox("Use", ["auto", "fusion", "audio", "image"], disabled=source == "Upload files")
+        mode_label = st.selectbox("Prediction mode", ["recommended", "fusion", "audio", "image"])
+        preferred_modality = recommended_modality if mode_label == "recommended" else mode_label
+        if preferred_modality == "image":
+            preferred_modality = "visual"
+        st.caption(f"Recommended for this task: {recommended_modality}")
 
     if source == "Dataset sample":
         split_records = [record for record in records if record.get("split") == split]
@@ -348,14 +409,21 @@ def main() -> None:
             selected_index = st.selectbox("Sample", range(len(split_records)), format_func=lambda index: labels[index])
         record = split_records[selected_index]
         image = load_sample_image(record["image_path"], record["label"]) if record.get("visual_available") else None
-        audio_embedding = record["audio_embedding"] if sample_modality in ["auto", "fusion", "audio"] and record.get("audio_available") else None
-        visual_embedding = record["visual_embedding"] if sample_modality in ["auto", "fusion", "image"] and record.get("visual_available") else None
-        if sample_modality == "audio":
+        audio_embedding = record["audio_embedding"] if preferred_modality in ["auto", "fusion", "audio"] and record.get("audio_available") else None
+        visual_embedding = record["visual_embedding"] if preferred_modality in ["auto", "fusion", "visual"] and record.get("visual_available") else None
+        if preferred_modality == "audio":
             visual_embedding = None
-        if sample_modality == "image":
+        if preferred_modality == "visual":
             audio_embedding = None
 
-        prediction, confidence, scores, modality = predict(model, device, audio_embedding, visual_embedding)
+        prediction, confidence, scores, modality = predict(
+            model,
+            device,
+            class_names,
+            audio_embedding,
+            visual_embedding,
+            preferred_modality=preferred_modality,
+        )
         with st.chat_message("user"):
             st.write(f"Sample `{record['sample_id']}` · true label `{record['label']}`")
             media_columns = st.columns([1, 1])
@@ -364,10 +432,20 @@ def main() -> None:
                     st.audio(record["audio_path"])
             with media_columns[1]:
                 if image is not None:
-                    st.image(image, caption=record["label"], use_container_width=True)
+                    st.image(image, caption=record["label"], width="stretch")
         with st.chat_message("assistant"):
             render_prediction(prediction, confidence, scores, modality)
-            render_feedback_form("dataset", record["sample_id"], record["label"], prediction, confidence, scores, modality)
+            render_feedback_form(
+                "dataset",
+                record["sample_id"],
+                record["label"],
+                prediction,
+                confidence,
+                scores,
+                modality,
+                class_names,
+                label_name,
+            )
 
     else:
         with st.sidebar:
@@ -381,7 +459,7 @@ def main() -> None:
                     st.audio(audio_file)
             with media_columns[1]:
                 if image_file is not None:
-                    st.image(image_file, use_container_width=True)
+                    st.image(image_file, width="stretch")
 
         with st.chat_message("assistant"):
             if audio_file is None and image_file is None:
@@ -390,7 +468,14 @@ def main() -> None:
                 with st.spinner("Extracting embeddings"):
                     audio_embedding = extract_audio_upload(audio_file) if audio_file is not None else None
                     visual_embedding = extract_image_upload(image_file) if image_file is not None else None
-                prediction, confidence, scores, modality = predict(model, device, audio_embedding, visual_embedding)
+                prediction, confidence, scores, modality = predict(
+                    model,
+                    device,
+                    class_names,
+                    audio_embedding,
+                    visual_embedding,
+                    preferred_modality=preferred_modality,
+                )
                 render_prediction(prediction, confidence, scores, modality)
                 render_feedback_form(
                     "upload",
@@ -400,11 +485,13 @@ def main() -> None:
                     confidence,
                     scores,
                     modality,
+                    class_names,
+                    label_name,
                     audio_file=audio_file,
                     image_file=image_file,
                 )
 
-    st.caption(f"Classes: {', '.join(CLASS_NAMES)} · Reports are saved in outputs/feedback.csv")
+    st.caption(f"Classes: {', '.join(class_names)} · Reports are saved in outputs/feedback.csv")
 
 
 if __name__ == "__main__":

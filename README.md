@@ -157,7 +157,7 @@ python src/evaluate.py --checkpoint models/best_model.pt --cache features/all_em
 streamlit run src/demo_app.py
 ```
 
-The demo page loads `models/best_model.pt` and `features/all_embeddings.pt`, shows dataset examples in a chat-style interface, and supports audio/image uploads.
+The demo page loads the emotion and animated-content checkpoints, shows dataset examples when local feature caches exist, and supports audio/image uploads.
 
 For cloud deployment, use the root entrypoint:
 
@@ -165,7 +165,7 @@ For cloud deployment, use the root entrypoint:
 streamlit run streamlit_app.py
 ```
 
-The deployed app can run in upload-only mode with `models/best_model.pt`. The large feature cache `features/all_embeddings.pt` is intentionally not committed to GitHub; when it is absent, dataset-sample browsing is disabled, but audio/image uploads still work.
+The deployed app can run in upload-only mode with the small checkpoints in `models/`. The large feature caches in `features/` are intentionally not committed to GitHub; when they are absent, dataset-sample browsing is disabled, but audio/image uploads still work.
 
 ## Deployment
 
@@ -185,8 +185,14 @@ Deployment files included:
 - `packages.txt`
 - `runtime.txt`
 - `models/best_model.pt`
+- `models/animated/best_model.pt`
 
 The app downloads Wav2Vec2 and ViT backbones from Hugging Face on first use, so the first uploaded prediction can be slow.
+
+The UI has two tasks:
+
+- Emotion Recognition: recommended mode uses the visual head because it currently performs best on the test split.
+- Animated Content Analysis: recommended mode uses the audio head because it currently performs best on the test split.
 
 ## 5) Zero-shot baseline
 
