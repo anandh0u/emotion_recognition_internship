@@ -1,0 +1,1259 @@
+sample_id,split,label,audio_path,image_path,script_text,scene_id,rl_optimized_label
+animated_SB_508,train,not_optimized,animated\audio\audio_508.wav,animated\images\img_508.npy,Chase sequence begins,3,0
+animated_SB_665,train,not_optimized,animated\audio\audio_665.wav,animated\images\img_665.npy,Climactic battle scene,8,0
+animated_SB_980,train,not_optimized,animated\audio\audio_980.wav,animated\images\img_980.npy,Climactic battle scene,13,0
+animated_SB_525,train,not_optimized,animated\audio\audio_525.wav,animated\images\img_525.npy,Hero enters the room,15,0
+animated_SB_914,train,not_optimized,animated\audio\audio_914.wav,animated\images\img_914.npy,Hero enters the room,8,0
+animated_SB_1034,train,not_optimized,animated\audio\audio_1034.wav,animated\images\img_1034.npy,Villain sets a trap,19,0
+animated_SB_433,train,not_optimized,animated\audio\audio_433.wav,animated\images\img_433.npy,Villain sets a trap,17,0
+animated_SB_599,train,not_optimized,animated\audio\audio_599.wav,animated\images\img_599.npy,Villain sets a trap,14,0
+animated_SB_383,train,not_optimized,animated\audio\audio_383.wav,animated\images\img_383.npy,Chase sequence begins,4,0
+animated_SB_218,train,not_optimized,animated\audio\audio_218.wav,animated\images\img_218.npy,Hero enters the room,19,0
+animated_SB_727,train,not_optimized,animated\audio\audio_727.wav,animated\images\img_727.npy,Hero enters the room,10,0
+animated_SB_1179,train,not_optimized,animated\audio\audio_1179.wav,animated\images\img_1179.npy,Villain sets a trap,19,0
+animated_SB_646,train,not_optimized,animated\audio\audio_646.wav,animated\images\img_646.npy,Hero enters the room,4,0
+animated_SB_704,train,not_optimized,animated\audio\audio_704.wav,animated\images\img_704.npy,Climactic battle scene,14,0
+animated_SB_637,train,not_optimized,animated\audio\audio_637.wav,animated\images\img_637.npy,Hero enters the room,19,0
+animated_SB_1093,train,not_optimized,animated\audio\audio_1093.wav,animated\images\img_1093.npy,Dialogue between characters,13,0
+animated_SB_608,train,not_optimized,animated\audio\audio_608.wav,animated\images\img_608.npy,Chase sequence begins,17,0
+animated_SB_1151,train,not_optimized,animated\audio\audio_1151.wav,animated\images\img_1151.npy,Chase sequence begins,17,0
+animated_SB_471,train,not_optimized,animated\audio\audio_471.wav,animated\images\img_471.npy,Chase sequence begins,11,0
+animated_SB_1043,train,not_optimized,animated\audio\audio_1043.wav,animated\images\img_1043.npy,Dialogue between characters,11,0
+animated_SB_862,train,not_optimized,animated\audio\audio_862.wav,animated\images\img_862.npy,Chase sequence begins,6,0
+animated_SB_483,train,not_optimized,animated\audio\audio_483.wav,animated\images\img_483.npy,Hero enters the room,8,0
+animated_SB_600,train,not_optimized,animated\audio\audio_600.wav,animated\images\img_600.npy,Villain sets a trap,9,0
+animated_SB_663,train,not_optimized,animated\audio\audio_663.wav,animated\images\img_663.npy,Hero enters the room,11,0
+animated_SB_162,train,not_optimized,animated\audio\audio_162.wav,animated\images\img_162.npy,Chase sequence begins,17,0
+animated_SB_429,train,not_optimized,animated\audio\audio_429.wav,animated\images\img_429.npy,Hero enters the room,3,0
+animated_SB_330,train,not_optimized,animated\audio\audio_330.wav,animated\images\img_330.npy,Chase sequence begins,6,0
+animated_SB_378,train,not_optimized,animated\audio\audio_378.wav,animated\images\img_378.npy,Dialogue between characters,10,0
+animated_SB_164,train,not_optimized,animated\audio\audio_164.wav,animated\images\img_164.npy,Dialogue between characters,17,0
+animated_SB_955,train,not_optimized,animated\audio\audio_955.wav,animated\images\img_955.npy,Villain sets a trap,18,0
+animated_SB_758,train,not_optimized,animated\audio\audio_758.wav,animated\images\img_758.npy,Villain sets a trap,19,0
+animated_SB_773,train,not_optimized,animated\audio\audio_773.wav,animated\images\img_773.npy,Hero enters the room,11,0
+animated_SB_228,train,not_optimized,animated\audio\audio_228.wav,animated\images\img_228.npy,Dialogue between characters,8,0
+animated_SB_311,train,not_optimized,animated\audio\audio_311.wav,animated\images\img_311.npy,Climactic battle scene,12,0
+animated_SB_1153,train,not_optimized,animated\audio\audio_1153.wav,animated\images\img_1153.npy,Chase sequence begins,17,0
+animated_SB_543,train,not_optimized,animated\audio\audio_543.wav,animated\images\img_543.npy,Chase sequence begins,10,0
+animated_SB_1128,train,not_optimized,animated\audio\audio_1128.wav,animated\images\img_1128.npy,Villain sets a trap,9,0
+animated_SB_1139,train,not_optimized,animated\audio\audio_1139.wav,animated\images\img_1139.npy,Villain sets a trap,18,0
+animated_SB_453,train,not_optimized,animated\audio\audio_453.wav,animated\images\img_453.npy,Villain sets a trap,7,0
+animated_SB_851,train,not_optimized,animated\audio\audio_851.wav,animated\images\img_851.npy,Climactic battle scene,1,0
+animated_SB_30,train,not_optimized,animated\audio\audio_30.wav,animated\images\img_30.npy,Dialogue between characters,9,0
+animated_SB_706,train,not_optimized,animated\audio\audio_706.wav,animated\images\img_706.npy,Chase sequence begins,7,0
+animated_SB_1119,train,not_optimized,animated\audio\audio_1119.wav,animated\images\img_1119.npy,Climactic battle scene,19,0
+animated_SB_1174,train,not_optimized,animated\audio\audio_1174.wav,animated\images\img_1174.npy,Climactic battle scene,7,0
+animated_SB_255,train,not_optimized,animated\audio\audio_255.wav,animated\images\img_255.npy,Hero enters the room,6,0
+animated_SB_381,train,not_optimized,animated\audio\audio_381.wav,animated\images\img_381.npy,Hero enters the room,5,0
+animated_SB_919,train,not_optimized,animated\audio\audio_919.wav,animated\images\img_919.npy,Chase sequence begins,11,0
+animated_SB_299,train,not_optimized,animated\audio\audio_299.wav,animated\images\img_299.npy,Dialogue between characters,10,0
+animated_SB_389,train,not_optimized,animated\audio\audio_389.wav,animated\images\img_389.npy,Climactic battle scene,18,0
+animated_SB_1146,train,not_optimized,animated\audio\audio_1146.wav,animated\images\img_1146.npy,Hero enters the room,12,0
+animated_SB_1175,train,not_optimized,animated\audio\audio_1175.wav,animated\images\img_1175.npy,Chase sequence begins,14,0
+animated_SB_1068,train,not_optimized,animated\audio\audio_1068.wav,animated\images\img_1068.npy,Climactic battle scene,7,0
+animated_SB_27,train,not_optimized,animated\audio\audio_27.wav,animated\images\img_27.npy,Villain sets a trap,5,0
+animated_SB_1186,train,not_optimized,animated\audio\audio_1186.wav,animated\images\img_1186.npy,Hero enters the room,18,0
+animated_SB_347,train,not_optimized,animated\audio\audio_347.wav,animated\images\img_347.npy,Dialogue between characters,15,0
+animated_SB_292,train,not_optimized,animated\audio\audio_292.wav,animated\images\img_292.npy,Dialogue between characters,17,0
+animated_SB_1008,train,not_optimized,animated\audio\audio_1008.wav,animated\images\img_1008.npy,Hero enters the room,8,0
+animated_SB_883,train,not_optimized,animated\audio\audio_883.wav,animated\images\img_883.npy,Hero enters the room,1,0
+animated_SB_858,train,not_optimized,animated\audio\audio_858.wav,animated\images\img_858.npy,Hero enters the room,8,0
+animated_SB_978,train,not_optimized,animated\audio\audio_978.wav,animated\images\img_978.npy,Hero enters the room,19,0
+animated_SB_688,train,not_optimized,animated\audio\audio_688.wav,animated\images\img_688.npy,Villain sets a trap,15,0
+animated_SB_249,train,not_optimized,animated\audio\audio_249.wav,animated\images\img_249.npy,Villain sets a trap,1,0
+animated_SB_147,train,not_optimized,animated\audio\audio_147.wav,animated\images\img_147.npy,Dialogue between characters,5,0
+animated_SB_961,train,not_optimized,animated\audio\audio_961.wav,animated\images\img_961.npy,Hero enters the room,7,0
+animated_SB_1028,train,not_optimized,animated\audio\audio_1028.wav,animated\images\img_1028.npy,Hero enters the room,16,0
+animated_SB_819,train,not_optimized,animated\audio\audio_819.wav,animated\images\img_819.npy,Hero enters the room,14,0
+animated_SB_36,train,not_optimized,animated\audio\audio_36.wav,animated\images\img_36.npy,Chase sequence begins,9,0
+animated_SB_628,train,not_optimized,animated\audio\audio_628.wav,animated\images\img_628.npy,Hero enters the room,19,0
+animated_SB_1183,train,not_optimized,animated\audio\audio_1183.wav,animated\images\img_1183.npy,Villain sets a trap,18,0
+animated_SB_822,train,not_optimized,animated\audio\audio_822.wav,animated\images\img_822.npy,Chase sequence begins,2,0
+animated_SB_668,train,not_optimized,animated\audio\audio_668.wav,animated\images\img_668.npy,Villain sets a trap,4,0
+animated_SB_279,train,not_optimized,animated\audio\audio_279.wav,animated\images\img_279.npy,Villain sets a trap,1,0
+animated_SB_827,train,not_optimized,animated\audio\audio_827.wav,animated\images\img_827.npy,Villain sets a trap,8,0
+animated_SB_206,train,not_optimized,animated\audio\audio_206.wav,animated\images\img_206.npy,Dialogue between characters,16,0
+animated_SB_229,train,not_optimized,animated\audio\audio_229.wav,animated\images\img_229.npy,Climactic battle scene,3,0
+animated_SB_397,train,not_optimized,animated\audio\audio_397.wav,animated\images\img_397.npy,Chase sequence begins,3,0
+animated_SB_43,train,not_optimized,animated\audio\audio_43.wav,animated\images\img_43.npy,Chase sequence begins,3,0
+animated_SB_944,train,not_optimized,animated\audio\audio_944.wav,animated\images\img_944.npy,Villain sets a trap,15,0
+animated_SB_588,train,not_optimized,animated\audio\audio_588.wav,animated\images\img_588.npy,Hero enters the room,17,0
+animated_SB_1024,train,not_optimized,animated\audio\audio_1024.wav,animated\images\img_1024.npy,Climactic battle scene,16,0
+animated_SB_1161,train,not_optimized,animated\audio\audio_1161.wav,animated\images\img_1161.npy,Villain sets a trap,16,0
+animated_SB_1171,train,not_optimized,animated\audio\audio_1171.wav,animated\images\img_1171.npy,Villain sets a trap,16,0
+animated_SB_142,train,not_optimized,animated\audio\audio_142.wav,animated\images\img_142.npy,Villain sets a trap,3,0
+animated_SB_435,train,not_optimized,animated\audio\audio_435.wav,animated\images\img_435.npy,Climactic battle scene,5,0
+animated_SB_177,train,not_optimized,animated\audio\audio_177.wav,animated\images\img_177.npy,Chase sequence begins,6,0
+animated_SB_165,train,not_optimized,animated\audio\audio_165.wav,animated\images\img_165.npy,Climactic battle scene,2,0
+animated_SB_161,train,not_optimized,animated\audio\audio_161.wav,animated\images\img_161.npy,Climactic battle scene,5,0
+animated_SB_726,train,not_optimized,animated\audio\audio_726.wav,animated\images\img_726.npy,Dialogue between characters,4,0
+animated_SB_1092,train,not_optimized,animated\audio\audio_1092.wav,animated\images\img_1092.npy,Hero enters the room,12,0
+animated_SB_1143,train,not_optimized,animated\audio\audio_1143.wav,animated\images\img_1143.npy,Hero enters the room,19,0
+animated_SB_1030,train,not_optimized,animated\audio\audio_1030.wav,animated\images\img_1030.npy,Hero enters the room,7,0
+animated_SB_1001,train,not_optimized,animated\audio\audio_1001.wav,animated\images\img_1001.npy,Climactic battle scene,10,0
+animated_SB_1138,train,not_optimized,animated\audio\audio_1138.wav,animated\images\img_1138.npy,Chase sequence begins,3,0
+animated_SB_253,train,not_optimized,animated\audio\audio_253.wav,animated\images\img_253.npy,Villain sets a trap,14,0
+animated_SB_1258,train,not_optimized,animated\audio\audio_1258.wav,animated\images\img_1258.npy,Dialogue between characters,8,0
+animated_SB_502,train,not_optimized,animated\audio\audio_502.wav,animated\images\img_502.npy,Climactic battle scene,19,0
+animated_SB_774,train,not_optimized,animated\audio\audio_774.wav,animated\images\img_774.npy,Hero enters the room,8,0
+animated_SB_44,train,not_optimized,animated\audio\audio_44.wav,animated\images\img_44.npy,Climactic battle scene,14,0
+animated_SB_626,train,not_optimized,animated\audio\audio_626.wav,animated\images\img_626.npy,Hero enters the room,2,0
+animated_SB_186,train,not_optimized,animated\audio\audio_186.wav,animated\images\img_186.npy,Climactic battle scene,6,0
+animated_SB_987,train,not_optimized,animated\audio\audio_987.wav,animated\images\img_987.npy,Chase sequence begins,19,0
+animated_SB_278,train,not_optimized,animated\audio\audio_278.wav,animated\images\img_278.npy,Chase sequence begins,3,0
+animated_SB_393,train,not_optimized,animated\audio\audio_393.wav,animated\images\img_393.npy,Hero enters the room,19,0
+animated_SB_50,train,not_optimized,animated\audio\audio_50.wav,animated\images\img_50.npy,Villain sets a trap,2,0
+animated_SB_901,train,not_optimized,animated\audio\audio_901.wav,animated\images\img_901.npy,Climactic battle scene,11,0
+animated_SB_739,train,not_optimized,animated\audio\audio_739.wav,animated\images\img_739.npy,Climactic battle scene,17,0
+animated_SB_408,train,not_optimized,animated\audio\audio_408.wav,animated\images\img_408.npy,Hero enters the room,19,0
+animated_SB_531,train,not_optimized,animated\audio\audio_531.wav,animated\images\img_531.npy,Climactic battle scene,19,0
+animated_SB_1214,train,not_optimized,animated\audio\audio_1214.wav,animated\images\img_1214.npy,Villain sets a trap,2,0
+animated_SB_370,train,not_optimized,animated\audio\audio_370.wav,animated\images\img_370.npy,Chase sequence begins,7,0
+animated_SB_766,train,not_optimized,animated\audio\audio_766.wav,animated\images\img_766.npy,Hero enters the room,15,0
+animated_SB_768,train,not_optimized,animated\audio\audio_768.wav,animated\images\img_768.npy,Hero enters the room,17,0
+animated_SB_372,train,not_optimized,animated\audio\audio_372.wav,animated\images\img_372.npy,Hero enters the room,1,0
+animated_SB_479,train,not_optimized,animated\audio\audio_479.wav,animated\images\img_479.npy,Chase sequence begins,6,0
+animated_SB_427,train,not_optimized,animated\audio\audio_427.wav,animated\images\img_427.npy,Dialogue between characters,3,0
+animated_SB_1062,train,not_optimized,animated\audio\audio_1062.wav,animated\images\img_1062.npy,Climactic battle scene,17,0
+animated_SB_199,train,not_optimized,animated\audio\audio_199.wav,animated\images\img_199.npy,Chase sequence begins,8,0
+animated_SB_31,train,not_optimized,animated\audio\audio_31.wav,animated\images\img_31.npy,Dialogue between characters,7,0
+animated_SB_1243,train,not_optimized,animated\audio\audio_1243.wav,animated\images\img_1243.npy,Villain sets a trap,15,0
+animated_SB_1216,train,not_optimized,animated\audio\audio_1216.wav,animated\images\img_1216.npy,Villain sets a trap,13,0
+animated_SB_353,train,not_optimized,animated\audio\audio_353.wav,animated\images\img_353.npy,Climactic battle scene,16,0
+animated_SB_651,train,not_optimized,animated\audio\audio_651.wav,animated\images\img_651.npy,Chase sequence begins,5,0
+animated_SB_93,train,not_optimized,animated\audio\audio_93.wav,animated\images\img_93.npy,Dialogue between characters,12,0
+animated_SB_942,train,not_optimized,animated\audio\audio_942.wav,animated\images\img_942.npy,Hero enters the room,19,0
+animated_SB_362,train,not_optimized,animated\audio\audio_362.wav,animated\images\img_362.npy,Villain sets a trap,5,0
+animated_SB_682,train,not_optimized,animated\audio\audio_682.wav,animated\images\img_682.npy,Villain sets a trap,14,0
+animated_SB_22,train,not_optimized,animated\audio\audio_22.wav,animated\images\img_22.npy,Hero enters the room,15,0
+animated_SB_406,train,not_optimized,animated\audio\audio_406.wav,animated\images\img_406.npy,Chase sequence begins,14,0
+animated_SB_1155,train,not_optimized,animated\audio\audio_1155.wav,animated\images\img_1155.npy,Chase sequence begins,12,0
+animated_SB_873,train,not_optimized,animated\audio\audio_873.wav,animated\images\img_873.npy,Chase sequence begins,4,0
+animated_SB_534,train,not_optimized,animated\audio\audio_534.wav,animated\images\img_534.npy,Hero enters the room,9,0
+animated_SB_289,train,not_optimized,animated\audio\audio_289.wav,animated\images\img_289.npy,Hero enters the room,2,0
+animated_SB_1207,train,not_optimized,animated\audio\audio_1207.wav,animated\images\img_1207.npy,Chase sequence begins,16,0
+animated_SB_896,train,not_optimized,animated\audio\audio_896.wav,animated\images\img_896.npy,Villain sets a trap,2,0
+animated_SB_870,train,not_optimized,animated\audio\audio_870.wav,animated\images\img_870.npy,Dialogue between characters,15,0
+animated_SB_721,train,not_optimized,animated\audio\audio_721.wav,animated\images\img_721.npy,Climactic battle scene,17,0
+animated_SB_307,train,not_optimized,animated\audio\audio_307.wav,animated\images\img_307.npy,Chase sequence begins,8,0
+animated_SB_971,train,not_optimized,animated\audio\audio_971.wav,animated\images\img_971.npy,Dialogue between characters,17,0
+animated_SB_853,train,not_optimized,animated\audio\audio_853.wav,animated\images\img_853.npy,Climactic battle scene,1,0
+animated_SB_536,train,not_optimized,animated\audio\audio_536.wav,animated\images\img_536.npy,Climactic battle scene,14,0
+animated_SB_192,train,not_optimized,animated\audio\audio_192.wav,animated\images\img_192.npy,Villain sets a trap,19,0
+animated_SB_645,train,not_optimized,animated\audio\audio_645.wav,animated\images\img_645.npy,Climactic battle scene,5,0
+animated_SB_490,train,not_optimized,animated\audio\audio_490.wav,animated\images\img_490.npy,Hero enters the room,6,0
+animated_SB_800,train,not_optimized,animated\audio\audio_800.wav,animated\images\img_800.npy,Villain sets a trap,10,0
+animated_SB_446,train,not_optimized,animated\audio\audio_446.wav,animated\images\img_446.npy,Chase sequence begins,17,0
+animated_SB_592,train,not_optimized,animated\audio\audio_592.wav,animated\images\img_592.npy,Dialogue between characters,3,0
+animated_SB_152,train,not_optimized,animated\audio\audio_152.wav,animated\images\img_152.npy,Climactic battle scene,15,0
+animated_SB_523,train,not_optimized,animated\audio\audio_523.wav,animated\images\img_523.npy,Villain sets a trap,13,0
+animated_SB_684,train,not_optimized,animated\audio\audio_684.wav,animated\images\img_684.npy,Dialogue between characters,17,0
+animated_SB_928,train,not_optimized,animated\audio\audio_928.wav,animated\images\img_928.npy,Climactic battle scene,10,0
+animated_SB_286,train,not_optimized,animated\audio\audio_286.wav,animated\images\img_286.npy,Villain sets a trap,14,0
+animated_SB_1033,train,not_optimized,animated\audio\audio_1033.wav,animated\images\img_1033.npy,Villain sets a trap,1,0
+animated_SB_275,train,not_optimized,animated\audio\audio_275.wav,animated\images\img_275.npy,Hero enters the room,5,0
+animated_SB_342,train,not_optimized,animated\audio\audio_342.wav,animated\images\img_342.npy,Chase sequence begins,5,0
+animated_SB_1047,train,not_optimized,animated\audio\audio_1047.wav,animated\images\img_1047.npy,Villain sets a trap,12,0
+animated_SB_35,train,not_optimized,animated\audio\audio_35.wav,animated\images\img_35.npy,Hero enters the room,18,0
+animated_SB_714,train,not_optimized,animated\audio\audio_714.wav,animated\images\img_714.npy,Chase sequence begins,6,0
+animated_SB_1004,train,not_optimized,animated\audio\audio_1004.wav,animated\images\img_1004.npy,Dialogue between characters,2,0
+animated_SB_861,train,not_optimized,animated\audio\audio_861.wav,animated\images\img_861.npy,Climactic battle scene,19,0
+animated_SB_759,train,not_optimized,animated\audio\audio_759.wav,animated\images\img_759.npy,Chase sequence begins,8,0
+animated_SB_364,train,not_optimized,animated\audio\audio_364.wav,animated\images\img_364.npy,Climactic battle scene,17,0
+animated_SB_932,train,not_optimized,animated\audio\audio_932.wav,animated\images\img_932.npy,Hero enters the room,14,0
+animated_SB_1018,train,not_optimized,animated\audio\audio_1018.wav,animated\images\img_1018.npy,Dialogue between characters,8,0
+animated_SB_998,train,not_optimized,animated\audio\audio_998.wav,animated\images\img_998.npy,Chase sequence begins,7,0
+animated_SB_1236,train,not_optimized,animated\audio\audio_1236.wav,animated\images\img_1236.npy,Dialogue between characters,18,0
+animated_SB_1041,train,not_optimized,animated\audio\audio_1041.wav,animated\images\img_1041.npy,Hero enters the room,15,0
+animated_SB_1129,train,not_optimized,animated\audio\audio_1129.wav,animated\images\img_1129.npy,Dialogue between characters,9,0
+animated_SB_132,train,not_optimized,animated\audio\audio_132.wav,animated\images\img_132.npy,Villain sets a trap,13,0
+animated_SB_639,train,not_optimized,animated\audio\audio_639.wav,animated\images\img_639.npy,Villain sets a trap,6,0
+animated_SB_813,train,not_optimized,animated\audio\audio_813.wav,animated\images\img_813.npy,Chase sequence begins,6,0
+animated_SB_647,train,not_optimized,animated\audio\audio_647.wav,animated\images\img_647.npy,Hero enters the room,10,0
+animated_SB_1071,train,not_optimized,animated\audio\audio_1071.wav,animated\images\img_1071.npy,Chase sequence begins,14,0
+animated_SB_916,train,not_optimized,animated\audio\audio_916.wav,animated\images\img_916.npy,Chase sequence begins,1,0
+animated_SB_985,train,not_optimized,animated\audio\audio_985.wav,animated\images\img_985.npy,Dialogue between characters,1,0
+animated_SB_849,train,not_optimized,animated\audio\audio_849.wav,animated\images\img_849.npy,Climactic battle scene,1,0
+animated_SB_350,train,not_optimized,animated\audio\audio_350.wav,animated\images\img_350.npy,Climactic battle scene,8,0
+animated_SB_594,train,not_optimized,animated\audio\audio_594.wav,animated\images\img_594.npy,Climactic battle scene,5,0
+animated_SB_1224,train,not_optimized,animated\audio\audio_1224.wav,animated\images\img_1224.npy,Villain sets a trap,12,0
+animated_SB_994,train,not_optimized,animated\audio\audio_994.wav,animated\images\img_994.npy,Chase sequence begins,19,0
+animated_SB_1203,train,not_optimized,animated\audio\audio_1203.wav,animated\images\img_1203.npy,Hero enters the room,4,0
+animated_SB_227,train,not_optimized,animated\audio\audio_227.wav,animated\images\img_227.npy,Villain sets a trap,6,0
+animated_SB_107,train,not_optimized,animated\audio\audio_107.wav,animated\images\img_107.npy,Villain sets a trap,3,0
+animated_SB_742,train,not_optimized,animated\audio\audio_742.wav,animated\images\img_742.npy,Chase sequence begins,10,0
+animated_SB_144,train,not_optimized,animated\audio\audio_144.wav,animated\images\img_144.npy,Climactic battle scene,6,0
+animated_SB_652,train,not_optimized,animated\audio\audio_652.wav,animated\images\img_652.npy,Villain sets a trap,2,0
+animated_SB_333,train,not_optimized,animated\audio\audio_333.wav,animated\images\img_333.npy,Chase sequence begins,3,0
+animated_SB_587,train,not_optimized,animated\audio\audio_587.wav,animated\images\img_587.npy,Chase sequence begins,6,0
+animated_SB_521,train,not_optimized,animated\audio\audio_521.wav,animated\images\img_521.npy,Dialogue between characters,6,0
+animated_SB_195,train,not_optimized,animated\audio\audio_195.wav,animated\images\img_195.npy,Hero enters the room,1,0
+animated_SB_56,train,not_optimized,animated\audio\audio_56.wav,animated\images\img_56.npy,Villain sets a trap,2,0
+animated_SB_349,train,not_optimized,animated\audio\audio_349.wav,animated\images\img_349.npy,Villain sets a trap,16,0
+animated_SB_148,train,not_optimized,animated\audio\audio_148.wav,animated\images\img_148.npy,Dialogue between characters,1,0
+animated_SB_1003,train,not_optimized,animated\audio\audio_1003.wav,animated\images\img_1003.npy,Hero enters the room,14,0
+animated_SB_499,train,not_optimized,animated\audio\audio_499.wav,animated\images\img_499.npy,Climactic battle scene,4,0
+animated_SB_983,train,not_optimized,animated\audio\audio_983.wav,animated\images\img_983.npy,Chase sequence begins,19,0
+animated_SB_403,train,not_optimized,animated\audio\audio_403.wav,animated\images\img_403.npy,Dialogue between characters,12,0
+animated_SB_1016,train,not_optimized,animated\audio\audio_1016.wav,animated\images\img_1016.npy,Hero enters the room,1,0
+animated_SB_958,train,not_optimized,animated\audio\audio_958.wav,animated\images\img_958.npy,Hero enters the room,11,0
+animated_SB_1085,train,not_optimized,animated\audio\audio_1085.wav,animated\images\img_1085.npy,Dialogue between characters,5,0
+animated_SB_833,train,not_optimized,animated\audio\audio_833.wav,animated\images\img_833.npy,Chase sequence begins,3,0
+animated_SB_240,train,not_optimized,animated\audio\audio_240.wav,animated\images\img_240.npy,Dialogue between characters,1,0
+animated_SB_905,train,not_optimized,animated\audio\audio_905.wav,animated\images\img_905.npy,Hero enters the room,8,0
+animated_SB_438,train,not_optimized,animated\audio\audio_438.wav,animated\images\img_438.npy,Dialogue between characters,13,0
+animated_SB_312,train,not_optimized,animated\audio\audio_312.wav,animated\images\img_312.npy,Hero enters the room,19,0
+animated_SB_1189,train,not_optimized,animated\audio\audio_1189.wav,animated\images\img_1189.npy,Climactic battle scene,17,0
+animated_SB_935,train,not_optimized,animated\audio\audio_935.wav,animated\images\img_935.npy,Villain sets a trap,11,0
+animated_SB_291,train,not_optimized,animated\audio\audio_291.wav,animated\images\img_291.npy,Villain sets a trap,2,0
+animated_SB_700,train,not_optimized,animated\audio\audio_700.wav,animated\images\img_700.npy,Dialogue between characters,14,0
+animated_SB_360,train,not_optimized,animated\audio\audio_360.wav,animated\images\img_360.npy,Villain sets a trap,5,0
+animated_SB_40,train,not_optimized,animated\audio\audio_40.wav,animated\images\img_40.npy,Hero enters the room,12,0
+animated_SB_60,train,not_optimized,animated\audio\audio_60.wav,animated\images\img_60.npy,Villain sets a trap,16,0
+animated_SB_4,train,not_optimized,animated\audio\audio_4.wav,animated\images\img_4.npy,Dialogue between characters,8,0
+animated_SB_297,train,not_optimized,animated\audio\audio_297.wav,animated\images\img_297.npy,Hero enters the room,16,0
+animated_SB_622,train,not_optimized,animated\audio\audio_622.wav,animated\images\img_622.npy,Hero enters the room,15,0
+animated_SB_365,train,not_optimized,animated\audio\audio_365.wav,animated\images\img_365.npy,Climactic battle scene,14,0
+animated_SB_939,train,not_optimized,animated\audio\audio_939.wav,animated\images\img_939.npy,Chase sequence begins,14,0
+animated_SB_245,train,not_optimized,animated\audio\audio_245.wav,animated\images\img_245.npy,Hero enters the room,8,0
+animated_SB_847,train,not_optimized,animated\audio\audio_847.wav,animated\images\img_847.npy,Villain sets a trap,19,0
+animated_SB_975,train,not_optimized,animated\audio\audio_975.wav,animated\images\img_975.npy,Villain sets a trap,1,0
+animated_SB_1148,train,not_optimized,animated\audio\audio_1148.wav,animated\images\img_1148.npy,Chase sequence begins,5,0
+animated_SB_1045,train,not_optimized,animated\audio\audio_1045.wav,animated\images\img_1045.npy,Dialogue between characters,2,0
+animated_SB_70,train,not_optimized,animated\audio\audio_70.wav,animated\images\img_70.npy,Climactic battle scene,9,0
+animated_SB_399,train,not_optimized,animated\audio\audio_399.wav,animated\images\img_399.npy,Hero enters the room,1,0
+animated_SB_681,train,not_optimized,animated\audio\audio_681.wav,animated\images\img_681.npy,Chase sequence begins,12,0
+animated_SB_1206,train,not_optimized,animated\audio\audio_1206.wav,animated\images\img_1206.npy,Climactic battle scene,1,0
+animated_SB_26,train,not_optimized,animated\audio\audio_26.wav,animated\images\img_26.npy,Dialogue between characters,3,0
+animated_SB_156,train,not_optimized,animated\audio\audio_156.wav,animated\images\img_156.npy,Dialogue between characters,12,0
+animated_SB_434,train,not_optimized,animated\audio\audio_434.wav,animated\images\img_434.npy,Chase sequence begins,7,0
+animated_SB_927,train,not_optimized,animated\audio\audio_927.wav,animated\images\img_927.npy,Villain sets a trap,8,0
+animated_SB_487,train,not_optimized,animated\audio\audio_487.wav,animated\images\img_487.npy,Hero enters the room,2,0
+animated_SB_49,train,not_optimized,animated\audio\audio_49.wav,animated\images\img_49.npy,Chase sequence begins,4,0
+animated_SB_28,train,not_optimized,animated\audio\audio_28.wav,animated\images\img_28.npy,Villain sets a trap,19,0
+animated_SB_654,train,not_optimized,animated\audio\audio_654.wav,animated\images\img_654.npy,Climactic battle scene,2,0
+animated_SB_809,train,not_optimized,animated\audio\audio_809.wav,animated\images\img_809.npy,Hero enters the room,17,0
+animated_SB_843,train,not_optimized,animated\audio\audio_843.wav,animated\images\img_843.npy,Climactic battle scene,8,0
+animated_SB_897,train,not_optimized,animated\audio\audio_897.wav,animated\images\img_897.npy,Dialogue between characters,19,0
+animated_SB_540,train,not_optimized,animated\audio\audio_540.wav,animated\images\img_540.npy,Chase sequence begins,16,0
+animated_SB_272,train,not_optimized,animated\audio\audio_272.wav,animated\images\img_272.npy,Dialogue between characters,6,0
+animated_SB_553,train,not_optimized,animated\audio\audio_553.wav,animated\images\img_553.npy,Dialogue between characters,9,0
+animated_SB_445,train,not_optimized,animated\audio\audio_445.wav,animated\images\img_445.npy,Villain sets a trap,19,0
+animated_SB_339,train,not_optimized,animated\audio\audio_339.wav,animated\images\img_339.npy,Villain sets a trap,19,0
+animated_SB_1126,train,not_optimized,animated\audio\audio_1126.wav,animated\images\img_1126.npy,Villain sets a trap,9,0
+animated_SB_121,train,not_optimized,animated\audio\audio_121.wav,animated\images\img_121.npy,Dialogue between characters,5,0
+animated_SB_188,train,not_optimized,animated\audio\audio_188.wav,animated\images\img_188.npy,Dialogue between characters,3,0
+animated_SB_371,train,not_optimized,animated\audio\audio_371.wav,animated\images\img_371.npy,Villain sets a trap,4,0
+animated_SB_1039,train,not_optimized,animated\audio\audio_1039.wav,animated\images\img_1039.npy,Villain sets a trap,2,0
+animated_SB_824,train,not_optimized,animated\audio\audio_824.wav,animated\images\img_824.npy,Chase sequence begins,3,0
+animated_SB_159,train,not_optimized,animated\audio\audio_159.wav,animated\images\img_159.npy,Villain sets a trap,3,0
+animated_SB_155,train,not_optimized,animated\audio\audio_155.wav,animated\images\img_155.npy,Dialogue between characters,17,0
+animated_SB_85,train,not_optimized,animated\audio\audio_85.wav,animated\images\img_85.npy,Hero enters the room,1,0
+animated_SB_1058,train,not_optimized,animated\audio\audio_1058.wav,animated\images\img_1058.npy,Villain sets a trap,14,0
+animated_SB_387,train,not_optimized,animated\audio\audio_387.wav,animated\images\img_387.npy,Dialogue between characters,17,0
+animated_SB_859,train,not_optimized,animated\audio\audio_859.wav,animated\images\img_859.npy,Chase sequence begins,19,0
+animated_SB_466,train,not_optimized,animated\audio\audio_466.wav,animated\images\img_466.npy,Villain sets a trap,7,0
+animated_SB_620,train,not_optimized,animated\audio\audio_620.wav,animated\images\img_620.npy,Villain sets a trap,17,0
+animated_SB_1069,train,not_optimized,animated\audio\audio_1069.wav,animated\images\img_1069.npy,Villain sets a trap,9,0
+animated_SB_154,train,not_optimized,animated\audio\audio_154.wav,animated\images\img_154.npy,Hero enters the room,17,0
+animated_SB_122,train,not_optimized,animated\audio\audio_122.wav,animated\images\img_122.npy,Villain sets a trap,7,0
+animated_SB_573,train,not_optimized,animated\audio\audio_573.wav,animated\images\img_573.npy,Climactic battle scene,1,0
+animated_SB_567,train,not_optimized,animated\audio\audio_567.wav,animated\images\img_567.npy,Dialogue between characters,15,0
+animated_SB_329,train,not_optimized,animated\audio\audio_329.wav,animated\images\img_329.npy,Chase sequence begins,4,0
+animated_SB_925,train,not_optimized,animated\audio\audio_925.wav,animated\images\img_925.npy,Dialogue between characters,5,0
+animated_SB_621,train,not_optimized,animated\audio\audio_621.wav,animated\images\img_621.npy,Climactic battle scene,16,0
+animated_SB_300,train,not_optimized,animated\audio\audio_300.wav,animated\images\img_300.npy,Villain sets a trap,3,0
+animated_SB_384,train,not_optimized,animated\audio\audio_384.wav,animated\images\img_384.npy,Climactic battle scene,16,0
+animated_SB_267,train,not_optimized,animated\audio\audio_267.wav,animated\images\img_267.npy,Villain sets a trap,3,0
+animated_SB_611,train,not_optimized,animated\audio\audio_611.wav,animated\images\img_611.npy,Chase sequence begins,8,0
+animated_SB_363,train,not_optimized,animated\audio\audio_363.wav,animated\images\img_363.npy,Climactic battle scene,15,0
+animated_SB_577,train,not_optimized,animated\audio\audio_577.wav,animated\images\img_577.npy,Dialogue between characters,17,0
+animated_SB_581,train,not_optimized,animated\audio\audio_581.wav,animated\images\img_581.npy,Hero enters the room,1,0
+animated_SB_1080,train,not_optimized,animated\audio\audio_1080.wav,animated\images\img_1080.npy,Climactic battle scene,4,0
+animated_SB_675,train,not_optimized,animated\audio\audio_675.wav,animated\images\img_675.npy,Dialogue between characters,18,0
+animated_SB_686,train,not_optimized,animated\audio\audio_686.wav,animated\images\img_686.npy,Chase sequence begins,13,0
+animated_SB_115,train,not_optimized,animated\audio\audio_115.wav,animated\images\img_115.npy,Hero enters the room,10,0
+animated_SB_571,train,not_optimized,animated\audio\audio_571.wav,animated\images\img_571.npy,Villain sets a trap,13,0
+animated_SB_10,train,not_optimized,animated\audio\audio_10.wav,animated\images\img_10.npy,Villain sets a trap,8,0
+animated_SB_81,train,not_optimized,animated\audio\audio_81.wav,animated\images\img_81.npy,Chase sequence begins,17,0
+animated_SB_590,train,not_optimized,animated\audio\audio_590.wav,animated\images\img_590.npy,Climactic battle scene,5,0
+animated_SB_1105,train,not_optimized,animated\audio\audio_1105.wav,animated\images\img_1105.npy,Chase sequence begins,11,0
+animated_SB_324,train,not_optimized,animated\audio\audio_324.wav,animated\images\img_324.npy,Climactic battle scene,8,0
+animated_SB_776,train,not_optimized,animated\audio\audio_776.wav,animated\images\img_776.npy,Climactic battle scene,13,0
+animated_SB_412,train,not_optimized,animated\audio\audio_412.wav,animated\images\img_412.npy,Chase sequence begins,8,0
+animated_SB_661,train,not_optimized,animated\audio\audio_661.wav,animated\images\img_661.npy,Hero enters the room,15,0
+animated_SB_991,train,not_optimized,animated\audio\audio_991.wav,animated\images\img_991.npy,Villain sets a trap,17,0
+animated_SB_882,train,not_optimized,animated\audio\audio_882.wav,animated\images\img_882.npy,Hero enters the room,10,0
+animated_SB_1191,train,not_optimized,animated\audio\audio_1191.wav,animated\images\img_1191.npy,Climactic battle scene,3,0
+animated_SB_282,train,not_optimized,animated\audio\audio_282.wav,animated\images\img_282.npy,Dialogue between characters,18,0
+animated_SB_338,train,not_optimized,animated\audio\audio_338.wav,animated\images\img_338.npy,Chase sequence begins,10,0
+animated_SB_548,train,not_optimized,animated\audio\audio_548.wav,animated\images\img_548.npy,Dialogue between characters,8,0
+animated_SB_1136,train,not_optimized,animated\audio\audio_1136.wav,animated\images\img_1136.npy,Villain sets a trap,7,0
+animated_SB_1158,train,not_optimized,animated\audio\audio_1158.wav,animated\images\img_1158.npy,Dialogue between characters,8,0
+animated_SB_42,train,not_optimized,animated\audio\audio_42.wav,animated\images\img_42.npy,Dialogue between characters,15,0
+animated_SB_841,train,not_optimized,animated\audio\audio_841.wav,animated\images\img_841.npy,Villain sets a trap,18,0
+animated_SB_596,train,not_optimized,animated\audio\audio_596.wav,animated\images\img_596.npy,Hero enters the room,10,0
+animated_SB_1100,train,not_optimized,animated\audio\audio_1100.wav,animated\images\img_1100.npy,Hero enters the room,11,0
+animated_SB_733,train,not_optimized,animated\audio\audio_733.wav,animated\images\img_733.npy,Villain sets a trap,4,0
+animated_SB_257,train,not_optimized,animated\audio\audio_257.wav,animated\images\img_257.npy,Climactic battle scene,19,0
+animated_SB_1007,train,not_optimized,animated\audio\audio_1007.wav,animated\images\img_1007.npy,Chase sequence begins,7,0
+animated_SB_908,train,not_optimized,animated\audio\audio_908.wav,animated\images\img_908.npy,Hero enters the room,8,0
+animated_SB_1227,train,not_optimized,animated\audio\audio_1227.wav,animated\images\img_1227.npy,Villain sets a trap,7,0
+animated_SB_91,train,not_optimized,animated\audio\audio_91.wav,animated\images\img_91.npy,Villain sets a trap,9,0
+animated_SB_533,train,not_optimized,animated\audio\audio_533.wav,animated\images\img_533.npy,Villain sets a trap,15,0
+animated_SB_632,train,not_optimized,animated\audio\audio_632.wav,animated\images\img_632.npy,Dialogue between characters,6,0
+animated_SB_997,train,not_optimized,animated\audio\audio_997.wav,animated\images\img_997.npy,Dialogue between characters,8,0
+animated_SB_946,train,not_optimized,animated\audio\audio_946.wav,animated\images\img_946.npy,Villain sets a trap,9,0
+animated_SB_530,train,not_optimized,animated\audio\audio_530.wav,animated\images\img_530.npy,Chase sequence begins,3,0
+animated_SB_498,train,not_optimized,animated\audio\audio_498.wav,animated\images\img_498.npy,Villain sets a trap,13,0
+animated_SB_612,train,not_optimized,animated\audio\audio_612.wav,animated\images\img_612.npy,Chase sequence begins,7,0
+animated_SB_689,train,not_optimized,animated\audio\audio_689.wav,animated\images\img_689.npy,Chase sequence begins,15,0
+animated_SB_642,train,not_optimized,animated\audio\audio_642.wav,animated\images\img_642.npy,Villain sets a trap,10,0
+animated_SB_337,train,not_optimized,animated\audio\audio_337.wav,animated\images\img_337.npy,Hero enters the room,18,0
+animated_SB_734,train,not_optimized,animated\audio\audio_734.wav,animated\images\img_734.npy,Chase sequence begins,15,0
+animated_SB_570,train,not_optimized,animated\audio\audio_570.wav,animated\images\img_570.npy,Villain sets a trap,18,0
+animated_SB_1150,train,not_optimized,animated\audio\audio_1150.wav,animated\images\img_1150.npy,Hero enters the room,17,0
+animated_SB_920,train,not_optimized,animated\audio\audio_920.wav,animated\images\img_920.npy,Dialogue between characters,12,0
+animated_SB_241,train,not_optimized,animated\audio\audio_241.wav,animated\images\img_241.npy,Dialogue between characters,4,0
+animated_SB_318,train,not_optimized,animated\audio\audio_318.wav,animated\images\img_318.npy,Dialogue between characters,10,0
+animated_SB_720,train,not_optimized,animated\audio\audio_720.wav,animated\images\img_720.npy,Villain sets a trap,7,0
+animated_SB_168,train,not_optimized,animated\audio\audio_168.wav,animated\images\img_168.npy,Climactic battle scene,1,0
+animated_SB_504,train,not_optimized,animated\audio\audio_504.wav,animated\images\img_504.npy,Hero enters the room,7,0
+animated_SB_1144,train,not_optimized,animated\audio\audio_1144.wav,animated\images\img_1144.npy,Hero enters the room,6,0
+animated_SB_713,train,not_optimized,animated\audio\audio_713.wav,animated\images\img_713.npy,Climactic battle scene,18,0
+animated_SB_1075,train,not_optimized,animated\audio\audio_1075.wav,animated\images\img_1075.npy,Chase sequence begins,5,0
+animated_SB_996,train,not_optimized,animated\audio\audio_996.wav,animated\images\img_996.npy,Villain sets a trap,1,0
+animated_SB_1210,train,not_optimized,animated\audio\audio_1210.wav,animated\images\img_1210.npy,Hero enters the room,12,0
+animated_SB_405,train,not_optimized,animated\audio\audio_405.wav,animated\images\img_405.npy,Climactic battle scene,12,0
+animated_SB_995,train,not_optimized,animated\audio\audio_995.wav,animated\images\img_995.npy,Dialogue between characters,4,0
+animated_SB_396,train,not_optimized,animated\audio\audio_396.wav,animated\images\img_396.npy,Dialogue between characters,12,0
+animated_SB_967,train,not_optimized,animated\audio\audio_967.wav,animated\images\img_967.npy,Chase sequence begins,17,0
+animated_SB_808,train,not_optimized,animated\audio\audio_808.wav,animated\images\img_808.npy,Dialogue between characters,9,0
+animated_SB_424,train,not_optimized,animated\audio\audio_424.wav,animated\images\img_424.npy,Dialogue between characters,10,0
+animated_SB_1010,train,not_optimized,animated\audio\audio_1010.wav,animated\images\img_1010.npy,Villain sets a trap,3,0
+animated_SB_501,train,not_optimized,animated\audio\audio_501.wav,animated\images\img_501.npy,Dialogue between characters,6,0
+animated_SB_783,train,not_optimized,animated\audio\audio_783.wav,animated\images\img_783.npy,Climactic battle scene,17,0
+animated_SB_765,train,not_optimized,animated\audio\audio_765.wav,animated\images\img_765.npy,Climactic battle scene,4,0
+animated_SB_183,train,not_optimized,animated\audio\audio_183.wav,animated\images\img_183.npy,Chase sequence begins,16,0
+animated_SB_1118,train,not_optimized,animated\audio\audio_1118.wav,animated\images\img_1118.npy,Hero enters the room,15,0
+animated_SB_109,train,not_optimized,animated\audio\audio_109.wav,animated\images\img_109.npy,Climactic battle scene,5,0
+animated_SB_19,train,not_optimized,animated\audio\audio_19.wav,animated\images\img_19.npy,Dialogue between characters,17,0
+animated_SB_778,train,not_optimized,animated\audio\audio_778.wav,animated\images\img_778.npy,Climactic battle scene,5,0
+animated_SB_679,train,not_optimized,animated\audio\audio_679.wav,animated\images\img_679.npy,Dialogue between characters,5,0
+animated_SB_1257,train,not_optimized,animated\audio\audio_1257.wav,animated\images\img_1257.npy,Hero enters the room,4,0
+animated_SB_736,train,not_optimized,animated\audio\audio_736.wav,animated\images\img_736.npy,Dialogue between characters,15,0
+animated_SB_886,train,not_optimized,animated\audio\audio_886.wav,animated\images\img_886.npy,Chase sequence begins,15,0
+animated_SB_465,train,not_optimized,animated\audio\audio_465.wav,animated\images\img_465.npy,Hero enters the room,10,0
+animated_SB_84,train,not_optimized,animated\audio\audio_84.wav,animated\images\img_84.npy,Dialogue between characters,3,0
+animated_SB_722,train,not_optimized,animated\audio\audio_722.wav,animated\images\img_722.npy,Villain sets a trap,7,0
+animated_SB_481,train,not_optimized,animated\audio\audio_481.wav,animated\images\img_481.npy,Villain sets a trap,14,0
+animated_SB_1167,train,not_optimized,animated\audio\audio_1167.wav,animated\images\img_1167.npy,Chase sequence begins,9,0
+animated_SB_1055,train,not_optimized,animated\audio\audio_1055.wav,animated\images\img_1055.npy,Climactic battle scene,12,0
+animated_SB_1029,train,not_optimized,animated\audio\audio_1029.wav,animated\images\img_1029.npy,Climactic battle scene,18,0
+animated_SB_1154,train,not_optimized,animated\audio\audio_1154.wav,animated\images\img_1154.npy,Climactic battle scene,15,0
+animated_SB_470,train,not_optimized,animated\audio\audio_470.wav,animated\images\img_470.npy,Hero enters the room,11,0
+animated_SB_1011,train,not_optimized,animated\audio\audio_1011.wav,animated\images\img_1011.npy,Villain sets a trap,8,0
+animated_SB_913,train,not_optimized,animated\audio\audio_913.wav,animated\images\img_913.npy,Dialogue between characters,13,0
+animated_SB_209,train,not_optimized,animated\audio\audio_209.wav,animated\images\img_209.npy,Dialogue between characters,2,0
+animated_SB_1168,train,not_optimized,animated\audio\audio_1168.wav,animated\images\img_1168.npy,Dialogue between characters,13,0
+animated_SB_128,train,not_optimized,animated\audio\audio_128.wav,animated\images\img_128.npy,Climactic battle scene,7,0
+animated_SB_832,train,not_optimized,animated\audio\audio_832.wav,animated\images\img_832.npy,Dialogue between characters,14,0
+animated_SB_426,train,not_optimized,animated\audio\audio_426.wav,animated\images\img_426.npy,Climactic battle scene,9,0
+animated_SB_66,train,not_optimized,animated\audio\audio_66.wav,animated\images\img_66.npy,Climactic battle scene,13,0
+animated_SB_114,train,not_optimized,animated\audio\audio_114.wav,animated\images\img_114.npy,Hero enters the room,15,0
+animated_SB_673,train,not_optimized,animated\audio\audio_673.wav,animated\images\img_673.npy,Climactic battle scene,19,0
+animated_SB_680,train,not_optimized,animated\audio\audio_680.wav,animated\images\img_680.npy,Villain sets a trap,9,0
+animated_SB_1192,train,not_optimized,animated\audio\audio_1192.wav,animated\images\img_1192.npy,Dialogue between characters,12,0
+animated_SB_1220,train,not_optimized,animated\audio\audio_1220.wav,animated\images\img_1220.npy,Hero enters the room,14,0
+animated_SB_1036,train,not_optimized,animated\audio\audio_1036.wav,animated\images\img_1036.npy,Chase sequence begins,19,0
+animated_SB_432,train,not_optimized,animated\audio\audio_432.wav,animated\images\img_432.npy,Chase sequence begins,18,0
+animated_SB_880,train,not_optimized,animated\audio\audio_880.wav,animated\images\img_880.npy,Hero enters the room,10,0
+animated_SB_368,train,not_optimized,animated\audio\audio_368.wav,animated\images\img_368.npy,Climactic battle scene,16,0
+animated_SB_1193,train,not_optimized,animated\audio\audio_1193.wav,animated\images\img_1193.npy,Villain sets a trap,13,0
+animated_SB_894,train,not_optimized,animated\audio\audio_894.wav,animated\images\img_894.npy,Chase sequence begins,12,0
+animated_SB_111,train,not_optimized,animated\audio\audio_111.wav,animated\images\img_111.npy,Villain sets a trap,7,0
+animated_SB_1053,train,not_optimized,animated\audio\audio_1053.wav,animated\images\img_1053.npy,Dialogue between characters,12,0
+animated_SB_207,train,not_optimized,animated\audio\audio_207.wav,animated\images\img_207.npy,Villain sets a trap,16,0
+animated_SB_428,train,not_optimized,animated\audio\audio_428.wav,animated\images\img_428.npy,Climactic battle scene,17,0
+animated_SB_770,train,not_optimized,animated\audio\audio_770.wav,animated\images\img_770.npy,Chase sequence begins,19,0
+animated_SB_266,train,not_optimized,animated\audio\audio_266.wav,animated\images\img_266.npy,Villain sets a trap,4,0
+animated_SB_496,train,not_optimized,animated\audio\audio_496.wav,animated\images\img_496.npy,Dialogue between characters,17,0
+animated_SB_605,train,not_optimized,animated\audio\audio_605.wav,animated\images\img_605.npy,Villain sets a trap,13,0
+animated_SB_598,train,not_optimized,animated\audio\audio_598.wav,animated\images\img_598.npy,Hero enters the room,17,0
+animated_SB_1061,train,not_optimized,animated\audio\audio_1061.wav,animated\images\img_1061.npy,Hero enters the room,19,0
+animated_SB_1096,train,not_optimized,animated\audio\audio_1096.wav,animated\images\img_1096.npy,Dialogue between characters,13,0
+animated_SB_875,train,not_optimized,animated\audio\audio_875.wav,animated\images\img_875.npy,Villain sets a trap,1,0
+animated_SB_239,train,not_optimized,animated\audio\audio_239.wav,animated\images\img_239.npy,Hero enters the room,4,0
+animated_SB_910,train,not_optimized,animated\audio\audio_910.wav,animated\images\img_910.npy,Hero enters the room,14,0
+animated_SB_692,train,not_optimized,animated\audio\audio_692.wav,animated\images\img_692.npy,Climactic battle scene,17,0
+animated_SB_1072,train,not_optimized,animated\audio\audio_1072.wav,animated\images\img_1072.npy,Villain sets a trap,4,0
+animated_SB_259,train,not_optimized,animated\audio\audio_259.wav,animated\images\img_259.npy,Climactic battle scene,2,0
+animated_SB_538,train,not_optimized,animated\audio\audio_538.wav,animated\images\img_538.npy,Climactic battle scene,1,0
+animated_SB_951,train,not_optimized,animated\audio\audio_951.wav,animated\images\img_951.npy,Villain sets a trap,11,0
+animated_SB_348,train,not_optimized,animated\audio\audio_348.wav,animated\images\img_348.npy,Dialogue between characters,2,0
+animated_SB_34,train,not_optimized,animated\audio\audio_34.wav,animated\images\img_34.npy,Hero enters the room,14,0
+animated_SB_76,train,not_optimized,animated\audio\audio_76.wav,animated\images\img_76.npy,Dialogue between characters,1,0
+animated_SB_825,train,not_optimized,animated\audio\audio_825.wav,animated\images\img_825.npy,Chase sequence begins,3,0
+animated_SB_1228,train,not_optimized,animated\audio\audio_1228.wav,animated\images\img_1228.npy,Hero enters the room,5,0
+animated_SB_1103,train,not_optimized,animated\audio\audio_1103.wav,animated\images\img_1103.npy,Chase sequence begins,4,0
+animated_SB_737,train,not_optimized,animated\audio\audio_737.wav,animated\images\img_737.npy,Dialogue between characters,8,0
+animated_SB_79,train,not_optimized,animated\audio\audio_79.wav,animated\images\img_79.npy,Hero enters the room,11,0
+animated_SB_7,train,not_optimized,animated\audio\audio_7.wav,animated\images\img_7.npy,Dialogue between characters,11,0
+animated_SB_1221,train,not_optimized,animated\audio\audio_1221.wav,animated\images\img_1221.npy,Villain sets a trap,17,0
+animated_SB_829,train,not_optimized,animated\audio\audio_829.wav,animated\images\img_829.npy,Chase sequence begins,11,0
+animated_SB_251,train,not_optimized,animated\audio\audio_251.wav,animated\images\img_251.npy,Chase sequence begins,12,0
+animated_SB_1057,train,not_optimized,animated\audio\audio_1057.wav,animated\images\img_1057.npy,Climactic battle scene,10,0
+animated_SB_616,train,not_optimized,animated\audio\audio_616.wav,animated\images\img_616.npy,Dialogue between characters,12,0
+animated_SB_25,train,not_optimized,animated\audio\audio_25.wav,animated\images\img_25.npy,Villain sets a trap,12,0
+animated_SB_354,train,not_optimized,animated\audio\audio_354.wav,animated\images\img_354.npy,Villain sets a trap,7,0
+animated_SB_1104,train,not_optimized,animated\audio\audio_1104.wav,animated\images\img_1104.npy,Dialogue between characters,19,0
+animated_SB_248,train,not_optimized,animated\audio\audio_248.wav,animated\images\img_248.npy,Hero enters the room,17,0
+animated_SB_268,train,not_optimized,animated\audio\audio_268.wav,animated\images\img_268.npy,Chase sequence begins,17,0
+animated_SB_145,train,not_optimized,animated\audio\audio_145.wav,animated\images\img_145.npy,Chase sequence begins,8,0
+animated_SB_473,train,not_optimized,animated\audio\audio_473.wav,animated\images\img_473.npy,Hero enters the room,15,0
+animated_SB_539,train,not_optimized,animated\audio\audio_539.wav,animated\images\img_539.npy,Chase sequence begins,3,0
+animated_SB_1060,train,not_optimized,animated\audio\audio_1060.wav,animated\images\img_1060.npy,Chase sequence begins,18,0
+animated_SB_957,train,not_optimized,animated\audio\audio_957.wav,animated\images\img_957.npy,Villain sets a trap,17,0
+animated_SB_1108,train,not_optimized,animated\audio\audio_1108.wav,animated\images\img_1108.npy,Villain sets a trap,4,0
+animated_SB_694,train,not_optimized,animated\audio\audio_694.wav,animated\images\img_694.npy,Villain sets a trap,1,0
+animated_SB_423,train,not_optimized,animated\audio\audio_423.wav,animated\images\img_423.npy,Hero enters the room,4,0
+animated_SB_1194,train,not_optimized,animated\audio\audio_1194.wav,animated\images\img_1194.npy,Climactic battle scene,2,0
+animated_SB_741,train,not_optimized,animated\audio\audio_741.wav,animated\images\img_741.npy,Villain sets a trap,19,0
+animated_SB_223,train,not_optimized,animated\audio\audio_223.wav,animated\images\img_223.npy,Hero enters the room,11,0
+animated_SB_719,train,not_optimized,animated\audio\audio_719.wav,animated\images\img_719.npy,Hero enters the room,10,0
+animated_SB_1141,train,not_optimized,animated\audio\audio_1141.wav,animated\images\img_1141.npy,Villain sets a trap,12,0
+animated_SB_784,train,not_optimized,animated\audio\audio_784.wav,animated\images\img_784.npy,Chase sequence begins,12,0
+animated_SB_952,train,not_optimized,animated\audio\audio_952.wav,animated\images\img_952.npy,Climactic battle scene,6,0
+animated_SB_234,train,not_optimized,animated\audio\audio_234.wav,animated\images\img_234.npy,Dialogue between characters,18,0
+animated_SB_1095,train,not_optimized,animated\audio\audio_1095.wav,animated\images\img_1095.npy,Dialogue between characters,10,0
+animated_SB_634,train,not_optimized,animated\audio\audio_634.wav,animated\images\img_634.npy,Hero enters the room,2,0
+animated_SB_1035,train,not_optimized,animated\audio\audio_1035.wav,animated\images\img_1035.npy,Villain sets a trap,16,0
+animated_SB_284,train,not_optimized,animated\audio\audio_284.wav,animated\images\img_284.npy,Chase sequence begins,3,0
+animated_SB_180,train,not_optimized,animated\audio\audio_180.wav,animated\images\img_180.npy,Climactic battle scene,6,0
+animated_SB_1246,train,not_optimized,animated\audio\audio_1246.wav,animated\images\img_1246.npy,Climactic battle scene,12,0
+animated_SB_497,train,not_optimized,animated\audio\audio_497.wav,animated\images\img_497.npy,Villain sets a trap,7,0
+animated_SB_683,train,not_optimized,animated\audio\audio_683.wav,animated\images\img_683.npy,Hero enters the room,2,0
+animated_SB_1042,val,not_optimized,animated\audio\audio_1042.wav,animated\images\img_1042.npy,Chase sequence begins,5,0
+animated_SB_149,val,not_optimized,animated\audio\audio_149.wav,animated\images\img_149.npy,Chase sequence begins,19,0
+animated_SB_805,val,not_optimized,animated\audio\audio_805.wav,animated\images\img_805.npy,Villain sets a trap,2,0
+animated_SB_560,val,not_optimized,animated\audio\audio_560.wav,animated\images\img_560.npy,Climactic battle scene,13,0
+animated_SB_1145,val,not_optimized,animated\audio\audio_1145.wav,animated\images\img_1145.npy,Chase sequence begins,2,0
+animated_SB_78,val,not_optimized,animated\audio\audio_78.wav,animated\images\img_78.npy,Climactic battle scene,8,0
+animated_SB_857,val,not_optimized,animated\audio\audio_857.wav,animated\images\img_857.npy,Dialogue between characters,8,0
+animated_SB_503,val,not_optimized,animated\audio\audio_503.wav,animated\images\img_503.npy,Dialogue between characters,12,0
+animated_SB_761,val,not_optimized,animated\audio\audio_761.wav,animated\images\img_761.npy,Villain sets a trap,4,0
+animated_SB_95,val,not_optimized,animated\audio\audio_95.wav,animated\images\img_95.npy,Climactic battle scene,1,0
+animated_SB_90,val,not_optimized,animated\audio\audio_90.wav,animated\images\img_90.npy,Climactic battle scene,7,0
+animated_SB_595,val,not_optimized,animated\audio\audio_595.wav,animated\images\img_595.npy,Chase sequence begins,10,0
+animated_SB_263,val,not_optimized,animated\audio\audio_263.wav,animated\images\img_263.npy,Villain sets a trap,5,0
+animated_SB_63,val,not_optimized,animated\audio\audio_63.wav,animated\images\img_63.npy,Chase sequence begins,14,0
+animated_SB_262,val,not_optimized,animated\audio\audio_262.wav,animated\images\img_262.npy,Villain sets a trap,1,0
+animated_SB_332,val,not_optimized,animated\audio\audio_332.wav,animated\images\img_332.npy,Chase sequence begins,15,0
+animated_SB_848,val,not_optimized,animated\audio\audio_848.wav,animated\images\img_848.npy,Villain sets a trap,6,0
+animated_SB_876,val,not_optimized,animated\audio\audio_876.wav,animated\images\img_876.npy,Climactic battle scene,5,0
+animated_SB_924,val,not_optimized,animated\audio\audio_924.wav,animated\images\img_924.npy,Chase sequence begins,4,0
+animated_SB_377,val,not_optimized,animated\audio\audio_377.wav,animated\images\img_377.npy,Villain sets a trap,2,0
+animated_SB_1002,val,not_optimized,animated\audio\audio_1002.wav,animated\images\img_1002.npy,Climactic battle scene,19,0
+animated_SB_24,val,not_optimized,animated\audio\audio_24.wav,animated\images\img_24.npy,Dialogue between characters,19,0
+animated_SB_1123,val,not_optimized,animated\audio\audio_1123.wav,animated\images\img_1123.npy,Dialogue between characters,13,0
+animated_SB_343,val,not_optimized,animated\audio\audio_343.wav,animated\images\img_343.npy,Villain sets a trap,9,0
+animated_SB_625,val,not_optimized,animated\audio\audio_625.wav,animated\images\img_625.npy,Villain sets a trap,14,0
+animated_SB_1,val,not_optimized,animated\audio\audio_1.wav,animated\images\img_1.npy,Chase sequence begins,7,0
+animated_SB_1073,val,not_optimized,animated\audio\audio_1073.wav,animated\images\img_1073.npy,Villain sets a trap,13,0
+animated_SB_816,val,not_optimized,animated\audio\audio_816.wav,animated\images\img_816.npy,Hero enters the room,5,0
+animated_SB_1124,val,not_optimized,animated\audio\audio_1124.wav,animated\images\img_1124.npy,Climactic battle scene,11,0
+animated_SB_175,val,not_optimized,animated\audio\audio_175.wav,animated\images\img_175.npy,Dialogue between characters,11,0
+animated_SB_984,val,not_optimized,animated\audio\audio_984.wav,animated\images\img_984.npy,Dialogue between characters,18,0
+animated_SB_388,val,not_optimized,animated\audio\audio_388.wav,animated\images\img_388.npy,Villain sets a trap,12,0
+animated_SB_166,val,not_optimized,animated\audio\audio_166.wav,animated\images\img_166.npy,Hero enters the room,2,0
+animated_SB_219,val,not_optimized,animated\audio\audio_219.wav,animated\images\img_219.npy,Chase sequence begins,16,0
+animated_SB_635,val,not_optimized,animated\audio\audio_635.wav,animated\images\img_635.npy,Climactic battle scene,18,0
+animated_SB_981,val,not_optimized,animated\audio\audio_981.wav,animated\images\img_981.npy,Climactic battle scene,16,0
+animated_SB_666,val,not_optimized,animated\audio\audio_666.wav,animated\images\img_666.npy,Hero enters the room,4,0
+animated_SB_885,val,not_optimized,animated\audio\audio_885.wav,animated\images\img_885.npy,Villain sets a trap,13,0
+animated_SB_319,val,not_optimized,animated\audio\audio_319.wav,animated\images\img_319.npy,Climactic battle scene,6,0
+animated_SB_653,val,not_optimized,animated\audio\audio_653.wav,animated\images\img_653.npy,Villain sets a trap,6,0
+animated_SB_918,val,not_optimized,animated\audio\audio_918.wav,animated\images\img_918.npy,Villain sets a trap,8,0
+animated_SB_124,val,not_optimized,animated\audio\audio_124.wav,animated\images\img_124.npy,Villain sets a trap,15,0
+animated_SB_959,val,not_optimized,animated\audio\audio_959.wav,animated\images\img_959.npy,Villain sets a trap,12,0
+animated_SB_532,val,not_optimized,animated\audio\audio_532.wav,animated\images\img_532.npy,Climactic battle scene,18,0
+animated_SB_196,val,not_optimized,animated\audio\audio_196.wav,animated\images\img_196.npy,Hero enters the room,8,0
+animated_SB_1087,val,not_optimized,animated\audio\audio_1087.wav,animated\images\img_1087.npy,Chase sequence begins,12,0
+animated_SB_526,val,not_optimized,animated\audio\audio_526.wav,animated\images\img_526.npy,Dialogue between characters,16,0
+animated_SB_283,val,not_optimized,animated\audio\audio_283.wav,animated\images\img_283.npy,Dialogue between characters,10,0
+animated_SB_750,val,not_optimized,animated\audio\audio_750.wav,animated\images\img_750.npy,Chase sequence begins,1,0
+animated_SB_923,val,not_optimized,animated\audio\audio_923.wav,animated\images\img_923.npy,Dialogue between characters,16,0
+animated_SB_1021,val,not_optimized,animated\audio\audio_1021.wav,animated\images\img_1021.npy,Dialogue between characters,14,0
+animated_SB_2,val,not_optimized,animated\audio\audio_2.wav,animated\images\img_2.npy,Climactic battle scene,15,0
+animated_SB_474,val,not_optimized,animated\audio\audio_474.wav,animated\images\img_474.npy,Dialogue between characters,12,0
+animated_SB_1218,val,not_optimized,animated\audio\audio_1218.wav,animated\images\img_1218.npy,Hero enters the room,3,0
+animated_SB_454,val,not_optimized,animated\audio\audio_454.wav,animated\images\img_454.npy,Climactic battle scene,14,0
+animated_SB_314,val,not_optimized,animated\audio\audio_314.wav,animated\images\img_314.npy,Dialogue between characters,2,0
+animated_SB_1107,val,not_optimized,animated\audio\audio_1107.wav,animated\images\img_1107.npy,Hero enters the room,11,0
+animated_SB_355,val,not_optimized,animated\audio\audio_355.wav,animated\images\img_355.npy,Climactic battle scene,5,0
+animated_SB_667,val,not_optimized,animated\audio\audio_667.wav,animated\images\img_667.npy,Chase sequence begins,8,0
+animated_SB_806,val,not_optimized,animated\audio\audio_806.wav,animated\images\img_806.npy,Climactic battle scene,1,0
+animated_SB_285,val,not_optimized,animated\audio\audio_285.wav,animated\images\img_285.npy,Chase sequence begins,8,0
+animated_SB_779,val,not_optimized,animated\audio\audio_779.wav,animated\images\img_779.npy,Villain sets a trap,6,0
+animated_SB_1098,val,not_optimized,animated\audio\audio_1098.wav,animated\images\img_1098.npy,Chase sequence begins,14,0
+animated_SB_931,val,not_optimized,animated\audio\audio_931.wav,animated\images\img_931.npy,Chase sequence begins,19,0
+animated_SB_708,val,not_optimized,animated\audio\audio_708.wav,animated\images\img_708.npy,Hero enters the room,15,0
+animated_SB_139,val,not_optimized,animated\audio\audio_139.wav,animated\images\img_139.npy,Hero enters the room,1,0
+animated_SB_756,val,not_optimized,animated\audio\audio_756.wav,animated\images\img_756.npy,Villain sets a trap,9,0
+animated_SB_1197,val,not_optimized,animated\audio\audio_1197.wav,animated\images\img_1197.npy,Dialogue between characters,11,0
+animated_SB_16,val,not_optimized,animated\audio\audio_16.wav,animated\images\img_16.npy,Climactic battle scene,1,0
+animated_SB_989,val,not_optimized,animated\audio\audio_989.wav,animated\images\img_989.npy,Climactic battle scene,18,0
+animated_SB_909,val,not_optimized,animated\audio\audio_909.wav,animated\images\img_909.npy,Dialogue between characters,15,0
+animated_SB_585,val,not_optimized,animated\audio\audio_585.wav,animated\images\img_585.npy,Chase sequence begins,1,0
+animated_SB_1014,val,not_optimized,animated\audio\audio_1014.wav,animated\images\img_1014.npy,Climactic battle scene,3,0
+animated_SB_270,val,not_optimized,animated\audio\audio_270.wav,animated\images\img_270.npy,Dialogue between characters,12,0
+animated_SB_1176,val,not_optimized,animated\audio\audio_1176.wav,animated\images\img_1176.npy,Villain sets a trap,15,0
+animated_SB_486,val,not_optimized,animated\audio\audio_486.wav,animated\images\img_486.npy,Climactic battle scene,18,0
+animated_SB_624,val,not_optimized,animated\audio\audio_624.wav,animated\images\img_624.npy,Chase sequence begins,5,0
+animated_SB_791,val,not_optimized,animated\audio\audio_791.wav,animated\images\img_791.npy,Chase sequence begins,4,0
+animated_SB_807,val,not_optimized,animated\audio\audio_807.wav,animated\images\img_807.npy,Hero enters the room,5,0
+animated_SB_151,val,not_optimized,animated\audio\audio_151.wav,animated\images\img_151.npy,Chase sequence begins,12,0
+animated_SB_1200,val,not_optimized,animated\audio\audio_1200.wav,animated\images\img_1200.npy,Chase sequence begins,7,0
+animated_SB_1201,val,not_optimized,animated\audio\audio_1201.wav,animated\images\img_1201.npy,Hero enters the room,15,0
+animated_SB_331,val,not_optimized,animated\audio\audio_331.wav,animated\images\img_331.npy,Chase sequence begins,13,0
+animated_SB_243,val,not_optimized,animated\audio\audio_243.wav,animated\images\img_243.npy,Hero enters the room,14,0
+animated_SB_110,val,not_optimized,animated\audio\audio_110.wav,animated\images\img_110.npy,Chase sequence begins,14,0
+animated_SB_201,val,not_optimized,animated\audio\audio_201.wav,animated\images\img_201.npy,Chase sequence begins,11,0
+animated_SB_1031,val,not_optimized,animated\audio\audio_1031.wav,animated\images\img_1031.npy,Chase sequence begins,10,0
+animated_SB_294,val,not_optimized,animated\audio\audio_294.wav,animated\images\img_294.npy,Chase sequence begins,1,0
+animated_SB_1110,val,not_optimized,animated\audio\audio_1110.wav,animated\images\img_1110.npy,Hero enters the room,7,0
+animated_SB_1156,val,not_optimized,animated\audio\audio_1156.wav,animated\images\img_1156.npy,Villain sets a trap,16,0
+animated_SB_840,val,not_optimized,animated\audio\audio_840.wav,animated\images\img_840.npy,Climactic battle scene,10,0
+animated_SB_906,val,not_optimized,animated\audio\audio_906.wav,animated\images\img_906.npy,Climactic battle scene,6,0
+animated_SB_554,val,not_optimized,animated\audio\audio_554.wav,animated\images\img_554.npy,Dialogue between characters,4,0
+animated_SB_520,test,not_optimized,animated\audio\audio_520.wav,animated\images\img_520.npy,Villain sets a trap,6,0
+animated_SB_1241,test,not_optimized,animated\audio\audio_1241.wav,animated\images\img_1241.npy,Climactic battle scene,15,0
+animated_SB_558,test,not_optimized,animated\audio\audio_558.wav,animated\images\img_558.npy,Dialogue between characters,13,0
+animated_SB_303,test,not_optimized,animated\audio\audio_303.wav,animated\images\img_303.npy,Climactic battle scene,7,0
+animated_SB_962,test,not_optimized,animated\audio\audio_962.wav,animated\images\img_962.npy,Dialogue between characters,6,0
+animated_SB_830,test,not_optimized,animated\audio\audio_830.wav,animated\images\img_830.npy,Climactic battle scene,9,0
+animated_SB_1040,test,not_optimized,animated\audio\audio_1040.wav,animated\images\img_1040.npy,Climactic battle scene,1,0
+animated_SB_444,test,not_optimized,animated\audio\audio_444.wav,animated\images\img_444.npy,Dialogue between characters,13,0
+animated_SB_657,test,not_optimized,animated\audio\audio_657.wav,animated\images\img_657.npy,Hero enters the room,11,0
+animated_SB_442,test,not_optimized,animated\audio\audio_442.wav,animated\images\img_442.npy,Climactic battle scene,17,0
+animated_SB_153,test,not_optimized,animated\audio\audio_153.wav,animated\images\img_153.npy,Dialogue between characters,9,0
+animated_SB_562,test,not_optimized,animated\audio\audio_562.wav,animated\images\img_562.npy,Climactic battle scene,3,0
+animated_SB_842,test,not_optimized,animated\audio\audio_842.wav,animated\images\img_842.npy,Villain sets a trap,8,0
+animated_SB_659,test,not_optimized,animated\audio\audio_659.wav,animated\images\img_659.npy,Dialogue between characters,11,0
+animated_SB_1231,test,not_optimized,animated\audio\audio_1231.wav,animated\images\img_1231.npy,Villain sets a trap,3,0
+animated_SB_476,test,not_optimized,animated\audio\audio_476.wav,animated\images\img_476.npy,Climactic battle scene,10,0
+animated_SB_138,test,not_optimized,animated\audio\audio_138.wav,animated\images\img_138.npy,Villain sets a trap,1,0
+animated_SB_677,test,not_optimized,animated\audio\audio_677.wav,animated\images\img_677.npy,Climactic battle scene,6,0
+animated_SB_459,test,not_optimized,animated\audio\audio_459.wav,animated\images\img_459.npy,Hero enters the room,3,0
+animated_SB_568,test,not_optimized,animated\audio\audio_568.wav,animated\images\img_568.npy,Villain sets a trap,2,0
+animated_SB_788,test,not_optimized,animated\audio\audio_788.wav,animated\images\img_788.npy,Chase sequence begins,6,0
+animated_SB_974,test,not_optimized,animated\audio\audio_974.wav,animated\images\img_974.npy,Dialogue between characters,7,0
+animated_SB_346,test,not_optimized,animated\audio\audio_346.wav,animated\images\img_346.npy,Villain sets a trap,1,0
+animated_SB_1245,test,not_optimized,animated\audio\audio_1245.wav,animated\images\img_1245.npy,Chase sequence begins,4,0
+animated_SB_1115,test,not_optimized,animated\audio\audio_1115.wav,animated\images\img_1115.npy,Dialogue between characters,5,0
+animated_SB_357,test,not_optimized,animated\audio\audio_357.wav,animated\images\img_357.npy,Dialogue between characters,12,0
+animated_SB_160,test,not_optimized,animated\audio\audio_160.wav,animated\images\img_160.npy,Villain sets a trap,17,0
+animated_SB_561,test,not_optimized,animated\audio\audio_561.wav,animated\images\img_561.npy,Chase sequence begins,14,0
+animated_SB_436,test,not_optimized,animated\audio\audio_436.wav,animated\images\img_436.npy,Villain sets a trap,12,0
+animated_SB_738,test,not_optimized,animated\audio\audio_738.wav,animated\images\img_738.npy,Chase sequence begins,8,0
+animated_SB_772,test,not_optimized,animated\audio\audio_772.wav,animated\images\img_772.npy,Dialogue between characters,15,0
+animated_SB_345,test,not_optimized,animated\audio\audio_345.wav,animated\images\img_345.npy,Chase sequence begins,1,0
+animated_SB_760,test,not_optimized,animated\audio\audio_760.wav,animated\images\img_760.npy,Villain sets a trap,5,0
+animated_SB_956,test,not_optimized,animated\audio\audio_956.wav,animated\images\img_956.npy,Dialogue between characters,2,0
+animated_SB_1195,test,not_optimized,animated\audio\audio_1195.wav,animated\images\img_1195.npy,Hero enters the room,3,0
+animated_SB_1187,test,not_optimized,animated\audio\audio_1187.wav,animated\images\img_1187.npy,Climactic battle scene,10,0
+animated_SB_225,test,not_optimized,animated\audio\audio_225.wav,animated\images\img_225.npy,Climactic battle scene,8,0
+animated_SB_1235,test,not_optimized,animated\audio\audio_1235.wav,animated\images\img_1235.npy,Chase sequence begins,4,0
+animated_SB_171,test,not_optimized,animated\audio\audio_171.wav,animated\images\img_171.npy,Villain sets a trap,2,0
+animated_SB_607,test,not_optimized,animated\audio\audio_607.wav,animated\images\img_607.npy,Climactic battle scene,1,0
+animated_SB_475,test,not_optimized,animated\audio\audio_475.wav,animated\images\img_475.npy,Climactic battle scene,9,0
+animated_SB_108,test,not_optimized,animated\audio\audio_108.wav,animated\images\img_108.npy,Climactic battle scene,1,0
+animated_SB_157,test,not_optimized,animated\audio\audio_157.wav,animated\images\img_157.npy,Villain sets a trap,7,0
+animated_SB_398,test,not_optimized,animated\audio\audio_398.wav,animated\images\img_398.npy,Hero enters the room,1,0
+animated_SB_757,test,not_optimized,animated\audio\audio_757.wav,animated\images\img_757.npy,Dialogue between characters,3,0
+animated_SB_615,test,not_optimized,animated\audio\audio_615.wav,animated\images\img_615.npy,Villain sets a trap,18,0
+animated_SB_1149,test,not_optimized,animated\audio\audio_1149.wav,animated\images\img_1149.npy,Chase sequence begins,12,0
+animated_SB_170,test,not_optimized,animated\audio\audio_170.wav,animated\images\img_170.npy,Chase sequence begins,19,0
+animated_SB_786,test,not_optimized,animated\audio\audio_786.wav,animated\images\img_786.npy,Chase sequence begins,1,0
+animated_SB_269,test,not_optimized,animated\audio\audio_269.wav,animated\images\img_269.npy,Hero enters the room,17,0
+animated_SB_1121,test,not_optimized,animated\audio\audio_1121.wav,animated\images\img_1121.npy,Dialogue between characters,11,0
+animated_SB_965,test,not_optimized,animated\audio\audio_965.wav,animated\images\img_965.npy,Hero enters the room,11,0
+animated_SB_106,test,not_optimized,animated\audio\audio_106.wav,animated\images\img_106.npy,Chase sequence begins,14,0
+animated_SB_557,test,not_optimized,animated\audio\audio_557.wav,animated\images\img_557.npy,Climactic battle scene,1,0
+animated_SB_718,test,not_optimized,animated\audio\audio_718.wav,animated\images\img_718.npy,Chase sequence begins,5,0
+animated_SB_749,test,not_optimized,animated\audio\audio_749.wav,animated\images\img_749.npy,Dialogue between characters,5,0
+animated_SB_213,test,not_optimized,animated\audio\audio_213.wav,animated\images\img_213.npy,Chase sequence begins,5,0
+animated_SB_790,test,not_optimized,animated\audio\audio_790.wav,animated\images\img_790.npy,Climactic battle scene,11,0
+animated_SB_204,test,not_optimized,animated\audio\audio_204.wav,animated\images\img_204.npy,Climactic battle scene,3,0
+animated_SB_1239,test,not_optimized,animated\audio\audio_1239.wav,animated\images\img_1239.npy,Dialogue between characters,1,0
+animated_SB_697,test,not_optimized,animated\audio\audio_697.wav,animated\images\img_697.npy,Hero enters the room,3,0
+animated_SB_448,test,not_optimized,animated\audio\audio_448.wav,animated\images\img_448.npy,Climactic battle scene,12,0
+animated_SB_335,test,not_optimized,animated\audio\audio_335.wav,animated\images\img_335.npy,Hero enters the room,16,0
+animated_SB_1204,test,not_optimized,animated\audio\audio_1204.wav,animated\images\img_1204.npy,Hero enters the room,13,0
+animated_SB_707,test,not_optimized,animated\audio\audio_707.wav,animated\images\img_707.npy,Hero enters the room,3,0
+animated_SB_1234,test,not_optimized,animated\audio\audio_1234.wav,animated\images\img_1234.npy,Chase sequence begins,18,0
+animated_SB_340,test,not_optimized,animated\audio\audio_340.wav,animated\images\img_340.npy,Climactic battle scene,17,0
+animated_SB_18,test,not_optimized,animated\audio\audio_18.wav,animated\images\img_18.npy,Hero enters the room,12,0
+animated_SB_586,test,not_optimized,animated\audio\audio_586.wav,animated\images\img_586.npy,Chase sequence begins,16,0
+animated_SB_945,test,not_optimized,animated\audio\audio_945.wav,animated\images\img_945.npy,Villain sets a trap,15,0
+animated_SB_464,test,not_optimized,animated\audio\audio_464.wav,animated\images\img_464.npy,Villain sets a trap,13,0
+animated_SB_884,test,not_optimized,animated\audio\audio_884.wav,animated\images\img_884.npy,Hero enters the room,6,0
+animated_SB_1238,test,not_optimized,animated\audio\audio_1238.wav,animated\images\img_1238.npy,Dialogue between characters,16,0
+animated_SB_418,test,not_optimized,animated\audio\audio_418.wav,animated\images\img_418.npy,Hero enters the room,4,0
+animated_SB_1165,test,not_optimized,animated\audio\audio_1165.wav,animated\images\img_1165.npy,Hero enters the room,12,0
+animated_SB_58,test,not_optimized,animated\audio\audio_58.wav,animated\images\img_58.npy,Dialogue between characters,4,0
+animated_SB_1048,test,not_optimized,animated\audio\audio_1048.wav,animated\images\img_1048.npy,Chase sequence begins,5,0
+animated_SB_484,test,not_optimized,animated\audio\audio_484.wav,animated\images\img_484.npy,Hero enters the room,10,0
+animated_SB_455,test,not_optimized,animated\audio\audio_455.wav,animated\images\img_455.npy,Hero enters the room,19,0
+animated_SB_205,test,not_optimized,animated\audio\audio_205.wav,animated\images\img_205.npy,Climactic battle scene,7,0
+animated_SB_64,test,not_optimized,animated\audio\audio_64.wav,animated\images\img_64.npy,Climactic battle scene,8,0
+animated_SB_67,test,not_optimized,animated\audio\audio_67.wav,animated\images\img_67.npy,Climactic battle scene,18,0
+animated_SB_891,test,not_optimized,animated\audio\audio_891.wav,animated\images\img_891.npy,Villain sets a trap,5,0
+animated_SB_1223,test,not_optimized,animated\audio\audio_1223.wav,animated\images\img_1223.npy,Hero enters the room,16,0
+animated_SB_194,test,not_optimized,animated\audio\audio_194.wav,animated\images\img_194.npy,Dialogue between characters,9,0
+animated_SB_1140,test,not_optimized,animated\audio\audio_1140.wav,animated\images\img_1140.npy,Chase sequence begins,5,0
+animated_SB_226,test,not_optimized,animated\audio\audio_226.wav,animated\images\img_226.npy,Climactic battle scene,4,0
+animated_SB_295,test,not_optimized,animated\audio\audio_295.wav,animated\images\img_295.npy,Chase sequence begins,9,0
+animated_SB_469,test,not_optimized,animated\audio\audio_469.wav,animated\images\img_469.npy,Dialogue between characters,3,0
+animated_SB_506,test,not_optimized,animated\audio\audio_506.wav,animated\images\img_506.npy,Climactic battle scene,19,0
+animated_SB_578,test,not_optimized,animated\audio\audio_578.wav,animated\images\img_578.npy,Chase sequence begins,11,0
+animated_SB_54,test,not_optimized,animated\audio\audio_54.wav,animated\images\img_54.npy,Dialogue between characters,18,0
+animated_SB_247,test,not_optimized,animated\audio\audio_247.wav,animated\images\img_247.npy,Chase sequence begins,3,0
+animated_SB_119,train,optimized,animated\audio\audio_119.wav,animated\images\img_119.npy,Climactic battle scene,17,1
+animated_SB_99,train,optimized,animated\audio\audio_99.wav,animated\images\img_99.npy,Hero enters the room,12,1
+animated_SB_352,train,optimized,animated\audio\audio_352.wav,animated\images\img_352.npy,Dialogue between characters,1,1
+animated_SB_803,train,optimized,animated\audio\audio_803.wav,animated\images\img_803.npy,Villain sets a trap,13,1
+animated_SB_835,train,optimized,animated\audio\audio_835.wav,animated\images\img_835.npy,Climactic battle scene,5,1
+animated_SB_92,train,optimized,animated\audio\audio_92.wav,animated\images\img_92.npy,Chase sequence begins,8,1
+animated_SB_1020,train,optimized,animated\audio\audio_1020.wav,animated\images\img_1020.npy,Villain sets a trap,3,1
+animated_SB_900,train,optimized,animated\audio\audio_900.wav,animated\images\img_900.npy,Chase sequence begins,4,1
+animated_SB_644,train,optimized,animated\audio\audio_644.wav,animated\images\img_644.npy,Villain sets a trap,17,1
+animated_SB_1137,train,optimized,animated\audio\audio_1137.wav,animated\images\img_1137.npy,Climactic battle scene,3,1
+animated_SB_671,train,optimized,animated\audio\audio_671.wav,animated\images\img_671.npy,Chase sequence begins,18,1
+animated_SB_6,train,optimized,animated\audio\audio_6.wav,animated\images\img_6.npy,Villain sets a trap,19,1
+animated_SB_687,train,optimized,animated\audio\audio_687.wav,animated\images\img_687.npy,Chase sequence begins,9,1
+animated_SB_1190,train,optimized,animated\audio\audio_1190.wav,animated\images\img_1190.npy,Villain sets a trap,14,1
+animated_SB_864,train,optimized,animated\audio\audio_864.wav,animated\images\img_864.npy,Villain sets a trap,3,1
+animated_SB_545,train,optimized,animated\audio\audio_545.wav,animated\images\img_545.npy,Dialogue between characters,8,1
+animated_SB_1077,train,optimized,animated\audio\audio_1077.wav,animated\images\img_1077.npy,Dialogue between characters,6,1
+animated_SB_394,train,optimized,animated\audio\audio_394.wav,animated\images\img_394.npy,Climactic battle scene,11,1
+animated_SB_881,train,optimized,animated\audio\audio_881.wav,animated\images\img_881.npy,Hero enters the room,5,1
+animated_SB_69,train,optimized,animated\audio\audio_69.wav,animated\images\img_69.npy,Villain sets a trap,13,1
+animated_SB_513,train,optimized,animated\audio\audio_513.wav,animated\images\img_513.npy,Climactic battle scene,9,1
+animated_SB_1065,train,optimized,animated\audio\audio_1065.wav,animated\images\img_1065.npy,Chase sequence begins,8,1
+animated_SB_315,train,optimized,animated\audio\audio_315.wav,animated\images\img_315.npy,Chase sequence begins,2,1
+animated_SB_820,train,optimized,animated\audio\audio_820.wav,animated\images\img_820.npy,Climactic battle scene,11,1
+animated_SB_535,train,optimized,animated\audio\audio_535.wav,animated\images\img_535.npy,Chase sequence begins,17,1
+animated_SB_1050,train,optimized,animated\audio\audio_1050.wav,animated\images\img_1050.npy,Chase sequence begins,6,1
+animated_SB_610,train,optimized,animated\audio\audio_610.wav,animated\images\img_610.npy,Dialogue between characters,2,1
+animated_SB_458,train,optimized,animated\audio\audio_458.wav,animated\images\img_458.npy,Villain sets a trap,5,1
+animated_SB_336,train,optimized,animated\audio\audio_336.wav,animated\images\img_336.npy,Dialogue between characters,13,1
+animated_SB_777,train,optimized,animated\audio\audio_777.wav,animated\images\img_777.npy,Villain sets a trap,12,1
+animated_SB_802,train,optimized,animated\audio\audio_802.wav,animated\images\img_802.npy,Hero enters the room,2,1
+animated_SB_1079,train,optimized,animated\audio\audio_1079.wav,animated\images\img_1079.npy,Dialogue between characters,10,1
+animated_SB_964,train,optimized,animated\audio\audio_964.wav,animated\images\img_964.npy,Villain sets a trap,17,1
+animated_SB_1076,train,optimized,animated\audio\audio_1076.wav,animated\images\img_1076.npy,Chase sequence begins,11,1
+animated_SB_400,train,optimized,animated\audio\audio_400.wav,animated\images\img_400.npy,Chase sequence begins,8,1
+animated_SB_953,train,optimized,animated\audio\audio_953.wav,animated\images\img_953.npy,Climactic battle scene,2,1
+animated_SB_898,train,optimized,animated\audio\audio_898.wav,animated\images\img_898.npy,Hero enters the room,19,1
+animated_SB_344,train,optimized,animated\audio\audio_344.wav,animated\images\img_344.npy,Villain sets a trap,12,1
+animated_SB_395,train,optimized,animated\audio\audio_395.wav,animated\images\img_395.npy,Chase sequence begins,5,1
+animated_SB_449,train,optimized,animated\audio\audio_449.wav,animated\images\img_449.npy,Chase sequence begins,9,1
+animated_SB_1117,train,optimized,animated\audio\audio_1117.wav,animated\images\img_1117.npy,Dialogue between characters,4,1
+animated_SB_1051,train,optimized,animated\audio\audio_1051.wav,animated\images\img_1051.npy,Chase sequence begins,9,1
+animated_SB_753,train,optimized,animated\audio\audio_753.wav,animated\images\img_753.npy,Dialogue between characters,16,1
+animated_SB_796,train,optimized,animated\audio\audio_796.wav,animated\images\img_796.npy,Dialogue between characters,6,1
+animated_SB_306,train,optimized,animated\audio\audio_306.wav,animated\images\img_306.npy,Dialogue between characters,1,1
+animated_SB_1244,train,optimized,animated\audio\audio_1244.wav,animated\images\img_1244.npy,Chase sequence begins,17,1
+animated_SB_1256,train,optimized,animated\audio\audio_1256.wav,animated\images\img_1256.npy,Villain sets a trap,7,1
+animated_SB_32,train,optimized,animated\audio\audio_32.wav,animated\images\img_32.npy,Climactic battle scene,18,1
+animated_SB_904,train,optimized,animated\audio\audio_904.wav,animated\images\img_904.npy,Chase sequence begins,10,1
+animated_SB_133,train,optimized,animated\audio\audio_133.wav,animated\images\img_133.npy,Chase sequence begins,6,1
+animated_SB_48,train,optimized,animated\audio\audio_48.wav,animated\images\img_48.npy,Villain sets a trap,8,1
+animated_SB_640,train,optimized,animated\audio\audio_640.wav,animated\images\img_640.npy,Dialogue between characters,1,1
+animated_SB_860,train,optimized,animated\audio\audio_860.wav,animated\images\img_860.npy,Dialogue between characters,7,1
+animated_SB_189,train,optimized,animated\audio\audio_189.wav,animated\images\img_189.npy,Hero enters the room,4,1
+animated_SB_638,train,optimized,animated\audio\audio_638.wav,animated\images\img_638.npy,Hero enters the room,2,1
+animated_SB_988,train,optimized,animated\audio\audio_988.wav,animated\images\img_988.npy,Climactic battle scene,15,1
+animated_SB_1027,train,optimized,animated\audio\audio_1027.wav,animated\images\img_1027.npy,Villain sets a trap,14,1
+animated_SB_947,train,optimized,animated\audio\audio_947.wav,animated\images\img_947.npy,Climactic battle scene,9,1
+animated_SB_252,train,optimized,animated\audio\audio_252.wav,animated\images\img_252.npy,Hero enters the room,19,1
+animated_SB_549,train,optimized,animated\audio\audio_549.wav,animated\images\img_549.npy,Climactic battle scene,4,1
+animated_SB_136,train,optimized,animated\audio\audio_136.wav,animated\images\img_136.npy,Chase sequence begins,11,1
+animated_SB_794,train,optimized,animated\audio\audio_794.wav,animated\images\img_794.npy,Villain sets a trap,3,1
+animated_SB_55,train,optimized,animated\audio\audio_55.wav,animated\images\img_55.npy,Dialogue between characters,12,1
+animated_SB_1255,train,optimized,animated\audio\audio_1255.wav,animated\images\img_1255.npy,Hero enters the room,2,1
+animated_SB_631,train,optimized,animated\audio\audio_631.wav,animated\images\img_631.npy,Chase sequence begins,2,1
+animated_SB_202,train,optimized,animated\audio\audio_202.wav,animated\images\img_202.npy,Hero enters the room,18,1
+animated_SB_127,train,optimized,animated\audio\audio_127.wav,animated\images\img_127.npy,Climactic battle scene,13,1
+animated_SB_899,train,optimized,animated\audio\audio_899.wav,animated\images\img_899.npy,Hero enters the room,4,1
+animated_SB_359,train,optimized,animated\audio\audio_359.wav,animated\images\img_359.npy,Chase sequence begins,19,1
+animated_SB_614,train,optimized,animated\audio\audio_614.wav,animated\images\img_614.npy,Hero enters the room,3,1
+animated_SB_762,train,optimized,animated\audio\audio_762.wav,animated\images\img_762.npy,Hero enters the room,6,1
+animated_SB_425,train,optimized,animated\audio\audio_425.wav,animated\images\img_425.npy,Climactic battle scene,5,1
+animated_SB_420,train,optimized,animated\audio\audio_420.wav,animated\images\img_420.npy,Chase sequence begins,13,1
+animated_SB_1064,train,optimized,animated\audio\audio_1064.wav,animated\images\img_1064.npy,Hero enters the room,9,1
+animated_SB_584,train,optimized,animated\audio\audio_584.wav,animated\images\img_584.npy,Villain sets a trap,3,1
+animated_SB_821,train,optimized,animated\audio\audio_821.wav,animated\images\img_821.npy,Chase sequence begins,9,1
+animated_SB_1134,train,optimized,animated\audio\audio_1134.wav,animated\images\img_1134.npy,Hero enters the room,8,1
+animated_SB_782,train,optimized,animated\audio\audio_782.wav,animated\images\img_782.npy,Chase sequence begins,1,1
+animated_SB_46,train,optimized,animated\audio\audio_46.wav,animated\images\img_46.npy,Dialogue between characters,4,1
+animated_SB_313,train,optimized,animated\audio\audio_313.wav,animated\images\img_313.npy,Dialogue between characters,15,1
+animated_SB_912,train,optimized,animated\audio\audio_912.wav,animated\images\img_912.npy,Dialogue between characters,12,1
+animated_SB_1023,train,optimized,animated\audio\audio_1023.wav,animated\images\img_1023.npy,Villain sets a trap,11,1
+animated_SB_893,train,optimized,animated\audio\audio_893.wav,animated\images\img_893.npy,Climactic battle scene,4,1
+animated_SB_763,train,optimized,animated\audio\audio_763.wav,animated\images\img_763.npy,Villain sets a trap,2,1
+animated_SB_1212,train,optimized,animated\audio\audio_1212.wav,animated\images\img_1212.npy,Climactic battle scene,3,1
+animated_SB_512,train,optimized,animated\audio\audio_512.wav,animated\images\img_512.npy,Chase sequence begins,8,1
+animated_SB_911,train,optimized,animated\audio\audio_911.wav,animated\images\img_911.npy,Climactic battle scene,11,1
+animated_SB_889,train,optimized,animated\audio\audio_889.wav,animated\images\img_889.npy,Villain sets a trap,15,1
+animated_SB_510,train,optimized,animated\audio\audio_510.wav,animated\images\img_510.npy,Climactic battle scene,13,1
+animated_SB_375,train,optimized,animated\audio\audio_375.wav,animated\images\img_375.npy,Hero enters the room,5,1
+animated_SB_431,train,optimized,animated\audio\audio_431.wav,animated\images\img_431.npy,Dialogue between characters,4,1
+animated_SB_593,train,optimized,animated\audio\audio_593.wav,animated\images\img_593.npy,Climactic battle scene,5,1
+animated_SB_929,train,optimized,animated\audio\audio_929.wav,animated\images\img_929.npy,Climactic battle scene,17,1
+animated_SB_966,train,optimized,animated\audio\audio_966.wav,animated\images\img_966.npy,Villain sets a trap,18,1
+animated_SB_328,train,optimized,animated\audio\audio_328.wav,animated\images\img_328.npy,Climactic battle scene,7,1
+animated_SB_954,train,optimized,animated\audio\audio_954.wav,animated\images\img_954.npy,Chase sequence begins,7,1
+animated_SB_45,train,optimized,animated\audio\audio_45.wav,animated\images\img_45.npy,Hero enters the room,17,1
+animated_SB_101,train,optimized,animated\audio\audio_101.wav,animated\images\img_101.npy,Villain sets a trap,3,1
+animated_SB_191,train,optimized,animated\audio\audio_191.wav,animated\images\img_191.npy,Chase sequence begins,3,1
+animated_SB_173,train,optimized,animated\audio\audio_173.wav,animated\images\img_173.npy,Dialogue between characters,6,1
+animated_SB_815,train,optimized,animated\audio\audio_815.wav,animated\images\img_815.npy,Chase sequence begins,17,1
+animated_SB_907,train,optimized,animated\audio\audio_907.wav,animated\images\img_907.npy,Climactic battle scene,6,1
+animated_SB_1032,train,optimized,animated\audio\audio_1032.wav,animated\images\img_1032.npy,Chase sequence begins,7,1
+animated_SB_100,train,optimized,animated\audio\audio_100.wav,animated\images\img_100.npy,Dialogue between characters,8,1
+animated_SB_1147,train,optimized,animated\audio\audio_1147.wav,animated\images\img_1147.npy,Chase sequence begins,19,1
+animated_SB_181,train,optimized,animated\audio\audio_181.wav,animated\images\img_181.npy,Climactic battle scene,11,1
+animated_SB_872,train,optimized,animated\audio\audio_872.wav,animated\images\img_872.npy,Climactic battle scene,7,1
+animated_SB_606,train,optimized,animated\audio\audio_606.wav,animated\images\img_606.npy,Dialogue between characters,4,1
+animated_SB_793,train,optimized,animated\audio\audio_793.wav,animated\images\img_793.npy,Dialogue between characters,11,1
+animated_SB_467,train,optimized,animated\audio\audio_467.wav,animated\images\img_467.npy,Hero enters the room,14,1
+animated_SB_617,train,optimized,animated\audio\audio_617.wav,animated\images\img_617.npy,Chase sequence begins,1,1
+animated_SB_890,train,optimized,animated\audio\audio_890.wav,animated\images\img_890.npy,Villain sets a trap,8,1
+animated_SB_1209,train,optimized,animated\audio\audio_1209.wav,animated\images\img_1209.npy,Hero enters the room,10,1
+animated_SB_9,train,optimized,animated\audio\audio_9.wav,animated\images\img_9.npy,Hero enters the room,4,1
+animated_SB_390,train,optimized,animated\audio\audio_390.wav,animated\images\img_390.npy,Villain sets a trap,3,1
+animated_SB_211,train,optimized,animated\audio\audio_211.wav,animated\images\img_211.npy,Chase sequence begins,16,1
+animated_SB_380,train,optimized,animated\audio\audio_380.wav,animated\images\img_380.npy,Climactic battle scene,1,1
+animated_SB_752,train,optimized,animated\audio\audio_752.wav,animated\images\img_752.npy,Climactic battle scene,6,1
+animated_SB_1120,train,optimized,animated\audio\audio_1120.wav,animated\images\img_1120.npy,Hero enters the room,3,1
+animated_SB_892,train,optimized,animated\audio\audio_892.wav,animated\images\img_892.npy,Chase sequence begins,15,1
+animated_SB_650,train,optimized,animated\audio\audio_650.wav,animated\images\img_650.npy,Dialogue between characters,17,1
+animated_SB_419,train,optimized,animated\audio\audio_419.wav,animated\images\img_419.npy,Climactic battle scene,18,1
+animated_SB_1250,train,optimized,animated\audio\audio_1250.wav,animated\images\img_1250.npy,Climactic battle scene,6,1
+animated_SB_992,train,optimized,animated\audio\audio_992.wav,animated\images\img_992.npy,Climactic battle scene,18,1
+animated_SB_514,train,optimized,animated\audio\audio_514.wav,animated\images\img_514.npy,Hero enters the room,7,1
+animated_SB_367,train,optimized,animated\audio\audio_367.wav,animated\images\img_367.npy,Chase sequence begins,12,1
+animated_SB_208,train,optimized,animated\audio\audio_208.wav,animated\images\img_208.npy,Chase sequence begins,17,1
+animated_SB_940,train,optimized,animated\audio\audio_940.wav,animated\images\img_940.npy,Chase sequence begins,4,1
+animated_SB_863,train,optimized,animated\audio\audio_863.wav,animated\images\img_863.npy,Climactic battle scene,6,1
+animated_SB_618,train,optimized,animated\audio\audio_618.wav,animated\images\img_618.npy,Villain sets a trap,12,1
+animated_SB_163,train,optimized,animated\audio\audio_163.wav,animated\images\img_163.npy,Hero enters the room,17,1
+animated_SB_120,train,optimized,animated\audio\audio_120.wav,animated\images\img_120.npy,Dialogue between characters,4,1
+animated_SB_461,train,optimized,animated\audio\audio_461.wav,animated\images\img_461.npy,Dialogue between characters,4,1
+animated_SB_1114,train,optimized,animated\audio\audio_1114.wav,animated\images\img_1114.npy,Villain sets a trap,15,1
+animated_SB_401,train,optimized,animated\audio\audio_401.wav,animated\images\img_401.npy,Chase sequence begins,10,1
+animated_SB_527,train,optimized,animated\audio\audio_527.wav,animated\images\img_527.npy,Climactic battle scene,11,1
+animated_SB_603,train,optimized,animated\audio\audio_603.wav,animated\images\img_603.npy,Villain sets a trap,19,1
+animated_SB_818,train,optimized,animated\audio\audio_818.wav,animated\images\img_818.npy,Chase sequence begins,18,1
+animated_SB_1037,train,optimized,animated\audio\audio_1037.wav,animated\images\img_1037.npy,Hero enters the room,4,1
+animated_SB_254,train,optimized,animated\audio\audio_254.wav,animated\images\img_254.npy,Hero enters the room,6,1
+animated_SB_575,train,optimized,animated\audio\audio_575.wav,animated\images\img_575.npy,Villain sets a trap,18,1
+animated_SB_572,train,optimized,animated\audio\audio_572.wav,animated\images\img_572.npy,Hero enters the room,5,1
+animated_SB_51,train,optimized,animated\audio\audio_51.wav,animated\images\img_51.npy,Hero enters the room,6,1
+animated_SB_1111,train,optimized,animated\audio\audio_1111.wav,animated\images\img_1111.npy,Chase sequence begins,8,1
+animated_SB_563,train,optimized,animated\audio\audio_563.wav,animated\images\img_563.npy,Chase sequence begins,6,1
+animated_SB_62,train,optimized,animated\audio\audio_62.wav,animated\images\img_62.npy,Climactic battle scene,8,1
+animated_SB_15,train,optimized,animated\audio\audio_15.wav,animated\images\img_15.npy,Climactic battle scene,2,1
+animated_SB_236,train,optimized,animated\audio\audio_236.wav,animated\images\img_236.npy,Hero enters the room,3,1
+animated_SB_811,train,optimized,animated\audio\audio_811.wav,animated\images\img_811.npy,Climactic battle scene,11,1
+animated_SB_691,train,optimized,animated\audio\audio_691.wav,animated\images\img_691.npy,Climactic battle scene,16,1
+animated_SB_922,train,optimized,animated\audio\audio_922.wav,animated\images\img_922.npy,Dialogue between characters,4,1
+animated_SB_230,train,optimized,animated\audio\audio_230.wav,animated\images\img_230.npy,Hero enters the room,16,1
+animated_SB_141,train,optimized,animated\audio\audio_141.wav,animated\images\img_141.npy,Dialogue between characters,9,1
+animated_SB_20,train,optimized,animated\audio\audio_20.wav,animated\images\img_20.npy,Chase sequence begins,10,1
+animated_SB_477,train,optimized,animated\audio\audio_477.wav,animated\images\img_477.npy,Hero enters the room,12,1
+animated_SB_104,train,optimized,animated\audio\audio_104.wav,animated\images\img_104.npy,Climactic battle scene,5,1
+animated_SB_871,train,optimized,animated\audio\audio_871.wav,animated\images\img_871.npy,Hero enters the room,1,1
+animated_SB_280,train,optimized,animated\audio\audio_280.wav,animated\images\img_280.npy,Chase sequence begins,1,1
+animated_SB_1163,train,optimized,animated\audio\audio_1163.wav,animated\images\img_1163.npy,Climactic battle scene,8,1
+animated_SB_373,train,optimized,animated\audio\audio_373.wav,animated\images\img_373.npy,Dialogue between characters,5,1
+animated_SB_505,train,optimized,animated\audio\audio_505.wav,animated\images\img_505.npy,Hero enters the room,10,1
+animated_SB_379,train,optimized,animated\audio\audio_379.wav,animated\images\img_379.npy,Climactic battle scene,19,1
+animated_SB_182,train,optimized,animated\audio\audio_182.wav,animated\images\img_182.npy,Dialogue between characters,16,1
+animated_SB_579,train,optimized,animated\audio\audio_579.wav,animated\images\img_579.npy,Villain sets a trap,17,1
+animated_SB_376,train,optimized,animated\audio\audio_376.wav,animated\images\img_376.npy,Chase sequence begins,4,1
+animated_SB_1160,train,optimized,animated\audio\audio_1160.wav,animated\images\img_1160.npy,Villain sets a trap,5,1
+animated_SB_1131,train,optimized,animated\audio\audio_1131.wav,animated\images\img_1131.npy,Climactic battle scene,17,1
+animated_SB_456,train,optimized,animated\audio\audio_456.wav,animated\images\img_456.npy,Climactic battle scene,15,1
+animated_SB_656,train,optimized,animated\audio\audio_656.wav,animated\images\img_656.npy,Climactic battle scene,11,1
+animated_SB_215,train,optimized,animated\audio\audio_215.wav,animated\images\img_215.npy,Dialogue between characters,9,1
+animated_SB_655,train,optimized,animated\audio\audio_655.wav,animated\images\img_655.npy,Chase sequence begins,13,1
+animated_SB_993,train,optimized,animated\audio\audio_993.wav,animated\images\img_993.npy,Climactic battle scene,6,1
+animated_SB_976,train,optimized,animated\audio\audio_976.wav,animated\images\img_976.npy,Hero enters the room,13,1
+animated_SB_287,train,optimized,animated\audio\audio_287.wav,animated\images\img_287.npy,Villain sets a trap,18,1
+animated_SB_888,train,optimized,animated\audio\audio_888.wav,animated\images\img_888.npy,Hero enters the room,13,1
+animated_SB_855,train,optimized,animated\audio\audio_855.wav,animated\images\img_855.npy,Chase sequence begins,2,1
+animated_SB_1054,train,optimized,animated\audio\audio_1054.wav,animated\images\img_1054.npy,Villain sets a trap,3,1
+animated_SB_488,train,optimized,animated\audio\audio_488.wav,animated\images\img_488.npy,Climactic battle scene,5,1
+animated_SB_450,train,optimized,animated\audio\audio_450.wav,animated\images\img_450.npy,Villain sets a trap,19,1
+animated_SB_507,train,optimized,animated\audio\audio_507.wav,animated\images\img_507.npy,Hero enters the room,7,1
+animated_SB_167,train,optimized,animated\audio\audio_167.wav,animated\images\img_167.npy,Climactic battle scene,5,1
+animated_SB_386,train,optimized,animated\audio\audio_386.wav,animated\images\img_386.npy,Villain sets a trap,2,1
+animated_SB_1044,train,optimized,animated\audio\audio_1044.wav,animated\images\img_1044.npy,Dialogue between characters,10,1
+animated_SB_37,train,optimized,animated\audio\audio_37.wav,animated\images\img_37.npy,Climactic battle scene,2,1
+animated_SB_68,train,optimized,animated\audio\audio_68.wav,animated\images\img_68.npy,Hero enters the room,15,1
+animated_SB_392,train,optimized,animated\audio\audio_392.wav,animated\images\img_392.npy,Hero enters the room,1,1
+animated_SB_298,train,optimized,animated\audio\audio_298.wav,animated\images\img_298.npy,Climactic battle scene,7,1
+animated_SB_583,train,optimized,animated\audio\audio_583.wav,animated\images\img_583.npy,Climactic battle scene,9,1
+animated_SB_823,train,optimized,animated\audio\audio_823.wav,animated\images\img_823.npy,Climactic battle scene,12,1
+animated_SB_735,train,optimized,animated\audio\audio_735.wav,animated\images\img_735.npy,Villain sets a trap,2,1
+animated_SB_516,train,optimized,animated\audio\audio_516.wav,animated\images\img_516.npy,Hero enters the room,3,1
+animated_SB_799,train,optimized,animated\audio\audio_799.wav,animated\images\img_799.npy,Dialogue between characters,5,1
+animated_SB_113,train,optimized,animated\audio\audio_113.wav,animated\images\img_113.npy,Dialogue between characters,15,1
+animated_SB_224,train,optimized,animated\audio\audio_224.wav,animated\images\img_224.npy,Chase sequence begins,17,1
+animated_SB_1132,train,optimized,animated\audio\audio_1132.wav,animated\images\img_1132.npy,Climactic battle scene,1,1
+animated_SB_969,train,optimized,animated\audio\audio_969.wav,animated\images\img_969.npy,Climactic battle scene,17,1
+animated_SB_125,train,optimized,animated\audio\audio_125.wav,animated\images\img_125.npy,Chase sequence begins,11,1
+animated_SB_1049,train,optimized,animated\audio\audio_1049.wav,animated\images\img_1049.npy,Climactic battle scene,5,1
+animated_SB_1170,train,optimized,animated\audio\audio_1170.wav,animated\images\img_1170.npy,Villain sets a trap,10,1
+animated_SB_131,train,optimized,animated\audio\audio_131.wav,animated\images\img_131.npy,Chase sequence begins,10,1
+animated_SB_361,train,optimized,animated\audio\audio_361.wav,animated\images\img_361.npy,Chase sequence begins,14,1
+animated_SB_460,train,optimized,animated\audio\audio_460.wav,animated\images\img_460.npy,Villain sets a trap,12,1
+animated_SB_74,train,optimized,animated\audio\audio_74.wav,animated\images\img_74.npy,Dialogue between characters,7,1
+animated_SB_724,train,optimized,animated\audio\audio_724.wav,animated\images\img_724.npy,Climactic battle scene,17,1
+animated_SB_602,train,optimized,animated\audio\audio_602.wav,animated\images\img_602.npy,Climactic battle scene,1,1
+animated_SB_1006,train,optimized,animated\audio\audio_1006.wav,animated\images\img_1006.npy,Climactic battle scene,18,1
+animated_SB_1082,train,optimized,animated\audio\audio_1082.wav,animated\images\img_1082.npy,Villain sets a trap,6,1
+animated_SB_102,train,optimized,animated\audio\audio_102.wav,animated\images\img_102.npy,Villain sets a trap,1,1
+animated_SB_1180,train,optimized,animated\audio\audio_1180.wav,animated\images\img_1180.npy,Dialogue between characters,16,1
+animated_SB_1056,train,optimized,animated\audio\audio_1056.wav,animated\images\img_1056.npy,Climactic battle scene,17,1
+animated_SB_416,train,optimized,animated\audio\audio_416.wav,animated\images\img_416.npy,Villain sets a trap,9,1
+animated_SB_8,train,optimized,animated\audio\audio_8.wav,animated\images\img_8.npy,Villain sets a trap,11,1
+animated_SB_1240,train,optimized,animated\audio\audio_1240.wav,animated\images\img_1240.npy,Hero enters the room,14,1
+animated_SB_137,train,optimized,animated\audio\audio_137.wav,animated\images\img_137.npy,Hero enters the room,7,1
+animated_SB_75,train,optimized,animated\audio\audio_75.wav,animated\images\img_75.npy,Villain sets a trap,9,1
+animated_SB_948,train,optimized,animated\audio\audio_948.wav,animated\images\img_948.npy,Chase sequence begins,10,1
+animated_SB_836,train,optimized,animated\audio\audio_836.wav,animated\images\img_836.npy,Climactic battle scene,19,1
+animated_SB_1097,train,optimized,animated\audio\audio_1097.wav,animated\images\img_1097.npy,Hero enters the room,17,1
+animated_SB_582,train,optimized,animated\audio\audio_582.wav,animated\images\img_582.npy,Villain sets a trap,2,1
+animated_SB_732,train,optimized,animated\audio\audio_732.wav,animated\images\img_732.npy,Chase sequence begins,15,1
+animated_SB_1215,train,optimized,animated\audio\audio_1215.wav,animated\images\img_1215.npy,Chase sequence begins,13,1
+animated_SB_1101,train,optimized,animated\audio\audio_1101.wav,animated\images\img_1101.npy,Hero enters the room,1,1
+animated_SB_982,train,optimized,animated\audio\audio_982.wav,animated\images\img_982.npy,Climactic battle scene,8,1
+animated_SB_528,train,optimized,animated\audio\audio_528.wav,animated\images\img_528.npy,Villain sets a trap,5,1
+animated_SB_212,train,optimized,animated\audio\audio_212.wav,animated\images\img_212.npy,Climactic battle scene,12,1
+animated_SB_130,train,optimized,animated\audio\audio_130.wav,animated\images\img_130.npy,Chase sequence begins,2,1
+animated_SB_744,train,optimized,animated\audio\audio_744.wav,animated\images\img_744.npy,Villain sets a trap,5,1
+animated_SB_1205,train,optimized,animated\audio\audio_1205.wav,animated\images\img_1205.npy,Villain sets a trap,18,1
+animated_SB_123,train,optimized,animated\audio\audio_123.wav,animated\images\img_123.npy,Hero enters the room,13,1
+animated_SB_1177,train,optimized,animated\audio\audio_1177.wav,animated\images\img_1177.npy,Hero enters the room,7,1
+animated_SB_867,train,optimized,animated\audio\audio_867.wav,animated\images\img_867.npy,Chase sequence begins,8,1
+animated_SB_879,train,optimized,animated\audio\audio_879.wav,animated\images\img_879.npy,Hero enters the room,2,1
+animated_SB_887,train,optimized,animated\audio\audio_887.wav,animated\images\img_887.npy,Climactic battle scene,4,1
+animated_SB_309,train,optimized,animated\audio\audio_309.wav,animated\images\img_309.npy,Villain sets a trap,16,1
+animated_SB_716,train,optimized,animated\audio\audio_716.wav,animated\images\img_716.npy,Villain sets a trap,19,1
+animated_SB_382,train,optimized,animated\audio\audio_382.wav,animated\images\img_382.npy,Chase sequence begins,13,1
+animated_SB_308,train,optimized,animated\audio\audio_308.wav,animated\images\img_308.npy,Villain sets a trap,14,1
+animated_SB_542,train,optimized,animated\audio\audio_542.wav,animated\images\img_542.npy,Villain sets a trap,12,1
+animated_SB_1254,train,optimized,animated\audio\audio_1254.wav,animated\images\img_1254.npy,Villain sets a trap,13,1
+animated_SB_89,train,optimized,animated\audio\audio_89.wav,animated\images\img_89.npy,Hero enters the room,9,1
+animated_SB_559,train,optimized,animated\audio\audio_559.wav,animated\images\img_559.npy,Villain sets a trap,16,1
+animated_SB_198,train,optimized,animated\audio\audio_198.wav,animated\images\img_198.npy,Villain sets a trap,18,1
+animated_SB_636,train,optimized,animated\audio\audio_636.wav,animated\images\img_636.npy,Climactic battle scene,15,1
+animated_SB_960,train,optimized,animated\audio\audio_960.wav,animated\images\img_960.npy,Hero enters the room,19,1
+animated_SB_439,train,optimized,animated\audio\audio_439.wav,animated\images\img_439.npy,Villain sets a trap,3,1
+animated_SB_926,train,optimized,animated\audio\audio_926.wav,animated\images\img_926.npy,Dialogue between characters,5,1
+animated_SB_3,train,optimized,animated\audio\audio_3.wav,animated\images\img_3.npy,Climactic battle scene,11,1
+animated_SB_1226,train,optimized,animated\audio\audio_1226.wav,animated\images\img_1226.npy,Climactic battle scene,10,1
+animated_SB_246,train,optimized,animated\audio\audio_246.wav,animated\images\img_246.npy,Chase sequence begins,7,1
+animated_SB_565,train,optimized,animated\audio\audio_565.wav,animated\images\img_565.npy,Climactic battle scene,19,1
+animated_SB_193,train,optimized,animated\audio\audio_193.wav,animated\images\img_193.npy,Climactic battle scene,7,1
+animated_SB_391,train,optimized,animated\audio\audio_391.wav,animated\images\img_391.npy,Chase sequence begins,1,1
+animated_SB_1059,train,optimized,animated\audio\audio_1059.wav,animated\images\img_1059.npy,Chase sequence begins,17,1
+animated_SB_1219,train,optimized,animated\audio\audio_1219.wav,animated\images\img_1219.npy,Hero enters the room,7,1
+animated_SB_1178,train,optimized,animated\audio\audio_1178.wav,animated\images\img_1178.npy,Dialogue between characters,9,1
+animated_SB_1046,train,optimized,animated\audio\audio_1046.wav,animated\images\img_1046.npy,Climactic battle scene,3,1
+animated_SB_837,train,optimized,animated\audio\audio_837.wav,animated\images\img_837.npy,Villain sets a trap,14,1
+animated_SB_86,train,optimized,animated\audio\audio_86.wav,animated\images\img_86.npy,Climactic battle scene,5,1
+animated_SB_672,train,optimized,animated\audio\audio_672.wav,animated\images\img_672.npy,Dialogue between characters,19,1
+animated_SB_38,train,optimized,animated\audio\audio_38.wav,animated\images\img_38.npy,Villain sets a trap,15,1
+animated_SB_743,train,optimized,animated\audio\audio_743.wav,animated\images\img_743.npy,Hero enters the room,9,1
+animated_SB_591,train,optimized,animated\audio\audio_591.wav,animated\images\img_591.npy,Villain sets a trap,6,1
+animated_SB_963,train,optimized,animated\audio\audio_963.wav,animated\images\img_963.npy,Chase sequence begins,1,1
+animated_SB_414,train,optimized,animated\audio\audio_414.wav,animated\images\img_414.npy,Climactic battle scene,2,1
+animated_SB_322,train,optimized,animated\audio\audio_322.wav,animated\images\img_322.npy,Chase sequence begins,5,1
+animated_SB_1253,train,optimized,animated\audio\audio_1253.wav,animated\images\img_1253.npy,Chase sequence begins,11,1
+animated_SB_1112,train,optimized,animated\audio\audio_1112.wav,animated\images\img_1112.npy,Climactic battle scene,3,1
+animated_SB_316,train,optimized,animated\audio\audio_316.wav,animated\images\img_316.npy,Villain sets a trap,19,1
+animated_SB_325,train,optimized,animated\audio\audio_325.wav,animated\images\img_325.npy,Villain sets a trap,12,1
+animated_SB_648,train,optimized,animated\audio\audio_648.wav,animated\images\img_648.npy,Dialogue between characters,17,1
+animated_SB_351,train,optimized,animated\audio\audio_351.wav,animated\images\img_351.npy,Chase sequence begins,13,1
+animated_SB_1185,train,optimized,animated\audio\audio_1185.wav,animated\images\img_1185.npy,Chase sequence begins,3,1
+animated_SB_712,train,optimized,animated\audio\audio_712.wav,animated\images\img_712.npy,Hero enters the room,13,1
+animated_SB_740,train,optimized,animated\audio\audio_740.wav,animated\images\img_740.npy,Chase sequence begins,12,1
+animated_SB_1199,train,optimized,animated\audio\audio_1199.wav,animated\images\img_1199.npy,Climactic battle scene,12,1
+animated_SB_176,train,optimized,animated\audio\audio_176.wav,animated\images\img_176.npy,Hero enters the room,17,1
+animated_SB_986,train,optimized,animated\audio\audio_986.wav,animated\images\img_986.npy,Hero enters the room,14,1
+animated_SB_698,train,optimized,animated\audio\audio_698.wav,animated\images\img_698.npy,Chase sequence begins,15,1
+animated_SB_518,train,optimized,animated\audio\audio_518.wav,animated\images\img_518.npy,Dialogue between characters,17,1
+animated_SB_1249,train,optimized,animated\audio\audio_1249.wav,animated\images\img_1249.npy,Dialogue between characters,11,1
+animated_SB_172,train,optimized,animated\audio\audio_172.wav,animated\images\img_172.npy,Chase sequence begins,12,1
+animated_SB_566,train,optimized,animated\audio\audio_566.wav,animated\images\img_566.npy,Chase sequence begins,5,1
+animated_SB_260,train,optimized,animated\audio\audio_260.wav,animated\images\img_260.npy,Chase sequence begins,1,1
+animated_SB_17,train,optimized,animated\audio\audio_17.wav,animated\images\img_17.npy,Hero enters the room,12,1
+animated_SB_1169,train,optimized,animated\audio\audio_1169.wav,animated\images\img_1169.npy,Chase sequence begins,15,1
+animated_SB_87,train,optimized,animated\audio\audio_87.wav,animated\images\img_87.npy,Dialogue between characters,10,1
+animated_SB_23,train,optimized,animated\audio\audio_23.wav,animated\images\img_23.npy,Climactic battle scene,15,1
+animated_SB_846,train,optimized,animated\audio\audio_846.wav,animated\images\img_846.npy,Climactic battle scene,14,1
+animated_SB_1000,train,optimized,animated\audio\audio_1000.wav,animated\images\img_1000.npy,Dialogue between characters,10,1
+animated_SB_437,train,optimized,animated\audio\audio_437.wav,animated\images\img_437.npy,Dialogue between characters,17,1
+animated_SB_1094,train,optimized,animated\audio\audio_1094.wav,animated\images\img_1094.npy,Chase sequence begins,7,1
+animated_SB_664,train,optimized,animated\audio\audio_664.wav,animated\images\img_664.npy,Chase sequence begins,16,1
+animated_SB_780,train,optimized,animated\audio\audio_780.wav,animated\images\img_780.npy,Chase sequence begins,4,1
+animated_SB_495,train,optimized,animated\audio\audio_495.wav,animated\images\img_495.npy,Chase sequence begins,1,1
+animated_SB_1013,train,optimized,animated\audio\audio_1013.wav,animated\images\img_1013.npy,Chase sequence begins,5,1
+animated_SB_509,train,optimized,animated\audio\audio_509.wav,animated\images\img_509.npy,Villain sets a trap,13,1
+animated_SB_264,train,optimized,animated\audio\audio_264.wav,animated\images\img_264.npy,Villain sets a trap,16,1
+animated_SB_409,train,optimized,animated\audio\audio_409.wav,animated\images\img_409.npy,Hero enters the room,18,1
+animated_SB_723,train,optimized,animated\audio\audio_723.wav,animated\images\img_723.npy,Hero enters the room,12,1
+animated_SB_468,train,optimized,animated\audio\audio_468.wav,animated\images\img_468.npy,Chase sequence begins,5,1
+animated_SB_1229,train,optimized,animated\audio\audio_1229.wav,animated\images\img_1229.npy,Villain sets a trap,1,1
+animated_SB_1188,train,optimized,animated\audio\audio_1188.wav,animated\images\img_1188.npy,Villain sets a trap,7,1
+animated_SB_731,train,optimized,animated\audio\audio_731.wav,animated\images\img_731.npy,Dialogue between characters,18,1
+animated_SB_690,train,optimized,animated\audio\audio_690.wav,animated\images\img_690.npy,Climactic battle scene,11,1
+animated_SB_305,train,optimized,animated\audio\audio_305.wav,animated\images\img_305.npy,Climactic battle scene,13,1
+animated_SB_150,train,optimized,animated\audio\audio_150.wav,animated\images\img_150.npy,Climactic battle scene,10,1
+animated_SB_1130,train,optimized,animated\audio\audio_1130.wav,animated\images\img_1130.npy,Climactic battle scene,8,1
+animated_SB_1067,train,optimized,animated\audio\audio_1067.wav,animated\images\img_1067.npy,Dialogue between characters,13,1
+animated_SB_129,train,optimized,animated\audio\audio_129.wav,animated\images\img_129.npy,Chase sequence begins,19,1
+animated_SB_258,train,optimized,animated\audio\audio_258.wav,animated\images\img_258.npy,Hero enters the room,8,1
+animated_SB_725,train,optimized,animated\audio\audio_725.wav,animated\images\img_725.npy,Villain sets a trap,13,1
+animated_SB_703,train,optimized,animated\audio\audio_703.wav,animated\images\img_703.npy,Dialogue between characters,13,1
+animated_SB_546,train,optimized,animated\audio\audio_546.wav,animated\images\img_546.npy,Climactic battle scene,6,1
+animated_SB_1081,train,optimized,animated\audio\audio_1081.wav,animated\images\img_1081.npy,Chase sequence begins,9,1
+animated_SB_865,train,optimized,animated\audio\audio_865.wav,animated\images\img_865.npy,Chase sequence begins,7,1
+animated_SB_190,train,optimized,animated\audio\audio_190.wav,animated\images\img_190.npy,Villain sets a trap,19,1
+animated_SB_695,train,optimized,animated\audio\audio_695.wav,animated\images\img_695.npy,Hero enters the room,8,1
+animated_SB_874,train,optimized,animated\audio\audio_874.wav,animated\images\img_874.npy,Climactic battle scene,6,1
+animated_SB_222,train,optimized,animated\audio\audio_222.wav,animated\images\img_222.npy,Hero enters the room,1,1
+animated_SB_71,train,optimized,animated\audio\audio_71.wav,animated\images\img_71.npy,Climactic battle scene,15,1
+animated_SB_999,train,optimized,animated\audio\audio_999.wav,animated\images\img_999.npy,Climactic battle scene,3,1
+animated_SB_804,train,optimized,animated\audio\audio_804.wav,animated\images\img_804.npy,Dialogue between characters,8,1
+animated_SB_281,train,optimized,animated\audio\audio_281.wav,animated\images\img_281.npy,Chase sequence begins,3,1
+animated_SB_845,train,optimized,animated\audio\audio_845.wav,animated\images\img_845.npy,Climactic battle scene,8,1
+animated_SB_33,train,optimized,animated\audio\audio_33.wav,animated\images\img_33.npy,Climactic battle scene,4,1
+animated_SB_781,train,optimized,animated\audio\audio_781.wav,animated\images\img_781.npy,Hero enters the room,19,1
+animated_SB_771,train,optimized,animated\audio\audio_771.wav,animated\images\img_771.npy,Dialogue between characters,2,1
+animated_SB_597,train,optimized,animated\audio\audio_597.wav,animated\images\img_597.npy,Villain sets a trap,19,1
+animated_SB_828,train,optimized,animated\audio\audio_828.wav,animated\images\img_828.npy,Climactic battle scene,8,1
+animated_SB_413,train,optimized,animated\audio\audio_413.wav,animated\images\img_413.npy,Dialogue between characters,10,1
+animated_SB_5,train,optimized,animated\audio\audio_5.wav,animated\images\img_5.npy,Climactic battle scene,7,1
+animated_SB_662,train,optimized,animated\audio\audio_662.wav,animated\images\img_662.npy,Dialogue between characters,16,1
+animated_SB_73,train,optimized,animated\audio\audio_73.wav,animated\images\img_73.npy,Villain sets a trap,1,1
+animated_SB_551,train,optimized,animated\audio\audio_551.wav,animated\images\img_551.npy,Hero enters the room,18,1
+animated_SB_169,train,optimized,animated\audio\audio_169.wav,animated\images\img_169.npy,Dialogue between characters,1,1
+animated_SB_231,train,optimized,animated\audio\audio_231.wav,animated\images\img_231.npy,Climactic battle scene,3,1
+animated_SB_140,train,optimized,animated\audio\audio_140.wav,animated\images\img_140.npy,Villain sets a trap,13,1
+animated_SB_1102,train,optimized,animated\audio\audio_1102.wav,animated\images\img_1102.npy,Chase sequence begins,19,1
+animated_SB_1237,train,optimized,animated\audio\audio_1237.wav,animated\images\img_1237.npy,Villain sets a trap,5,1
+animated_SB_256,train,optimized,animated\audio\audio_256.wav,animated\images\img_256.npy,Hero enters the room,13,1
+animated_SB_949,train,optimized,animated\audio\audio_949.wav,animated\images\img_949.npy,Chase sequence begins,9,1
+animated_SB_630,train,optimized,animated\audio\audio_630.wav,animated\images\img_630.npy,Dialogue between characters,6,1
+animated_SB_200,train,optimized,animated\audio\audio_200.wav,animated\images\img_200.npy,Dialogue between characters,1,1
+animated_SB_94,train,optimized,animated\audio\audio_94.wav,animated\images\img_94.npy,Chase sequence begins,2,1
+animated_SB_1182,train,optimized,animated\audio\audio_1182.wav,animated\images\img_1182.npy,Climactic battle scene,18,1
+animated_SB_59,train,optimized,animated\audio\audio_59.wav,animated\images\img_59.npy,Climactic battle scene,14,1
+animated_SB_623,train,optimized,animated\audio\audio_623.wav,animated\images\img_623.npy,Dialogue between characters,15,1
+animated_SB_972,train,optimized,animated\audio\audio_972.wav,animated\images\img_972.npy,Hero enters the room,8,1
+animated_SB_850,train,optimized,animated\audio\audio_850.wav,animated\images\img_850.npy,Climactic battle scene,15,1
+animated_SB_1247,train,optimized,animated\audio\audio_1247.wav,animated\images\img_1247.npy,Chase sequence begins,5,1
+animated_SB_814,train,optimized,animated\audio\audio_814.wav,animated\images\img_814.npy,Dialogue between characters,3,1
+animated_SB_296,train,optimized,animated\audio\audio_296.wav,animated\images\img_296.npy,Climactic battle scene,11,1
+animated_SB_447,train,optimized,animated\audio\audio_447.wav,animated\images\img_447.npy,Chase sequence begins,4,1
+animated_SB_979,train,optimized,animated\audio\audio_979.wav,animated\images\img_979.npy,Villain sets a trap,17,1
+animated_SB_1012,train,optimized,animated\audio\audio_1012.wav,animated\images\img_1012.npy,Hero enters the room,15,1
+animated_SB_522,train,optimized,animated\audio\audio_522.wav,animated\images\img_522.npy,Dialogue between characters,12,1
+animated_SB_216,train,optimized,animated\audio\audio_216.wav,animated\images\img_216.npy,Chase sequence begins,9,1
+animated_SB_619,train,optimized,animated\audio\audio_619.wav,animated\images\img_619.npy,Hero enters the room,5,1
+animated_SB_810,train,optimized,animated\audio\audio_810.wav,animated\images\img_810.npy,Dialogue between characters,9,1
+animated_SB_609,train,optimized,animated\audio\audio_609.wav,animated\images\img_609.npy,Villain sets a trap,8,1
+animated_SB_417,train,optimized,animated\audio\audio_417.wav,animated\images\img_417.npy,Villain sets a trap,7,1
+animated_SB_556,train,optimized,animated\audio\audio_556.wav,animated\images\img_556.npy,Climactic battle scene,9,1
+animated_SB_105,train,optimized,animated\audio\audio_105.wav,animated\images\img_105.npy,Villain sets a trap,15,1
+animated_SB_237,train,optimized,animated\audio\audio_237.wav,animated\images\img_237.npy,Hero enters the room,16,1
+animated_SB_1152,train,optimized,animated\audio\audio_1152.wav,animated\images\img_1152.npy,Hero enters the room,10,1
+animated_SB_302,train,optimized,animated\audio\audio_302.wav,animated\images\img_302.npy,Chase sequence begins,13,1
+animated_SB_564,train,optimized,animated\audio\audio_564.wav,animated\images\img_564.npy,Dialogue between characters,18,1
+animated_SB_134,train,optimized,animated\audio\audio_134.wav,animated\images\img_134.npy,Dialogue between characters,12,1
+animated_SB_1063,train,optimized,animated\audio\audio_1063.wav,animated\images\img_1063.npy,Chase sequence begins,14,1
+animated_SB_785,train,optimized,animated\audio\audio_785.wav,animated\images\img_785.npy,Chase sequence begins,15,1
+animated_SB_696,train,optimized,animated\audio\audio_696.wav,animated\images\img_696.npy,Chase sequence begins,17,1
+animated_SB_633,train,optimized,animated\audio\audio_633.wav,animated\images\img_633.npy,Villain sets a trap,18,1
+animated_SB_576,train,optimized,animated\audio\audio_576.wav,animated\images\img_576.npy,Hero enters the room,15,1
+animated_SB_72,train,optimized,animated\audio\audio_72.wav,animated\images\img_72.npy,Dialogue between characters,13,1
+animated_SB_1242,train,optimized,animated\audio\audio_1242.wav,animated\images\img_1242.npy,Chase sequence begins,9,1
+animated_SB_407,train,optimized,animated\audio\audio_407.wav,animated\images\img_407.npy,Climactic battle scene,2,1
+animated_SB_65,train,optimized,animated\audio\audio_65.wav,animated\images\img_65.npy,Chase sequence begins,16,1
+animated_SB_103,train,optimized,animated\audio\audio_103.wav,animated\images\img_103.npy,Dialogue between characters,3,1
+animated_SB_1233,train,optimized,animated\audio\audio_1233.wav,animated\images\img_1233.npy,Climactic battle scene,14,1
+animated_SB_1089,train,optimized,animated\audio\audio_1089.wav,animated\images\img_1089.npy,Hero enters the room,6,1
+animated_SB_1070,train,optimized,animated\audio\audio_1070.wav,animated\images\img_1070.npy,Chase sequence begins,11,1
+animated_SB_826,train,optimized,animated\audio\audio_826.wav,animated\images\img_826.npy,Chase sequence begins,1,1
+animated_SB_941,train,optimized,animated\audio\audio_941.wav,animated\images\img_941.npy,Hero enters the room,1,1
+animated_SB_1196,train,optimized,animated\audio\audio_1196.wav,animated\images\img_1196.npy,Dialogue between characters,5,1
+animated_SB_485,train,optimized,animated\audio\audio_485.wav,animated\images\img_485.npy,Hero enters the room,9,1
+animated_SB_472,train,optimized,animated\audio\audio_472.wav,animated\images\img_472.npy,Hero enters the room,18,1
+animated_SB_277,train,optimized,animated\audio\audio_277.wav,animated\images\img_277.npy,Villain sets a trap,14,1
+animated_SB_574,train,optimized,animated\audio\audio_574.wav,animated\images\img_574.npy,Chase sequence begins,1,1
+animated_SB_1211,train,optimized,animated\audio\audio_1211.wav,animated\images\img_1211.npy,Hero enters the room,2,1
+animated_SB_97,train,optimized,animated\audio\audio_97.wav,animated\images\img_97.npy,Climactic battle scene,5,1
+animated_SB_895,train,optimized,animated\audio\audio_895.wav,animated\images\img_895.npy,Dialogue between characters,13,1
+animated_SB_755,train,optimized,animated\audio\audio_755.wav,animated\images\img_755.npy,Dialogue between characters,11,1
+animated_SB_641,train,optimized,animated\audio\audio_641.wav,animated\images\img_641.npy,Climactic battle scene,15,1
+animated_SB_792,train,optimized,animated\audio\audio_792.wav,animated\images\img_792.npy,Climactic battle scene,13,1
+animated_SB_705,train,optimized,animated\audio\audio_705.wav,animated\images\img_705.npy,Chase sequence begins,19,1
+animated_SB_288,train,optimized,animated\audio\audio_288.wav,animated\images\img_288.npy,Dialogue between characters,15,1
+animated_SB_1017,train,optimized,animated\audio\audio_1017.wav,animated\images\img_1017.npy,Chase sequence begins,15,1
+animated_SB_1162,train,optimized,animated\audio\audio_1162.wav,animated\images\img_1162.npy,Hero enters the room,6,1
+animated_SB_47,train,optimized,animated\audio\audio_47.wav,animated\images\img_47.npy,Hero enters the room,18,1
+animated_SB_265,train,optimized,animated\audio\audio_265.wav,animated\images\img_265.npy,Villain sets a trap,19,1
+animated_SB_117,train,optimized,animated\audio\audio_117.wav,animated\images\img_117.npy,Villain sets a trap,19,1
+animated_SB_537,train,optimized,animated\audio\audio_537.wav,animated\images\img_537.npy,Villain sets a trap,15,1
+animated_SB_715,train,optimized,animated\audio\audio_715.wav,animated\images\img_715.npy,Chase sequence begins,3,1
+animated_SB_13,train,optimized,animated\audio\audio_13.wav,animated\images\img_13.npy,Villain sets a trap,12,1
+animated_SB_1251,train,optimized,animated\audio\audio_1251.wav,animated\images\img_1251.npy,Hero enters the room,7,1
+animated_SB_174,train,optimized,animated\audio\audio_174.wav,animated\images\img_174.npy,Dialogue between characters,4,1
+animated_SB_366,train,optimized,animated\audio\audio_366.wav,animated\images\img_366.npy,Hero enters the room,5,1
+animated_SB_217,train,optimized,animated\audio\audio_217.wav,animated\images\img_217.npy,Hero enters the room,3,1
+animated_SB_293,train,optimized,animated\audio\audio_293.wav,animated\images\img_293.npy,Villain sets a trap,8,1
+animated_SB_187,train,optimized,animated\audio\audio_187.wav,animated\images\img_187.npy,Dialogue between characters,16,1
+animated_SB_1142,train,optimized,animated\audio\audio_1142.wav,animated\images\img_1142.npy,Dialogue between characters,12,1
+animated_SB_276,train,optimized,animated\audio\audio_276.wav,animated\images\img_276.npy,Hero enters the room,17,1
+animated_SB_937,train,optimized,animated\audio\audio_937.wav,animated\images\img_937.npy,Dialogue between characters,14,1
+animated_SB_524,train,optimized,animated\audio\audio_524.wav,animated\images\img_524.npy,Villain sets a trap,13,1
+animated_SB_1213,train,optimized,animated\audio\audio_1213.wav,animated\images\img_1213.npy,Climactic battle scene,10,1
+animated_SB_589,train,optimized,animated\audio\audio_589.wav,animated\images\img_589.npy,Chase sequence begins,5,1
+animated_SB_1022,train,optimized,animated\audio\audio_1022.wav,animated\images\img_1022.npy,Hero enters the room,14,1
+animated_SB_1232,train,optimized,animated\audio\audio_1232.wav,animated\images\img_1232.npy,Dialogue between characters,13,1
+animated_SB_489,train,optimized,animated\audio\audio_489.wav,animated\images\img_489.npy,Climactic battle scene,5,1
+animated_SB_746,train,optimized,animated\audio\audio_746.wav,animated\images\img_746.npy,Climactic battle scene,2,1
+animated_SB_1074,train,optimized,animated\audio\audio_1074.wav,animated\images\img_1074.npy,Dialogue between characters,2,1
+animated_SB_1202,train,optimized,animated\audio\audio_1202.wav,animated\images\img_1202.npy,Climactic battle scene,17,1
+animated_SB_179,train,optimized,animated\audio\audio_179.wav,animated\images\img_179.npy,Climactic battle scene,2,1
+animated_SB_902,train,optimized,animated\audio\audio_902.wav,animated\images\img_902.npy,Dialogue between characters,5,1
+animated_SB_769,train,optimized,animated\audio\audio_769.wav,animated\images\img_769.npy,Climactic battle scene,6,1
+animated_SB_1005,train,optimized,animated\audio\audio_1005.wav,animated\images\img_1005.npy,Dialogue between characters,1,1
+animated_SB_748,train,optimized,animated\audio\audio_748.wav,animated\images\img_748.npy,Villain sets a trap,6,1
+animated_SB_1122,train,optimized,animated\audio\audio_1122.wav,animated\images\img_1122.npy,Climactic battle scene,17,1
+animated_SB_310,train,optimized,animated\audio\audio_310.wav,animated\images\img_310.npy,Dialogue between characters,14,1
+animated_SB_185,train,optimized,animated\audio\audio_185.wav,animated\images\img_185.npy,Hero enters the room,9,1
+animated_SB_729,train,optimized,animated\audio\audio_729.wav,animated\images\img_729.npy,Hero enters the room,9,1
+animated_SB_112,train,optimized,animated\audio\audio_112.wav,animated\images\img_112.npy,Climactic battle scene,9,1
+animated_SB_221,train,optimized,animated\audio\audio_221.wav,animated\images\img_221.npy,Chase sequence begins,3,1
+animated_SB_238,train,optimized,animated\audio\audio_238.wav,animated\images\img_238.npy,Chase sequence begins,9,1
+animated_SB_990,train,optimized,animated\audio\audio_990.wav,animated\images\img_990.npy,Villain sets a trap,2,1
+animated_SB_1157,train,optimized,animated\audio\audio_1157.wav,animated\images\img_1157.npy,Chase sequence begins,19,1
+animated_SB_457,train,optimized,animated\audio\audio_457.wav,animated\images\img_457.npy,Climactic battle scene,16,1
+animated_SB_936,train,optimized,animated\audio\audio_936.wav,animated\images\img_936.npy,Villain sets a trap,1,1
+animated_SB_1015,train,optimized,animated\audio\audio_1015.wav,animated\images\img_1015.npy,Dialogue between characters,19,1
+animated_SB_1173,train,optimized,animated\audio\audio_1173.wav,animated\images\img_1173.npy,Hero enters the room,17,1
+animated_SB_550,train,optimized,animated\audio\audio_550.wav,animated\images\img_550.npy,Chase sequence begins,8,1
+animated_SB_751,train,optimized,animated\audio\audio_751.wav,animated\images\img_751.npy,Hero enters the room,6,1
+animated_SB_422,train,optimized,animated\audio\audio_422.wav,animated\images\img_422.npy,Climactic battle scene,4,1
+animated_SB_341,train,optimized,animated\audio\audio_341.wav,animated\images\img_341.npy,Villain sets a trap,19,1
+animated_SB_529,train,optimized,animated\audio\audio_529.wav,animated\images\img_529.npy,Villain sets a trap,4,1
+animated_SB_552,train,optimized,animated\audio\audio_552.wav,animated\images\img_552.npy,Chase sequence begins,5,1
+animated_SB_478,val,optimized,animated\audio\audio_478.wav,animated\images\img_478.npy,Villain sets a trap,17,1
+animated_SB_374,val,optimized,animated\audio\audio_374.wav,animated\images\img_374.npy,Hero enters the room,10,1
+animated_SB_580,val,optimized,animated\audio\audio_580.wav,animated\images\img_580.npy,Climactic battle scene,13,1
+animated_SB_670,val,optimized,animated\audio\audio_670.wav,animated\images\img_670.npy,Climactic battle scene,3,1
+animated_SB_1038,val,optimized,animated\audio\audio_1038.wav,animated\images\img_1038.npy,Hero enters the room,18,1
+animated_SB_1026,val,optimized,animated\audio\audio_1026.wav,animated\images\img_1026.npy,Dialogue between characters,5,1
+animated_SB_701,val,optimized,animated\audio\audio_701.wav,animated\images\img_701.npy,Climactic battle scene,14,1
+animated_SB_410,val,optimized,animated\audio\audio_410.wav,animated\images\img_410.npy,Chase sequence begins,3,1
+animated_SB_214,val,optimized,animated\audio\audio_214.wav,animated\images\img_214.npy,Villain sets a trap,5,1
+animated_SB_290,val,optimized,animated\audio\audio_290.wav,animated\images\img_290.npy,Chase sequence begins,10,1
+animated_SB_88,val,optimized,animated\audio\audio_88.wav,animated\images\img_88.npy,Climactic battle scene,7,1
+animated_SB_14,val,optimized,animated\audio\audio_14.wav,animated\images\img_14.npy,Dialogue between characters,6,1
+animated_SB_797,val,optimized,animated\audio\audio_797.wav,animated\images\img_797.npy,Dialogue between characters,18,1
+animated_SB_1109,val,optimized,animated\audio\audio_1109.wav,animated\images\img_1109.npy,Climactic battle scene,17,1
+animated_SB_494,val,optimized,animated\audio\audio_494.wav,animated\images\img_494.npy,Climactic battle scene,13,1
+animated_SB_717,val,optimized,animated\audio\audio_717.wav,animated\images\img_717.npy,Climactic battle scene,15,1
+animated_SB_649,val,optimized,animated\audio\audio_649.wav,animated\images\img_649.npy,Chase sequence begins,10,1
+animated_SB_480,val,optimized,animated\audio\audio_480.wav,animated\images\img_480.npy,Villain sets a trap,7,1
+animated_SB_699,val,optimized,animated\audio\audio_699.wav,animated\images\img_699.npy,Chase sequence begins,15,1
+animated_SB_917,val,optimized,animated\audio\audio_917.wav,animated\images\img_917.npy,Climactic battle scene,15,1
+animated_SB_1127,val,optimized,animated\audio\audio_1127.wav,animated\images\img_1127.npy,Dialogue between characters,2,1
+animated_SB_1009,val,optimized,animated\audio\audio_1009.wav,animated\images\img_1009.npy,Climactic battle scene,1,1
+animated_SB_493,val,optimized,animated\audio\audio_493.wav,animated\images\img_493.npy,Villain sets a trap,16,1
+animated_SB_411,val,optimized,animated\audio\audio_411.wav,animated\images\img_411.npy,Chase sequence begins,17,1
+animated_SB_728,val,optimized,animated\audio\audio_728.wav,animated\images\img_728.npy,Hero enters the room,3,1
+animated_SB_1052,val,optimized,animated\audio\audio_1052.wav,animated\images\img_1052.npy,Villain sets a trap,2,1
+animated_SB_82,val,optimized,animated\audio\audio_82.wav,animated\images\img_82.npy,Hero enters the room,8,1
+animated_SB_184,val,optimized,animated\audio\audio_184.wav,animated\images\img_184.npy,Dialogue between characters,1,1
+animated_SB_517,val,optimized,animated\audio\audio_517.wav,animated\images\img_517.npy,Hero enters the room,13,1
+animated_SB_11,val,optimized,animated\audio\audio_11.wav,animated\images\img_11.npy,Hero enters the room,3,1
+animated_SB_1125,val,optimized,animated\audio\audio_1125.wav,animated\images\img_1125.npy,Dialogue between characters,2,1
+animated_SB_1252,val,optimized,animated\audio\audio_1252.wav,animated\images\img_1252.npy,Villain sets a trap,14,1
+animated_SB_1116,val,optimized,animated\audio\audio_1116.wav,animated\images\img_1116.npy,Climactic battle scene,1,1
+animated_SB_710,val,optimized,animated\audio\audio_710.wav,animated\images\img_710.npy,Chase sequence begins,11,1
+animated_SB_1208,val,optimized,animated\audio\audio_1208.wav,animated\images\img_1208.npy,Villain sets a trap,13,1
+animated_SB_877,val,optimized,animated\audio\audio_877.wav,animated\images\img_877.npy,Villain sets a trap,1,1
+animated_SB_274,val,optimized,animated\audio\audio_274.wav,animated\images\img_274.npy,Hero enters the room,9,1
+animated_SB_334,val,optimized,animated\audio\audio_334.wav,animated\images\img_334.npy,Villain sets a trap,8,1
+animated_SB_250,val,optimized,animated\audio\audio_250.wav,animated\images\img_250.npy,Villain sets a trap,16,1
+animated_SB_801,val,optimized,animated\audio\audio_801.wav,animated\images\img_801.npy,Villain sets a trap,12,1
+animated_SB_358,val,optimized,animated\audio\audio_358.wav,animated\images\img_358.npy,Villain sets a trap,16,1
+animated_SB_1025,val,optimized,animated\audio\audio_1025.wav,animated\images\img_1025.npy,Dialogue between characters,4,1
+animated_SB_492,val,optimized,animated\audio\audio_492.wav,animated\images\img_492.npy,Chase sequence begins,8,1
+animated_SB_178,val,optimized,animated\audio\audio_178.wav,animated\images\img_178.npy,Chase sequence begins,5,1
+animated_SB_320,val,optimized,animated\audio\audio_320.wav,animated\images\img_320.npy,Climactic battle scene,15,1
+animated_SB_852,val,optimized,animated\audio\audio_852.wav,animated\images\img_852.npy,Villain sets a trap,17,1
+animated_SB_1198,val,optimized,animated\audio\audio_1198.wav,animated\images\img_1198.npy,Hero enters the room,8,1
+animated_SB_29,val,optimized,animated\audio\audio_29.wav,animated\images\img_29.npy,Hero enters the room,7,1
+animated_SB_327,val,optimized,animated\audio\audio_327.wav,animated\images\img_327.npy,Chase sequence begins,5,1
+animated_SB_385,val,optimized,animated\audio\audio_385.wav,animated\images\img_385.npy,Dialogue between characters,16,1
+animated_SB_674,val,optimized,animated\audio\audio_674.wav,animated\images\img_674.npy,Villain sets a trap,5,1
+animated_SB_613,val,optimized,animated\audio\audio_613.wav,animated\images\img_613.npy,Villain sets a trap,2,1
+animated_SB_569,val,optimized,animated\audio\audio_569.wav,animated\images\img_569.npy,Chase sequence begins,10,1
+animated_SB_463,val,optimized,animated\audio\audio_463.wav,animated\images\img_463.npy,Villain sets a trap,7,1
+animated_SB_1066,val,optimized,animated\audio\audio_1066.wav,animated\images\img_1066.npy,Climactic battle scene,2,1
+animated_SB_233,val,optimized,animated\audio\audio_233.wav,animated\images\img_233.npy,Villain sets a trap,14,1
+animated_SB_452,val,optimized,animated\audio\audio_452.wav,animated\images\img_452.npy,Chase sequence begins,9,1
+animated_SB_878,val,optimized,animated\audio\audio_878.wav,animated\images\img_878.npy,Climactic battle scene,4,1
+animated_SB_273,val,optimized,animated\audio\audio_273.wav,animated\images\img_273.npy,Dialogue between characters,3,1
+animated_SB_83,val,optimized,animated\audio\audio_83.wav,animated\images\img_83.npy,Dialogue between characters,3,1
+animated_SB_1172,val,optimized,animated\audio\audio_1172.wav,animated\images\img_1172.npy,Dialogue between characters,7,1
+animated_SB_1230,val,optimized,animated\audio\audio_1230.wav,animated\images\img_1230.npy,Villain sets a trap,17,1
+animated_SB_235,val,optimized,animated\audio\audio_235.wav,animated\images\img_235.npy,Climactic battle scene,2,1
+animated_SB_854,val,optimized,animated\audio\audio_854.wav,animated\images\img_854.npy,Climactic battle scene,15,1
+animated_SB_317,val,optimized,animated\audio\audio_317.wav,animated\images\img_317.npy,Dialogue between characters,17,1
+animated_SB_541,val,optimized,animated\audio\audio_541.wav,animated\images\img_541.npy,Dialogue between characters,11,1
+animated_SB_1184,val,optimized,animated\audio\audio_1184.wav,animated\images\img_1184.npy,Villain sets a trap,7,1
+animated_SB_1083,val,optimized,animated\audio\audio_1083.wav,animated\images\img_1083.npy,Climactic battle scene,2,1
+animated_SB_968,val,optimized,animated\audio\audio_968.wav,animated\images\img_968.npy,Chase sequence begins,7,1
+animated_SB_544,val,optimized,animated\audio\audio_544.wav,animated\images\img_544.npy,Dialogue between characters,16,1
+animated_SB_356,val,optimized,animated\audio\audio_356.wav,animated\images\img_356.npy,Hero enters the room,3,1
+animated_SB_868,val,optimized,animated\audio\audio_868.wav,animated\images\img_868.npy,Chase sequence begins,10,1
+animated_SB_1091,val,optimized,animated\audio\audio_1091.wav,animated\images\img_1091.npy,Chase sequence begins,2,1
+animated_SB_915,val,optimized,animated\audio\audio_915.wav,animated\images\img_915.npy,Climactic battle scene,18,1
+animated_SB_730,val,optimized,animated\audio\audio_730.wav,animated\images\img_730.npy,Dialogue between characters,13,1
+animated_SB_866,val,optimized,animated\audio\audio_866.wav,animated\images\img_866.npy,Villain sets a trap,19,1
+animated_SB_203,val,optimized,animated\audio\audio_203.wav,animated\images\img_203.npy,Hero enters the room,10,1
+animated_SB_977,val,optimized,animated\audio\audio_977.wav,animated\images\img_977.npy,Chase sequence begins,19,1
+animated_SB_1225,val,optimized,animated\audio\audio_1225.wav,animated\images\img_1225.npy,Climactic battle scene,15,1
+animated_SB_21,val,optimized,animated\audio\audio_21.wav,animated\images\img_21.npy,Villain sets a trap,16,1
+animated_SB_693,val,optimized,animated\audio\audio_693.wav,animated\images\img_693.npy,Hero enters the room,4,1
+animated_SB_1019,val,optimized,animated\audio\audio_1019.wav,animated\images\img_1019.npy,Villain sets a trap,2,1
+animated_SB_1106,val,optimized,animated\audio\audio_1106.wav,animated\images\img_1106.npy,Dialogue between characters,8,1
+animated_SB_747,val,optimized,animated\audio\audio_747.wav,animated\images\img_747.npy,Dialogue between characters,13,1
+animated_SB_1159,val,optimized,animated\audio\audio_1159.wav,animated\images\img_1159.npy,Chase sequence begins,17,1
+animated_SB_702,val,optimized,animated\audio\audio_702.wav,animated\images\img_702.npy,Chase sequence begins,2,1
+animated_SB_80,val,optimized,animated\audio\audio_80.wav,animated\images\img_80.npy,Dialogue between characters,19,1
+animated_SB_232,val,optimized,animated\audio\audio_232.wav,animated\images\img_232.npy,Villain sets a trap,18,1
+animated_SB_604,val,optimized,animated\audio\audio_604.wav,animated\images\img_604.npy,Hero enters the room,13,1
+animated_SB_197,val,optimized,animated\audio\audio_197.wav,animated\images\img_197.npy,Chase sequence begins,7,1
+animated_SB_491,val,optimized,animated\audio\audio_491.wav,animated\images\img_491.npy,Dialogue between characters,19,1
+animated_SB_135,val,optimized,animated\audio\audio_135.wav,animated\images\img_135.npy,Hero enters the room,12,1
+animated_SB_402,val,optimized,animated\audio\audio_402.wav,animated\images\img_402.npy,Hero enters the room,11,1
+animated_SB_798,val,optimized,animated\audio\audio_798.wav,animated\images\img_798.npy,Climactic battle scene,10,1
+animated_SB_754,val,optimized,animated\audio\audio_754.wav,animated\images\img_754.npy,Villain sets a trap,4,1
+animated_SB_629,val,optimized,animated\audio\audio_629.wav,animated\images\img_629.npy,Climactic battle scene,7,1
+animated_SB_52,test,optimized,animated\audio\audio_52.wav,animated\images\img_52.npy,Hero enters the room,10,1
+animated_SB_210,test,optimized,animated\audio\audio_210.wav,animated\images\img_210.npy,Climactic battle scene,1,1
+animated_SB_627,test,optimized,animated\audio\audio_627.wav,animated\images\img_627.npy,Climactic battle scene,11,1
+animated_SB_321,test,optimized,animated\audio\audio_321.wav,animated\images\img_321.npy,Hero enters the room,11,1
+animated_SB_1113,test,optimized,animated\audio\audio_1113.wav,animated\images\img_1113.npy,Villain sets a trap,2,1
+animated_SB_326,test,optimized,animated\audio\audio_326.wav,animated\images\img_326.npy,Climactic battle scene,12,1
+animated_SB_745,test,optimized,animated\audio\audio_745.wav,animated\images\img_745.npy,Villain sets a trap,6,1
+animated_SB_515,test,optimized,animated\audio\audio_515.wav,animated\images\img_515.npy,Hero enters the room,1,1
+animated_SB_930,test,optimized,animated\audio\audio_930.wav,animated\images\img_930.npy,Villain sets a trap,9,1
+animated_SB_440,test,optimized,animated\audio\audio_440.wav,animated\images\img_440.npy,Hero enters the room,9,1
+animated_SB_220,test,optimized,animated\audio\audio_220.wav,animated\images\img_220.npy,Chase sequence begins,16,1
+animated_SB_943,test,optimized,animated\audio\audio_943.wav,animated\images\img_943.npy,Hero enters the room,8,1
+animated_SB_242,test,optimized,animated\audio\audio_242.wav,animated\images\img_242.npy,Hero enters the room,1,1
+animated_SB_482,test,optimized,animated\audio\audio_482.wav,animated\images\img_482.npy,Hero enters the room,13,1
+animated_SB_1248,test,optimized,animated\audio\audio_1248.wav,animated\images\img_1248.npy,Chase sequence begins,5,1
+animated_SB_1217,test,optimized,animated\audio\audio_1217.wav,animated\images\img_1217.npy,Dialogue between characters,18,1
+animated_SB_404,test,optimized,animated\audio\audio_404.wav,animated\images\img_404.npy,Climactic battle scene,13,1
+animated_SB_500,test,optimized,animated\audio\audio_500.wav,animated\images\img_500.npy,Hero enters the room,4,1
+animated_SB_61,test,optimized,animated\audio\audio_61.wav,animated\images\img_61.npy,Villain sets a trap,15,1
+animated_SB_77,test,optimized,animated\audio\audio_77.wav,animated\images\img_77.npy,Climactic battle scene,12,1
+animated_SB_126,test,optimized,animated\audio\audio_126.wav,animated\images\img_126.npy,Chase sequence begins,4,1
+animated_SB_451,test,optimized,animated\audio\audio_451.wav,animated\images\img_451.npy,Villain sets a trap,12,1
+animated_SB_709,test,optimized,animated\audio\audio_709.wav,animated\images\img_709.npy,Climactic battle scene,14,1
+animated_SB_98,test,optimized,animated\audio\audio_98.wav,animated\images\img_98.npy,Villain sets a trap,3,1
+animated_SB_1086,test,optimized,animated\audio\audio_1086.wav,animated\images\img_1086.npy,Climactic battle scene,6,1
+animated_SB_39,test,optimized,animated\audio\audio_39.wav,animated\images\img_39.npy,Dialogue between characters,7,1
+animated_SB_938,test,optimized,animated\audio\audio_938.wav,animated\images\img_938.npy,Hero enters the room,5,1
+animated_SB_146,test,optimized,animated\audio\audio_146.wav,animated\images\img_146.npy,Chase sequence begins,9,1
+animated_SB_511,test,optimized,animated\audio\audio_511.wav,animated\images\img_511.npy,Dialogue between characters,18,1
+animated_SB_844,test,optimized,animated\audio\audio_844.wav,animated\images\img_844.npy,Hero enters the room,7,1
+animated_SB_555,test,optimized,animated\audio\audio_555.wav,animated\images\img_555.npy,Chase sequence begins,17,1
+animated_SB_1135,test,optimized,animated\audio\audio_1135.wav,animated\images\img_1135.npy,Climactic battle scene,10,1
+animated_SB_685,test,optimized,animated\audio\audio_685.wav,animated\images\img_685.npy,Villain sets a trap,14,1
+animated_SB_658,test,optimized,animated\audio\audio_658.wav,animated\images\img_658.npy,Chase sequence begins,16,1
+animated_SB_903,test,optimized,animated\audio\audio_903.wav,animated\images\img_903.npy,Climactic battle scene,11,1
+animated_SB_421,test,optimized,animated\audio\audio_421.wav,animated\images\img_421.npy,Villain sets a trap,11,1
+animated_SB_660,test,optimized,animated\audio\audio_660.wav,animated\images\img_660.npy,Hero enters the room,19,1
+animated_SB_764,test,optimized,animated\audio\audio_764.wav,animated\images\img_764.npy,Hero enters the room,11,1
+animated_SB_519,test,optimized,animated\audio\audio_519.wav,animated\images\img_519.npy,Chase sequence begins,1,1
+animated_SB_96,test,optimized,animated\audio\audio_96.wav,animated\images\img_96.npy,Dialogue between characters,16,1
+animated_SB_369,test,optimized,animated\audio\audio_369.wav,animated\images\img_369.npy,Hero enters the room,16,1
+animated_SB_921,test,optimized,animated\audio\audio_921.wav,animated\images\img_921.npy,Chase sequence begins,12,1
+animated_SB_261,test,optimized,animated\audio\audio_261.wav,animated\images\img_261.npy,Villain sets a trap,15,1
+animated_SB_856,test,optimized,animated\audio\audio_856.wav,animated\images\img_856.npy,Hero enters the room,14,1
+animated_SB_158,test,optimized,animated\audio\audio_158.wav,animated\images\img_158.npy,Villain sets a trap,2,1
+animated_SB_1166,test,optimized,animated\audio\audio_1166.wav,animated\images\img_1166.npy,Climactic battle scene,15,1
+animated_SB_1133,test,optimized,animated\audio\audio_1133.wav,animated\images\img_1133.npy,Chase sequence begins,11,1
+animated_SB_795,test,optimized,animated\audio\audio_795.wav,animated\images\img_795.npy,Chase sequence begins,1,1
+animated_SB_53,test,optimized,animated\audio\audio_53.wav,animated\images\img_53.npy,Climactic battle scene,4,1
+animated_SB_1078,test,optimized,animated\audio\audio_1078.wav,animated\images\img_1078.npy,Hero enters the room,18,1
+animated_SB_244,test,optimized,animated\audio\audio_244.wav,animated\images\img_244.npy,Chase sequence begins,16,1
+animated_SB_934,test,optimized,animated\audio\audio_934.wav,animated\images\img_934.npy,Hero enters the room,9,1
+animated_SB_323,test,optimized,animated\audio\audio_323.wav,animated\images\img_323.npy,Hero enters the room,1,1
+animated_SB_812,test,optimized,animated\audio\audio_812.wav,animated\images\img_812.npy,Hero enters the room,15,1
+animated_SB_678,test,optimized,animated\audio\audio_678.wav,animated\images\img_678.npy,Villain sets a trap,1,1
+animated_SB_1222,test,optimized,animated\audio\audio_1222.wav,animated\images\img_1222.npy,Villain sets a trap,12,1
+animated_SB_57,test,optimized,animated\audio\audio_57.wav,animated\images\img_57.npy,Chase sequence begins,10,1
+animated_SB_970,test,optimized,animated\audio\audio_970.wav,animated\images\img_970.npy,Chase sequence begins,9,1
+animated_SB_869,test,optimized,animated\audio\audio_869.wav,animated\images\img_869.npy,Villain sets a trap,15,1
+animated_SB_547,test,optimized,animated\audio\audio_547.wav,animated\images\img_547.npy,Climactic battle scene,12,1
+animated_SB_441,test,optimized,animated\audio\audio_441.wav,animated\images\img_441.npy,Villain sets a trap,17,1
+animated_SB_973,test,optimized,animated\audio\audio_973.wav,animated\images\img_973.npy,Climactic battle scene,17,1
+animated_SB_443,test,optimized,animated\audio\audio_443.wav,animated\images\img_443.npy,Hero enters the room,16,1
+animated_SB_1099,test,optimized,animated\audio\audio_1099.wav,animated\images\img_1099.npy,Climactic battle scene,2,1
+animated_SB_1084,test,optimized,animated\audio\audio_1084.wav,animated\images\img_1084.npy,Chase sequence begins,17,1
+animated_SB_838,test,optimized,animated\audio\audio_838.wav,animated\images\img_838.npy,Dialogue between characters,4,1
+animated_SB_789,test,optimized,animated\audio\audio_789.wav,animated\images\img_789.npy,Villain sets a trap,5,1
+animated_SB_601,test,optimized,animated\audio\audio_601.wav,animated\images\img_601.npy,Hero enters the room,14,1
+animated_SB_711,test,optimized,animated\audio\audio_711.wav,animated\images\img_711.npy,Villain sets a trap,15,1
+animated_SB_12,test,optimized,animated\audio\audio_12.wav,animated\images\img_12.npy,Hero enters the room,2,1
+animated_SB_950,test,optimized,animated\audio\audio_950.wav,animated\images\img_950.npy,Dialogue between characters,3,1
+animated_SB_767,test,optimized,animated\audio\audio_767.wav,animated\images\img_767.npy,Chase sequence begins,6,1
+animated_SB_1164,test,optimized,animated\audio\audio_1164.wav,animated\images\img_1164.npy,Chase sequence begins,18,1
+animated_SB_41,test,optimized,animated\audio\audio_41.wav,animated\images\img_41.npy,Dialogue between characters,8,1
+animated_SB_1181,test,optimized,animated\audio\audio_1181.wav,animated\images\img_1181.npy,Chase sequence begins,8,1
+animated_SB_787,test,optimized,animated\audio\audio_787.wav,animated\images\img_787.npy,Climactic battle scene,14,1
+animated_SB_839,test,optimized,animated\audio\audio_839.wav,animated\images\img_839.npy,Climactic battle scene,13,1
+animated_SB_415,test,optimized,animated\audio\audio_415.wav,animated\images\img_415.npy,Chase sequence begins,19,1
+animated_SB_116,test,optimized,animated\audio\audio_116.wav,animated\images\img_116.npy,Hero enters the room,13,1
+animated_SB_834,test,optimized,animated\audio\audio_834.wav,animated\images\img_834.npy,Climactic battle scene,5,1
+animated_SB_933,test,optimized,animated\audio\audio_933.wav,animated\images\img_933.npy,Hero enters the room,8,1
+animated_SB_1090,test,optimized,animated\audio\audio_1090.wav,animated\images\img_1090.npy,Villain sets a trap,8,1
+animated_SB_669,test,optimized,animated\audio\audio_669.wav,animated\images\img_669.npy,Chase sequence begins,3,1
+animated_SB_817,test,optimized,animated\audio\audio_817.wav,animated\images\img_817.npy,Chase sequence begins,12,1
+animated_SB_831,test,optimized,animated\audio\audio_831.wav,animated\images\img_831.npy,Dialogue between characters,5,1
+animated_SB_118,test,optimized,animated\audio\audio_118.wav,animated\images\img_118.npy,Chase sequence begins,7,1
+animated_SB_430,test,optimized,animated\audio\audio_430.wav,animated\images\img_430.npy,Hero enters the room,16,1
+animated_SB_304,test,optimized,animated\audio\audio_304.wav,animated\images\img_304.npy,Climactic battle scene,4,1
+animated_SB_775,test,optimized,animated\audio\audio_775.wav,animated\images\img_775.npy,Climactic battle scene,19,1
+animated_SB_462,test,optimized,animated\audio\audio_462.wav,animated\images\img_462.npy,Villain sets a trap,16,1
+animated_SB_301,test,optimized,animated\audio\audio_301.wav,animated\images\img_301.npy,Dialogue between characters,18,1
+animated_SB_271,test,optimized,animated\audio\audio_271.wav,animated\images\img_271.npy,Climactic battle scene,14,1
+animated_SB_143,test,optimized,animated\audio\audio_143.wav,animated\images\img_143.npy,Villain sets a trap,7,1
+animated_SB_1088,test,optimized,animated\audio\audio_1088.wav,animated\images\img_1088.npy,Hero enters the room,10,1
+animated_SB_643,test,optimized,animated\audio\audio_643.wav,animated\images\img_643.npy,Dialogue between characters,19,1
+animated_SB_676,test,optimized,animated\audio\audio_676.wav,animated\images\img_676.npy,Chase sequence begins,10,1

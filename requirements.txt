@@ -1,0 +1,16 @@
+torch
+torchvision
+transformers
+librosa
+Pillow
+scikit-learn
+matplotlib
+seaborn
+tqdm
+wandb
+pandas
+numpy
+soundfile
+streamlit
+kaggle
+kagglehub[pandas-datasets]
