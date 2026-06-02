@@ -11,12 +11,14 @@ outputs/
 *.log
 *.zip
 data/raw/
+data/processed/
 features/**/*.pt
 features/*.pt
 models/**/*.pt
 models/*.pt
 !models/best_model.pt
 !models/animated/best_model.pt
+!models/ravdess/best_model.pt
 results/**/*.png
 results/*.png
 results/**/*.json

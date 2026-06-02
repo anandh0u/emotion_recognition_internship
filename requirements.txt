@@ -14,3 +14,5 @@ soundfile
 streamlit
 kaggle
 kagglehub[pandas-datasets]
+opencv-python-headless
+imageio-ffmpeg

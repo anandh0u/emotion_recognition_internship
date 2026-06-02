@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import subprocess
 import zipfile
 from collections import Counter
 from pathlib import Path
@@ -29,9 +30,16 @@ def count_extensions(paths: list[Path]) -> dict[str, int]:
 
 
 def inspect_zip(path: Path) -> dict[str, Any]:
-    with zipfile.ZipFile(path) as archive:
-        names = [name for name in archive.namelist() if not name.endswith("/")]
+    try:
+        with zipfile.ZipFile(path) as archive:
+            names = [name for name in archive.namelist() if not name.endswith("/")]
+        reader = "zipfile"
+    except zipfile.BadZipFile:
+        result = subprocess.run(["tar", "-tf", str(path)], check=True, capture_output=True, text=True)
+        names = [line.strip() for line in result.stdout.splitlines() if line.strip() and not line.strip().endswith("/")]
+        reader = "tar"
     return {
+        "reader": reader,
         "file_count": len(names),
         "extension_counts": dict(Counter(Path(name).suffix.lower() or "<none>" for name in names).most_common()),
         "first_files": names[:15],

@@ -123,6 +123,40 @@ python src/evaluate.py --cache features/animated_embeddings.pt --checkpoint mode
 
 This does not overwrite the current emotion checkpoint unless you use the default `models/` and `features/all_embeddings.pt` paths.
 
+## RAVDESS Audio-Video Emotion Dataset
+
+RAVDESS is the preferred emotion dataset because its audio and video come from the same acted clip.
+
+If `data/raw/ravdess.zip` is available, extract a safe subset first:
+
+```powershell
+mkdir data\raw\ravdess
+tar -xf data\raw\ravdess.zip -C data\raw\ravdess Actor_09
+```
+
+Prepare audio/frame files and a 7-class manifest:
+
+```powershell
+python src/prepare_ravdess_manifest.py --root data/raw/ravdess --output data/labels_ravdess.csv
+```
+
+This writes extracted media under `data/processed/ravdess/` and creates `data/labels_ravdess.csv`. RAVDESS `calm` clips are mapped to `neutral` for this project's 7-class schema.
+
+Precompute and train:
+
+```powershell
+python src/precompute.py --labels data/labels_ravdess.csv --raw-dir data/raw --output features/ravdess_embeddings.pt
+python src/train.py --features features/ravdess_embeddings.pt --models-dir models/ravdess --results-dir results/ravdess --epochs 40 --lr 1e-4 --batch 16
+```
+
+Current RAVDESS Actor_09 subset results:
+
+- Fusion/auto test accuracy: `85.71%`
+- Audio-only test accuracy: `80.95%`
+- Visual-only test accuracy: `95.24%`
+
+Because the current subset is only one actor, treat this as a strong pipeline check, not final generalization. Add more actors when disk space allows.
+
 ## 1) Precompute embeddings once
 
 This extracts Wav2Vec2 and ViT features and stores them in `features/all_embeddings.pt`.
@@ -186,12 +220,13 @@ Deployment files included:
 - `runtime.txt`
 - `models/best_model.pt`
 - `models/animated/best_model.pt`
+- `models/ravdess/best_model.pt`
 
 The app downloads Wav2Vec2 and ViT backbones from Hugging Face on first use, so the first uploaded prediction can be slow.
 
 The UI has two tasks:
 
-- Emotion Recognition: recommended mode uses the visual head because it currently performs best on the test split.
+- Emotion Recognition: uses the RAVDESS checkpoint when available; recommended mode uses the visual head because it currently performs best on the test split.
 - Animated Content Analysis: recommended mode uses the audio head because it currently performs best on the test split.
 
 ## 5) Zero-shot baseline

@@ -29,6 +29,8 @@ from precompute import (
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_FEATURES = PROJECT_ROOT / "features" / "all_embeddings.pt"
 DEFAULT_CHECKPOINT = PROJECT_ROOT / "models" / "best_model.pt"
+RAVDESS_FEATURES = PROJECT_ROOT / "features" / "ravdess_embeddings.pt"
+RAVDESS_CHECKPOINT = PROJECT_ROOT / "models" / "ravdess" / "best_model.pt"
 ANIMATED_FEATURES = PROJECT_ROOT / "features" / "animated_embeddings.pt"
 ANIMATED_CHECKPOINT = PROJECT_ROOT / "models" / "animated" / "best_model.pt"
 DEFAULT_RAW_DIR = PROJECT_ROOT / "data" / "raw"
@@ -40,16 +42,16 @@ FEEDBACK_FILE = OUTPUT_DIR / "feedback.csv"
 
 TASKS = {
     "Emotion Recognition": {
-        "checkpoint": DEFAULT_CHECKPOINT,
-        "features": DEFAULT_FEATURES,
-        "results_dir": DEFAULT_RESULTS_DIR,
-        "description": "7-class audio/image emotion model",
+        "checkpoint": RAVDESS_CHECKPOINT if RAVDESS_CHECKPOINT.exists() else DEFAULT_CHECKPOINT,
+        "features": RAVDESS_FEATURES if RAVDESS_FEATURES.exists() else DEFAULT_FEATURES,
+        "results_dir": DEFAULT_RESULTS_DIR / "ravdess" if RAVDESS_CHECKPOINT.exists() else DEFAULT_RESULTS_DIR,
+        "description": "7-class RAVDESS audio/video emotion model",
         "label_name": "emotion",
         "recommended_modality": "visual",
         "fallback_metrics": {
-            "best_val_f1": 0.4368820517717576,
-            "test_accuracy": 0.5,
-            "test_uar": 0.46825396825396826,
+            "best_val_f1": 0.7844444444444445,
+            "test_accuracy": 0.9523809523809523,
+            "test_uar": 0.9523809523809523,
         },
     },
     "Animated Content Analysis": {
