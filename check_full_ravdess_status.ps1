@@ -5,8 +5,13 @@ $ProcessedDir = Join-Path $DataRoot "processed\ravdess_full"
 $FeaturesFile = Join-Path $DataRoot "features\ravdess_full_embeddings.pt"
 $ModelsDir = Join-Path $DataRoot "models\ravdess_full"
 $ResultsDir = Join-Path $DataRoot "results\ravdess_full"
-$ErrLog = Join-Path $DataRoot "logs\full_ravdess_pipeline.err.log"
-$OutLog = Join-Path $DataRoot "logs\full_ravdess_pipeline.out.log"
+$LogDir = Join-Path $DataRoot "logs"
+$ErrLog = Get-ChildItem $LogDir -File -Filter "full_ravdess_pipeline*.err.log" -ErrorAction SilentlyContinue |
+    Sort-Object LastWriteTime -Descending |
+    Select-Object -First 1
+$OutLog = Get-ChildItem $LogDir -File -Filter "full_ravdess_pipeline*.out.log" -ErrorAction SilentlyContinue |
+    Sort-Object LastWriteTime -Descending |
+    Select-Object -First 1
 
 $processes = Get-CimInstance Win32_Process | Where-Object {
     $_.CommandLine -like "*run_full_ravdess_e_drive.ps1*" -or
@@ -36,11 +41,13 @@ $audio = @(Get-ChildItem (Join-Path $ProcessedDir "audio") -File -Filter "*.wav"
     EFreeGB = [math]::Round((Get-PSDrive E).Free / 1GB, 2)
 }
 
-if (Test-Path $ErrLog) {
+if ($ErrLog) {
     "`n--- latest pipeline log ---"
-    Get-Content $ErrLog -Tail 12
+    $ErrLog.FullName
+    Get-Content $ErrLog.FullName -Tail 12
 }
-if (Test-Path $OutLog) {
+if ($OutLog) {
     "`n--- latest output log ---"
-    Get-Content $OutLog -Tail 12
+    $OutLog.FullName
+    Get-Content $OutLog.FullName -Tail 12
 }
