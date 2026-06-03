@@ -5,6 +5,7 @@ import json
 import re
 import shutil
 import sys
+import time
 import zipfile
 from pathlib import Path
 from urllib.error import HTTPError, URLError
@@ -145,6 +146,21 @@ def download_file(item: dict, download_dir: Path, overwrite: bool) -> Path:
     return output_path
 
 
+def download_file_with_retries(item: dict, download_dir: Path, overwrite: bool, retries: int, retry_wait: int) -> Path:
+    last_error: Exception | None = None
+    for attempt in range(1, retries + 1):
+        try:
+            return download_file(item, download_dir, overwrite=overwrite and attempt == 1)
+        except Exception as exc:
+            last_error = exc
+            key = item.get("key", "unknown file")
+            if attempt >= retries:
+                break
+            print(f"Download interrupted for {key}; retrying {attempt}/{retries - 1} in {retry_wait}s: {exc}", file=sys.stderr)
+            time.sleep(retry_wait)
+    raise RuntimeError(f"Download failed after {retries} attempt(s): {item.get('key')}") from last_error
+
+
 def extract_zip(zip_path: Path, extract_dir: Path, overwrite: bool) -> None:
     marker = extract_dir / ".extracted" / zip_path.stem
     if marker.exists() and not overwrite:
@@ -176,6 +192,8 @@ def build_arg_parser() -> argparse.ArgumentParser:
     parser.add_argument("--overwrite", action="store_true")
     parser.add_argument("--download-only", action="store_true")
     parser.add_argument("--extract-only", action="store_true")
+    parser.add_argument("--retries", type=int, default=20, help="Retry interrupted downloads while preserving .part files.")
+    parser.add_argument("--retry-wait", type=int, default=15, help="Seconds to wait between download retries.")
     return parser
 
 
@@ -189,7 +207,13 @@ def main() -> None:
     else:
         record = fetch_record(args.record_id)
         zips = [
-            download_file(item, args.download_dir, overwrite=args.overwrite)
+            download_file_with_retries(
+                item,
+                args.download_dir,
+                overwrite=args.overwrite,
+                retries=args.retries,
+                retry_wait=args.retry_wait,
+            )
             for item in find_actor_files(record, actors, include_song=args.include_song)
         ]
 
