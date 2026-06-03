@@ -1,0 +1,28 @@
+{
+  "results": {
+    "train": {
+      "split": "train",
+      "modality": "auto",
+      "accuracy": 1.0,
+      "weighted_f1": 1.0,
+      "uar": 1.0,
+      "loss": 0.011308613460763202
+    },
+    "val": {
+      "split": "val",
+      "modality": "auto",
+      "accuracy": 0.5145833333333333,
+      "weighted_f1": 0.5018801316687249,
+      "uar": 0.4992559523809524,
+      "loss": 1.8906188115477562
+    },
+    "test": {
+      "split": "test",
+      "modality": "auto",
+      "accuracy": 0.3541666666666667,
+      "weighted_f1": 0.34379142145784886,
+      "uar": 0.3549107142857143,
+      "loss": 2.7309809431433676
+    }
+  }
+}
