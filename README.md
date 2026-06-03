@@ -127,6 +127,41 @@ This does not overwrite the current emotion checkpoint unless you use the defaul
 
 RAVDESS is the preferred emotion dataset because its audio and video come from the same acted clip.
 
+For the full RAVDESS run on this machine, use the `E:` drive. The `C:` drive does not have enough free space for the full dataset, extracted media, embeddings, and checkpoints.
+
+Recommended full workflow:
+
+```powershell
+cd E:\emotion_recognition_internship
+.\run_full_ravdess_e_drive.ps1
+```
+
+The full workflow downloads RAVDESS Video Speech Actor 01-24 directly from the official Zenodo record, so no Kaggle credentials are required for this path.
+
+If you manually download and extract RAVDESS into `E:\emotion_recognition_data\raw\ravdess_full`, skip the download step:
+
+```powershell
+cd E:\emotion_recognition_internship
+.\run_full_ravdess_e_drive.ps1 -SkipDownload
+```
+
+This script uses:
+
+- Project copy: `E:\emotion_recognition_internship`
+- Dataset/download storage: `E:\emotion_recognition_data`
+- Full manifest: `E:\emotion_recognition_data\labels_ravdess_full.csv`
+- Full embeddings: `E:\emotion_recognition_data\features\ravdess_full_embeddings.pt`
+- Full checkpoints: `E:\emotion_recognition_data\models\ravdess_full`
+- Full evaluation results: `E:\emotion_recognition_data\results\ravdess_full`
+
+The full workflow uses an actor-independent split:
+
+- Train actors: all actors except validation/test actors
+- Validation actors: `17,18,19,20`
+- Test actors: `21,22,23,24`
+
+This is the result to report as the stronger real-world estimate, because test actors are unseen during training.
+
 If `data/raw/ravdess.zip` is available, extract a safe subset first:
 
 ```powershell
@@ -141,6 +176,12 @@ python src/prepare_ravdess_manifest.py --root data/raw/ravdess --output data/lab
 ```
 
 This writes extracted media under `data/processed/ravdess/` and creates `data/labels_ravdess.csv`. RAVDESS `calm` clips are mapped to `neutral` for this project's 7-class schema.
+
+For actor-independent splitting with already extracted full RAVDESS files:
+
+```powershell
+python src/prepare_ravdess_manifest.py --root E:\emotion_recognition_data\raw\ravdess_full --processed-dir E:\emotion_recognition_data\processed\ravdess_full --output E:\emotion_recognition_data\labels_ravdess_full.csv --split-strategy actor --val-actors 17,18,19,20 --test-actors 21,22,23,24
+```
 
 Precompute and train:
 
