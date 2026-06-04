@@ -45,13 +45,13 @@ TASKS = {
         "checkpoint": RAVDESS_CHECKPOINT if RAVDESS_CHECKPOINT.exists() else DEFAULT_CHECKPOINT,
         "features": RAVDESS_FEATURES if RAVDESS_FEATURES.exists() else DEFAULT_FEATURES,
         "results_dir": DEFAULT_RESULTS_DIR / "ravdess" if RAVDESS_CHECKPOINT.exists() else DEFAULT_RESULTS_DIR,
-        "description": "7-class RAVDESS audio/video emotion model",
+        "description": "7-class full RAVDESS actor-independent emotion model",
         "label_name": "emotion",
-        "recommended_modality": "visual",
+        "recommended_modality": "audio",
         "fallback_metrics": {
-            "best_val_f1": 0.7844444444444445,
-            "test_accuracy": 0.9523809523809523,
-            "test_uar": 0.9523809523809523,
+            "best_val_f1": 0.5018801316687249,
+            "test_accuracy": 0.38958333333333334,
+            "test_uar": 0.39955357142857145,
         },
     },
     "Animated Content Analysis": {
@@ -370,15 +370,17 @@ def main() -> None:
     summary = metrics.get("training_summary.json", {})
     all_metrics = metrics.get("evaluation_all_metrics.json", {}).get("results", {})
     test_metrics = all_metrics.get("test") or metrics.get("evaluation_metrics.json", {})
+    recommended_metrics = metrics.get(f"evaluation_{recommended_modality}_metrics.json", {}) or test_metrics
     fallback_metrics = task["fallback_metrics"]
     best_val_f1 = float(summary.get("best_val_f1", fallback_metrics["best_val_f1"]) or 0.0)
-    del test_metrics
-    test_accuracy = float(fallback_metrics["test_accuracy"])
-    test_uar = float(fallback_metrics["test_uar"])
+    train_metrics = all_metrics.get("train", {})
+    train_accuracy = float(train_metrics.get("accuracy", 1.0 if task_name == "Emotion Recognition" else fallback_metrics["test_accuracy"]) or 0.0)
+    test_accuracy = float(recommended_metrics.get("accuracy", fallback_metrics["test_accuracy"]) or 0.0)
+    test_uar = float(recommended_metrics.get("uar", fallback_metrics["test_uar"]) or 0.0)
 
     columns = st.columns(4)
     with columns[0]:
-        metric_card("Train fit", "100%")
+        metric_card("Train fit", f"{train_accuracy * 100:.2f}%")
     with columns[1]:
         metric_card("Best val F1", f"{best_val_f1 * 100:.2f}%")
     with columns[2]:

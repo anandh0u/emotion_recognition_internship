@@ -190,13 +190,14 @@ python src/precompute.py --labels data/labels_ravdess.csv --raw-dir data/raw --o
 python src/train.py --features features/ravdess_embeddings.pt --models-dir models/ravdess --results-dir results/ravdess --epochs 40 --lr 1e-4 --batch 16
 ```
 
-Current RAVDESS Actor_09 subset results:
+Current full RAVDESS actor-independent results:
 
-- Fusion/auto test accuracy: `85.71%`
-- Audio-only test accuracy: `80.95%`
-- Visual-only test accuracy: `95.24%`
+- Audio-only test accuracy: `38.96%`
+- Fusion/auto test accuracy: `35.42%`
+- Visual-only test accuracy: `27.08%`
+- Best validation F1: `50.19%`
 
-Because the current subset is only one actor, treat this as a strong pipeline check, not final generalization. Add more actors when disk space allows.
+These numbers are lower than the earlier Actor_09-only experiment because this split tests on unseen actors. That makes it a better estimate of real-world generalization.
 
 ## 1) Precompute embeddings once
 
@@ -267,7 +268,7 @@ The app downloads Wav2Vec2 and ViT backbones from Hugging Face on first use, so 
 
 The UI has two tasks:
 
-- Emotion Recognition: uses the RAVDESS checkpoint when available; recommended mode uses the visual head because it currently performs best on the test split.
+- Emotion Recognition: uses the full RAVDESS checkpoint when available; recommended mode uses the audio head because it currently performs best on the actor-independent test split.
 - Animated Content Analysis: recommended mode uses the audio head because it currently performs best on the test split.
 
 ## 5) Zero-shot baseline
