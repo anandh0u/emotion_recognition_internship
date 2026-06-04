@@ -2,12 +2,19 @@ from __future__ import annotations
 
 import csv
 import json
+import subprocess
 import tempfile
 import uuid
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
+try:
+    import cv2
+except ImportError:  # pragma: no cover - handled in the UI at runtime.
+    cv2 = None
+
+import imageio_ffmpeg
 import pandas as pd
 import streamlit as st
 import torch
@@ -36,6 +43,7 @@ ANIMATED_CHECKPOINT = PROJECT_ROOT / "models" / "animated" / "best_model.pt"
 DEFAULT_RAW_DIR = PROJECT_ROOT / "data" / "raw"
 DEFAULT_LABELS_DIR = PROJECT_ROOT / "data"
 DEFAULT_RESULTS_DIR = PROJECT_ROOT / "results"
+SAMPLE_MANIFEST = PROJECT_ROOT / "samples" / "sample_manifest.csv"
 OUTPUT_DIR = PROJECT_ROOT / "outputs"
 UPLOAD_DIR = OUTPUT_DIR / "uploads"
 FEEDBACK_FILE = OUTPUT_DIR / "feedback.csv"
@@ -107,11 +115,24 @@ def load_backbones() -> tuple[Wav2Vec2Processor, Wav2Vec2Model, AutoImageProcess
 @st.cache_data(show_spinner=False)
 def load_metrics(results_dir: str) -> dict[str, Any]:
     metrics: dict[str, Any] = {}
-    for name in ["evaluation_metrics.json", "evaluation_all_metrics.json", "training_summary.json"]:
-        path = Path(results_dir) / name
-        if path.exists():
-            metrics[name] = json.loads(path.read_text(encoding="utf-8"))
+    directory = Path(results_dir)
+    if not directory.exists():
+        return metrics
+    for path in sorted(directory.glob("*.json")):
+        try:
+            metrics[path.name] = json.loads(path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            continue
     return metrics
+
+
+@st.cache_data(show_spinner=False)
+def load_sample_manifest(manifest_path: str) -> list[dict[str, str]]:
+    path = Path(manifest_path)
+    if not path.exists():
+        return []
+    with path.open("r", encoding="utf-8-sig", newline="") as handle:
+        return [dict(row) for row in csv.DictReader(handle)]
 
 
 @st.cache_data(show_spinner=False)
@@ -129,6 +150,134 @@ def load_sample_image(image_path: str, label: str) -> Image.Image | None:
     if path.exists():
         return load_image_file(path)
     return None
+
+
+def resolve_project_file(value: Any) -> Path | None:
+    text = str(value or "").strip()
+    if not text:
+        return None
+    path = Path(text)
+    if path.is_absolute():
+        return path
+    return PROJECT_ROOT / path
+
+
+def file_signature(path: Path) -> tuple[str, int, int]:
+    stat = path.stat()
+    return str(path), int(stat.st_mtime_ns), int(stat.st_size)
+
+
+@st.cache_data(show_spinner=False, max_entries=64)
+def extract_audio_path_cached(path: str, mtime_ns: int, size: int) -> torch.Tensor:
+    del mtime_ns, size
+    audio_processor, audio_model, _visual_processor, _visual_model, backbone_device = load_backbones()
+    return extract_audio_embedding(Path(path), audio_processor, audio_model, backbone_device)
+
+
+@st.cache_data(show_spinner=False, max_entries=64)
+def extract_image_path_cached(path: str, mtime_ns: int, size: int) -> torch.Tensor:
+    del mtime_ns, size
+    _audio_processor, _audio_model, visual_processor, visual_model, backbone_device = load_backbones()
+    image = Image.open(path).convert("RGB")
+    return extract_visual_embedding_from_image(image, visual_processor, visual_model, backbone_device)
+
+
+def read_video_frames(video_path: Path, frame_count: int = 5) -> list[Image.Image]:
+    if cv2 is None:
+        raise RuntimeError("opencv-python-headless is required for video frame extraction.")
+
+    capture = cv2.VideoCapture(str(video_path))
+    if not capture.isOpened():
+        raise ValueError(f"Could not open video file: {video_path}")
+
+    frames: list[Image.Image] = []
+    try:
+        total_frames = int(capture.get(cv2.CAP_PROP_FRAME_COUNT) or 0)
+        if total_frames > 0:
+            indices = [round((total_frames - 1) * (index + 1) / (frame_count + 1)) for index in range(frame_count)]
+            for frame_index in indices:
+                capture.set(cv2.CAP_PROP_POS_FRAMES, frame_index)
+                ok, frame = capture.read()
+                if ok and frame is not None:
+                    rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                    frames.append(Image.fromarray(rgb_frame).convert("RGB"))
+        else:
+            while len(frames) < frame_count:
+                ok, frame = capture.read()
+                if not ok or frame is None:
+                    break
+                rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                frames.append(Image.fromarray(rgb_frame).convert("RGB"))
+    finally:
+        capture.release()
+
+    if not frames:
+        raise ValueError(f"No readable frames were found in video file: {video_path}")
+    return frames
+
+
+def extract_video_audio(video_path: Path, output_path: Path) -> bool:
+    command = [
+        imageio_ffmpeg.get_ffmpeg_exe(),
+        "-y",
+        "-loglevel",
+        "error",
+        "-i",
+        str(video_path),
+        "-vn",
+        "-ac",
+        "1",
+        "-ar",
+        "16000",
+        str(output_path),
+    ]
+    try:
+        subprocess.run(command, check=True, capture_output=True, text=True, timeout=90)
+    except (subprocess.CalledProcessError, subprocess.TimeoutExpired):
+        return False
+    return output_path.exists() and output_path.stat().st_size > 1024
+
+
+def extract_video_file(
+    video_path: Path,
+    need_audio: bool,
+    need_visual: bool,
+    frame_count: int = 5,
+) -> tuple[torch.Tensor | None, torch.Tensor | None, Image.Image | None]:
+    audio_processor, audio_model, visual_processor, visual_model, backbone_device = load_backbones()
+    audio_embedding: torch.Tensor | None = None
+    visual_embedding: torch.Tensor | None = None
+    preview_frame: Image.Image | None = None
+
+    with tempfile.TemporaryDirectory() as temp_dir_name:
+        temp_dir = Path(temp_dir_name)
+        if need_audio:
+            extracted_audio = temp_dir / "video_audio.wav"
+            if extract_video_audio(video_path, extracted_audio):
+                audio_embedding = extract_audio_embedding(extracted_audio, audio_processor, audio_model, backbone_device)
+
+        if need_visual:
+            frames = read_video_frames(video_path, frame_count=frame_count)
+            preview_frame = frames[0]
+            visual_embeddings = [
+                extract_visual_embedding_from_image(frame, visual_processor, visual_model, backbone_device)
+                for frame in frames
+            ]
+            visual_embedding = torch.stack(visual_embeddings).mean(dim=0)
+
+    return audio_embedding, visual_embedding, preview_frame
+
+
+@st.cache_data(show_spinner=False, max_entries=16)
+def extract_video_path_cached(
+    path: str,
+    mtime_ns: int,
+    size: int,
+    need_audio: bool,
+    need_visual: bool,
+) -> tuple[torch.Tensor | None, torch.Tensor | None, Image.Image | None]:
+    del mtime_ns, size
+    return extract_video_file(Path(path), need_audio=need_audio, need_visual=need_visual)
 
 
 def infer_modality(
@@ -199,6 +348,21 @@ def extract_image_upload(image_file: Any) -> torch.Tensor:
     return extract_visual_embedding_from_image(image, visual_processor, visual_model, backbone_device)
 
 
+def extract_video_upload(
+    video_file: Any,
+    need_audio: bool,
+    need_visual: bool,
+) -> tuple[torch.Tensor | None, torch.Tensor | None, Image.Image | None]:
+    suffix = Path(video_file.name).suffix or ".mp4"
+    with tempfile.NamedTemporaryFile(suffix=suffix, delete=False) as handle:
+        temp_video_path = Path(handle.name)
+        handle.write(video_file.getbuffer())
+    try:
+        return extract_video_file(temp_video_path, need_audio=need_audio, need_visual=need_visual)
+    finally:
+        temp_video_path.unlink(missing_ok=True)
+
+
 def save_uploaded_file(uploaded_file: Any, folder: Path, prefix: str) -> str:
     if uploaded_file is None:
         return ""
@@ -232,12 +396,14 @@ def save_report(
     scores: pd.DataFrame,
     audio_file: Any = None,
     image_file: Any = None,
+    video_file: Any = None,
 ) -> Path:
     report_id = datetime.now(UTC).strftime("%Y%m%d_%H%M%S") + "_" + uuid.uuid4().hex[:8]
     upload_folder = UPLOAD_DIR / report_id
     upload_folder.mkdir(parents=True, exist_ok=True)
     audio_path = save_uploaded_file(audio_file, upload_folder, "audio") if audio_file is not None else ""
     image_path = save_uploaded_file(image_file, upload_folder, "image") if image_file is not None else ""
+    video_path = save_uploaded_file(video_file, upload_folder, "video") if video_file is not None else ""
     row = {
         "timestamp": datetime.now(UTC).isoformat(),
         "report_id": report_id,
@@ -251,6 +417,7 @@ def save_report(
         "corrected_label": corrected_label,
         "audio_path": audio_path,
         "image_path": image_path,
+        "video_path": video_path,
         "scores_json": scores.to_json(orient="records"),
         "notes": notes,
     }
@@ -283,6 +450,7 @@ def render_feedback_form(
     label_name: str,
     audio_file: Any = None,
     image_file: Any = None,
+    video_file: Any = None,
 ) -> None:
     with st.expander("Report prediction"):
         user_correct = st.radio("Was this output correct?", ["correct", "incorrect", "not sure"], horizontal=True)
@@ -302,6 +470,7 @@ def render_feedback_form(
                 scores=scores,
                 audio_file=audio_file,
                 image_file=image_file,
+                video_file=video_file,
             )
             st.success(f"Saved report and uploads to {folder.relative_to(PROJECT_ROOT)}")
 
@@ -360,9 +529,10 @@ def main() -> None:
     label_name = str(task["label_name"])
     recommended_modality = str(task["recommended_modality"])
     has_feature_cache = feature_path.exists()
+    sample_records = load_sample_manifest(str(SAMPLE_MANIFEST)) if task_name == "Emotion Recognition" else []
 
     st.markdown(
-        f"<div class='app-title'><h1>{task_name}</h1><span>{task['description']} · audio-only · image-only · fusion</span></div>",
+        f"<div class='app-title'><h1>{task_name}</h1><span>{task['description']} · audio-only · image-only · video · fusion</span></div>",
         unsafe_allow_html=True,
     )
 
@@ -389,14 +559,18 @@ def main() -> None:
         metric_card("Test UAR", f"{test_uar * 100:.2f}%")
 
     model, device, class_names = load_model(str(checkpoint_path))
-    records = load_feature_records(str(feature_path)) if has_feature_cache else []
 
     with st.sidebar:
-        source_options = ["Dataset sample", "Upload files"] if has_feature_cache else ["Upload files"]
+        source_options = ["Dataset sample", "Upload files"] if sample_records or has_feature_cache else ["Upload files"]
         source = st.radio("Source", source_options, horizontal=False)
-        if not has_feature_cache:
-            st.info("Dataset samples are disabled on this deployment because the large feature cache is not bundled.")
-        split = st.selectbox("Split", ["train", "val", "test"], index=2, disabled=source == "Upload files")
+        split_options = ["train", "val", "test"]
+        if source == "Dataset sample" and sample_records:
+            available_sample_splits = {record.get("split", "test") for record in sample_records}
+            split_options = [split_name for split_name in split_options if split_name in available_sample_splits]
+            if not split_options:
+                split_options = sorted(available_sample_splits)
+        split_index = split_options.index("test") if "test" in split_options else 0
+        split = st.selectbox("Split", split_options, index=split_index, disabled=source == "Upload files")
         mode_label = st.selectbox("Prediction mode", ["recommended", "fusion", "audio", "image"])
         preferred_modality = recommended_modality if mode_label == "recommended" else mode_label
         if preferred_modality == "image":
@@ -404,74 +578,181 @@ def main() -> None:
         st.caption(f"Recommended for this task: {recommended_modality}")
 
     if source == "Dataset sample":
-        split_records = [record for record in records if record.get("split") == split]
-        if not split_records:
-            st.warning("No cached samples are available for this split.")
-            st.stop()
-        labels = [f"{record['sample_id']} · {record['label']}" for record in split_records]
-        with st.sidebar:
-            selected_index = st.selectbox("Sample", range(len(split_records)), format_func=lambda index: labels[index])
-        record = split_records[selected_index]
-        image = load_sample_image(record["image_path"], record["label"]) if record.get("visual_available") else None
-        audio_embedding = record["audio_embedding"] if preferred_modality in ["auto", "fusion", "audio"] and record.get("audio_available") else None
-        visual_embedding = record["visual_embedding"] if preferred_modality in ["auto", "fusion", "visual"] and record.get("visual_available") else None
-        if preferred_modality == "audio":
-            visual_embedding = None
-        if preferred_modality == "visual":
-            audio_embedding = None
+        if sample_records:
+            split_records = [record for record in sample_records if record.get("split", "test") == split]
+            if not split_records:
+                st.warning("No bundled samples are available for this split.")
+                st.stop()
+            labels = [f"{record['sample_id']} · {record['label']}" for record in split_records]
+            with st.sidebar:
+                selected_index = st.selectbox("Sample", range(len(split_records)), format_func=lambda index: labels[index])
+            record = split_records[selected_index]
+            audio_path = resolve_project_file(record.get("audio_path"))
+            image_path = resolve_project_file(record.get("image_path"))
+            video_path = resolve_project_file(record.get("video_path"))
+            audio_available = audio_path is not None and audio_path.exists()
+            image_available = image_path is not None and image_path.exists()
+            video_available = video_path is not None and video_path.exists()
+            need_audio = preferred_modality in ["auto", "fusion", "audio"] or not image_available
+            need_visual = preferred_modality in ["auto", "fusion", "visual"] or not audio_available
 
-        prediction, confidence, scores, modality = predict(
-            model,
-            device,
-            class_names,
-            audio_embedding,
-            visual_embedding,
-            preferred_modality=preferred_modality,
-        )
-        with st.chat_message("user"):
-            st.write(f"Sample `{record['sample_id']}` · true label `{record['label']}`")
-            media_columns = st.columns([1, 1])
-            with media_columns[0]:
-                if record.get("audio_available") and Path(record["audio_path"]).exists():
-                    st.audio(record["audio_path"])
-            with media_columns[1]:
-                if image is not None:
-                    st.image(image, caption=record["label"], width="stretch")
-        with st.chat_message("assistant"):
-            render_prediction(prediction, confidence, scores, modality)
-            render_feedback_form(
-                "dataset",
-                record["sample_id"],
-                record["label"],
-                prediction,
-                confidence,
-                scores,
-                modality,
+            with st.spinner("Extracting sample embeddings"):
+                audio_embedding = (
+                    extract_audio_path_cached(*file_signature(audio_path))
+                    if need_audio and audio_available and audio_path is not None
+                    else None
+                )
+                visual_embedding = (
+                    extract_image_path_cached(*file_signature(image_path))
+                    if need_visual and image_available and image_path is not None
+                    else None
+                )
+                if video_available and video_path is not None and (
+                    (need_audio and audio_embedding is None) or (need_visual and visual_embedding is None)
+                ):
+                    video_audio, video_visual, _preview_frame = extract_video_path_cached(
+                        *file_signature(video_path),
+                        need_audio=need_audio and audio_embedding is None,
+                        need_visual=need_visual and visual_embedding is None,
+                    )
+                    audio_embedding = audio_embedding if audio_embedding is not None else video_audio
+                    visual_embedding = visual_embedding if visual_embedding is not None else video_visual
+
+            if audio_embedding is None and visual_embedding is None:
+                st.error("This sample does not have media for the selected prediction mode.")
+                st.stop()
+
+            prediction, confidence, scores, modality = predict(
+                model,
+                device,
                 class_names,
-                label_name,
+                audio_embedding,
+                visual_embedding,
+                preferred_modality=preferred_modality,
             )
+            with st.chat_message("user"):
+                st.write(f"Sample `{record['sample_id']}` · true label `{record['label']}`")
+                media_columns = st.columns([1, 1, 1])
+                with media_columns[0]:
+                    if audio_available and audio_path is not None:
+                        st.audio(str(audio_path))
+                with media_columns[1]:
+                    if image_available and image_path is not None:
+                        st.image(str(image_path), caption=record["label"], width="stretch")
+                with media_columns[2]:
+                    if video_available and video_path is not None:
+                        st.video(str(video_path))
+            with st.chat_message("assistant"):
+                render_prediction(prediction, confidence, scores, modality)
+                render_feedback_form(
+                    "sample",
+                    record["sample_id"],
+                    record["label"],
+                    prediction,
+                    confidence,
+                    scores,
+                    modality,
+                    class_names,
+                    label_name,
+                )
+        else:
+            records = load_feature_records(str(feature_path))
+            split_records = [record for record in records if record.get("split") == split]
+            if not split_records:
+                st.warning("No cached samples are available for this split.")
+                st.stop()
+            labels = [f"{record['sample_id']} · {record['label']}" for record in split_records]
+            with st.sidebar:
+                selected_index = st.selectbox("Sample", range(len(split_records)), format_func=lambda index: labels[index])
+            record = split_records[selected_index]
+            image = load_sample_image(record["image_path"], record["label"]) if record.get("visual_available") else None
+            audio_embedding = record["audio_embedding"] if preferred_modality in ["auto", "fusion", "audio"] and record.get("audio_available") else None
+            visual_embedding = record["visual_embedding"] if preferred_modality in ["auto", "fusion", "visual"] and record.get("visual_available") else None
+            if preferred_modality == "audio":
+                visual_embedding = None
+            if preferred_modality == "visual":
+                audio_embedding = None
+
+            prediction, confidence, scores, modality = predict(
+                model,
+                device,
+                class_names,
+                audio_embedding,
+                visual_embedding,
+                preferred_modality=preferred_modality,
+            )
+            with st.chat_message("user"):
+                st.write(f"Sample `{record['sample_id']}` · true label `{record['label']}`")
+                media_columns = st.columns([1, 1])
+                with media_columns[0]:
+                    audio_path = resolve_project_file(record.get("audio_path"))
+                    if record.get("audio_available") and audio_path is not None and audio_path.exists():
+                        st.audio(str(audio_path))
+                with media_columns[1]:
+                    if image is not None:
+                        st.image(image, caption=record["label"], width="stretch")
+            with st.chat_message("assistant"):
+                render_prediction(prediction, confidence, scores, modality)
+                render_feedback_form(
+                    "dataset",
+                    record["sample_id"],
+                    record["label"],
+                    prediction,
+                    confidence,
+                    scores,
+                    modality,
+                    class_names,
+                    label_name,
+                )
 
     else:
         with st.sidebar:
             audio_file = st.file_uploader("Audio", type=["wav", "mp3", "flac", "ogg", "m4a"])
             image_file = st.file_uploader("Image", type=["png", "jpg", "jpeg", "bmp", "webp"])
+            video_file = st.file_uploader("Video", type=["mp4", "mov", "avi", "mkv", "webm"])
 
         with st.chat_message("user"):
-            media_columns = st.columns([1, 1])
+            media_columns = st.columns([1, 1, 1])
             with media_columns[0]:
                 if audio_file is not None:
                     st.audio(audio_file)
             with media_columns[1]:
                 if image_file is not None:
                     st.image(image_file, width="stretch")
+            with media_columns[2]:
+                if video_file is not None:
+                    st.video(video_file)
 
         with st.chat_message("assistant"):
-            if audio_file is None and image_file is None:
-                st.info("Upload audio, image, or both.")
+            if audio_file is None and image_file is None and video_file is None:
+                st.info("Upload audio, image, video, or a combination.")
             else:
-                with st.spinner("Extracting embeddings"):
-                    audio_embedding = extract_audio_upload(audio_file) if audio_file is not None else None
-                    visual_embedding = extract_image_upload(image_file) if image_file is not None else None
+                need_audio = preferred_modality in ["auto", "fusion", "audio"]
+                need_visual = preferred_modality in ["auto", "fusion", "visual"]
+                video_only = video_file is not None and audio_file is None and image_file is None
+                try:
+                    with st.spinner("Extracting embeddings"):
+                        audio_embedding = extract_audio_upload(audio_file) if audio_file is not None else None
+                        visual_embedding = extract_image_upload(image_file) if image_file is not None else None
+                        if video_file is not None and (
+                            ((need_audio or video_only) and audio_embedding is None)
+                            or ((need_visual or video_only) and visual_embedding is None)
+                        ):
+                            video_audio, video_visual, _preview_frame = extract_video_upload(
+                                video_file,
+                                need_audio=(need_audio or video_only) and audio_embedding is None,
+                                need_visual=(need_visual or video_only) and visual_embedding is None,
+                            )
+                            audio_embedding = audio_embedding if audio_embedding is not None else video_audio
+                            visual_embedding = visual_embedding if visual_embedding is not None else video_visual
+                except Exception as exc:
+                    st.error(f"Could not process the uploaded media: {exc}")
+                    st.stop()
+
+                if audio_embedding is None and visual_embedding is None:
+                    st.error("No usable audio or visual signal was found for the selected prediction mode.")
+                    st.stop()
+
                 prediction, confidence, scores, modality = predict(
                     model,
                     device,
@@ -493,6 +774,7 @@ def main() -> None:
                     label_name,
                     audio_file=audio_file,
                     image_file=image_file,
+                    video_file=video_file,
                 )
 
     st.caption(f"Classes: {', '.join(class_names)} · Reports are saved in outputs/feedback.csv")

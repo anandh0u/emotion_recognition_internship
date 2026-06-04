@@ -1,0 +1,8 @@
+sample_id,split,label,audio_path,image_path,video_path
+ravdess_sample_neutral,test,neutral,samples/ravdess/audio/01-01-02-02-01-01-09.wav,samples/ravdess/images/01-01-02-02-01-01-09.jpg,
+ravdess_sample_happiness,test,happiness,samples/ravdess/audio/01-01-03-02-02-01-09.wav,samples/ravdess/images/01-01-03-02-02-01-09.jpg,samples/ravdess/videos/01-01-03-02-02-01-09.mp4
+ravdess_sample_sadness,test,sadness,samples/ravdess/audio/01-01-04-02-02-01-09.wav,samples/ravdess/images/01-01-04-02-02-01-09.jpg,
+ravdess_sample_anger,test,anger,samples/ravdess/audio/01-01-05-01-01-01-09.wav,samples/ravdess/images/01-01-05-01-01-01-09.jpg,
+ravdess_sample_fear,test,fear,samples/ravdess/audio/01-01-06-01-02-01-09.wav,samples/ravdess/images/01-01-06-01-02-01-09.jpg,
+ravdess_sample_disgust,test,disgust,samples/ravdess/audio/01-01-07-02-02-02-09.wav,samples/ravdess/images/01-01-07-02-02-02-09.jpg,
+ravdess_sample_surprise,test,surprise,samples/ravdess/audio/01-01-08-02-02-01-09.wav,samples/ravdess/images/01-01-08-02-02-01-09.jpg,

@@ -233,7 +233,7 @@ python src/evaluate.py --checkpoint models/best_model.pt --cache features/all_em
 streamlit run src/demo_app.py
 ```
 
-The demo page loads the emotion and animated-content checkpoints, shows dataset examples when local feature caches exist, and supports audio/image uploads.
+The demo page loads the emotion and animated-content checkpoints, shows bundled RAVDESS sample files, and supports audio, image, and video uploads.
 
 For cloud deployment, use the root entrypoint:
 
@@ -241,7 +241,7 @@ For cloud deployment, use the root entrypoint:
 streamlit run streamlit_app.py
 ```
 
-The deployed app can run in upload-only mode with the small checkpoints in `models/`. The large feature caches in `features/` are intentionally not committed to GitHub; when they are absent, dataset-sample browsing is disabled, but audio/image uploads still work.
+The deployed app can run with the small checkpoints in `models/` plus the lightweight examples in `samples/`. The large feature caches in `features/` are intentionally not committed to GitHub; when they are absent, the app falls back to bundled sample media and extracts embeddings on demand.
 
 ## Deployment
 
@@ -263,8 +263,10 @@ Deployment files included:
 - `models/best_model.pt`
 - `models/animated/best_model.pt`
 - `models/ravdess/best_model.pt`
+- `samples/sample_manifest.csv`
+- `samples/ravdess/`
 
-The app downloads Wav2Vec2 and ViT backbones from Hugging Face on first use, so the first uploaded prediction can be slow.
+The app downloads Wav2Vec2 and ViT backbones from Hugging Face on first use, so the first sample or uploaded prediction can be slow.
 
 The UI has two tasks:
 
