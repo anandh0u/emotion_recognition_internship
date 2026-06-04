@@ -571,10 +571,12 @@ def main() -> None:
                 split_options = sorted(available_sample_splits)
         split_index = split_options.index("test") if "test" in split_options else 0
         split = st.selectbox("Split", split_options, index=split_index, disabled=source == "Upload files")
-        mode_label = st.selectbox("Prediction mode", ["recommended", "fusion", "audio", "image"])
+        mode_label = st.selectbox("Prediction mode", ["recommended", "video/fusion", "audio", "image"])
         preferred_modality = recommended_modality if mode_label == "recommended" else mode_label
         if preferred_modality == "image":
             preferred_modality = "visual"
+        if preferred_modality == "video/fusion":
+            preferred_modality = "fusion"
         st.caption(f"Recommended for this task: {recommended_modality}")
 
     if source == "Dataset sample":
