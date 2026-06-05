@@ -3,7 +3,8 @@
 Project: Multimodal Emotion Recognition - Audio + Visual Late Fusion  
 Dataset: Full RAVDESS Video Speech Actor 01-24  
 Evaluation date: 2026-06-04  
-Checkpoint: `models/ravdess/best_model.pt`  
+Neural checkpoint: `models/ravdess/best_model.pt`  
+Deployed audio classifier: `models/ravdess/audio_svc.joblib`  
 Feature cache: `E:\emotion_recognition_data\features\ravdess_full_embeddings.pt`
 
 ## Dataset Summary
@@ -35,17 +36,19 @@ This is stricter than a random split because the test actors are unseen during t
 
 ## Test Evaluation By Modality
 
-| Modality | Accuracy | Weighted F1 | UAR | Loss |
-|---|---:|---:|---:|---:|
-| Audio only | 38.96% | 38.33% | 39.96% | 2.4774 |
-| Visual only | 27.08% | 23.74% | 27.53% | 3.5509 |
-| Fusion | 35.42% | 34.38% | 35.49% | 2.7310 |
+| Modality | Accuracy | Weighted F1 | UAR | Notes |
+|---|---:|---:|---:|---|
+| Deployed audio SVM | 60.00% | 59.26% | 60.57% | Best current recommended mode |
+| Neural audio head | 50.42% | 49.84% | 51.93% | Evaluated only on audio-bearing test samples |
+| Neural visual head | 27.08% | 23.74% | 27.53% | Weakest branch |
+| Neural fusion head | 43.33% | 43.27% | 43.01% | Evaluated only on audio+visual test samples |
+| Neural auto/fusion over all test records | 35.42% | 34.38% | 35.49% | Includes visual-only clips |
 
 ## Interpretation
 
-The full RAVDESS result is a more realistic estimate than the earlier Actor_09-only experiment. The earlier result was high because training and testing were too close in actor distribution. The full actor-independent split shows that the current late-fusion head overfits the training actors and generalizes weakly to unseen actors.
+The full RAVDESS result is a more realistic estimate than the earlier Actor_09-only experiment. The earlier result was high because training and testing were too close in actor distribution. The full actor-independent split shows that the neural late-fusion head overfits the training actors and generalizes weakly to unseen actors.
 
-The best deployed recommendation is currently audio-only, because it has the highest actor-independent test accuracy.
+The best deployed recommendation is currently the audio SVM, trained on frozen Wav2Vec2 embeddings. It improves the recommended emotion mode from roughly 50% neural audio accuracy to 60% actor-independent test accuracy.
 
 ## Next Accuracy Improvements
 
@@ -64,3 +67,5 @@ The best deployed recommendation is currently audio-only, because it has the hig
 - `E:\emotion_recognition_data\results\ravdess_full_fusion\evaluation_metrics.json`
 - `E:\emotion_recognition_data\models\ravdess_full\best_model.pt`
 - `models\ravdess\best_model.pt`
+- `models\ravdess\audio_svc.joblib`
+- `results\ravdess\audio_svc_metrics.json`

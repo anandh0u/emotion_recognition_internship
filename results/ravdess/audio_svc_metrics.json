@@ -1,0 +1,29 @@
+{
+  "class_names": [
+    "anger",
+    "disgust",
+    "fear",
+    "happiness",
+    "neutral",
+    "sadness",
+    "surprise"
+  ],
+  "model_type": "StandardScaler+LinearSVC",
+  "source_features": "E:/emotion_recognition_data/features/ravdess_full_audio_only_embeddings.pt",
+  "metrics": {
+    "val": {
+      "accuracy": 0.5958333333333333,
+      "weighted_f1": 0.5882489853905681,
+      "uar": 0.5848214285714286,
+      "weighted_precision": 0.6071225602003592,
+      "weighted_recall": 0.5958333333333333
+    },
+    "test": {
+      "accuracy": 0.6,
+      "weighted_f1": 0.5925841321788512,
+      "uar": 0.605654761904762,
+      "weighted_precision": 0.6070202851362272,
+      "weighted_recall": 0.6
+    }
+  }
+}

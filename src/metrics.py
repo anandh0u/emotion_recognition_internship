@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
 import torch
-from sklearn.metrics import accuracy_score, balanced_accuracy_score, confusion_matrix, f1_score
+from sklearn.metrics import accuracy_score, balanced_accuracy_score, confusion_matrix, f1_score, precision_score, recall_score
 
 from dataset import CLASS_NAMES
 
@@ -29,6 +29,8 @@ def compute_metrics(y_true: Sequence[int], y_pred: Sequence[int], class_names: S
     return {
         "accuracy": float(accuracy_score(y_true, y_pred)),
         "weighted_f1": float(f1_score(y_true, y_pred, average="weighted", zero_division=0)),
+        "weighted_precision": float(precision_score(y_true, y_pred, average="weighted", zero_division=0)),
+        "weighted_recall": float(recall_score(y_true, y_pred, average="weighted", zero_division=0)),
         "uar": float(balanced_accuracy_score(y_true, y_pred)),
     }
 

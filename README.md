@@ -192,10 +192,13 @@ python src/train.py --features features/ravdess_embeddings.pt --models-dir model
 
 Current full RAVDESS actor-independent results:
 
-- Audio-only test accuracy: `38.96%`
-- Fusion/auto test accuracy: `35.42%`
+- Deployed recommended audio SVM accuracy: `60.00%`
+- Deployed recommended audio SVM weighted F1: `59.26%`
+- Deployed recommended audio SVM UAR: `60.57%`
+- Neural audio head accuracy on audio-bearing test samples: `50.42%`
+- Neural fusion accuracy on audio+visual test samples: `43.33%`
 - Visual-only test accuracy: `27.08%`
-- Best validation F1: `50.19%`
+- Best audio SVM validation F1: `58.82%`
 
 These numbers are lower than the earlier Actor_09-only experiment because this split tests on unseen actors. That makes it a better estimate of real-world generalization.
 
@@ -263,6 +266,7 @@ Deployment files included:
 - `models/best_model.pt`
 - `models/animated/best_model.pt`
 - `models/ravdess/best_model.pt`
+- `models/ravdess/audio_svc.joblib`
 - `samples/sample_manifest.csv`
 - `samples/ravdess/`
 
@@ -270,7 +274,7 @@ The app downloads Wav2Vec2 and ViT backbones from Hugging Face on first use, so 
 
 The UI has two tasks:
 
-- Emotion Recognition: uses the full RAVDESS checkpoint when available; recommended mode uses the audio head because it currently performs best on the actor-independent test split.
+- Emotion Recognition: recommended mode uses the RAVDESS audio SVM because it currently performs best on the actor-independent test split; image and fusion modes still use the neural checkpoint.
 - Animated Content Analysis: recommended mode uses the audio head because it currently performs best on the test split.
 
 ## 5) Zero-shot baseline

@@ -15,6 +15,7 @@ except ImportError:  # pragma: no cover - handled in the UI at runtime.
     cv2 = None
 
 import imageio_ffmpeg
+import numpy as np
 import pandas as pd
 import streamlit as st
 import torch
@@ -38,6 +39,7 @@ DEFAULT_FEATURES = PROJECT_ROOT / "features" / "all_embeddings.pt"
 DEFAULT_CHECKPOINT = PROJECT_ROOT / "models" / "best_model.pt"
 RAVDESS_FEATURES = PROJECT_ROOT / "features" / "ravdess_embeddings.pt"
 RAVDESS_CHECKPOINT = PROJECT_ROOT / "models" / "ravdess" / "best_model.pt"
+RAVDESS_AUDIO_CLASSIFIER = PROJECT_ROOT / "models" / "ravdess" / "audio_svc.joblib"
 ANIMATED_FEATURES = PROJECT_ROOT / "features" / "animated_embeddings.pt"
 ANIMATED_CHECKPOINT = PROJECT_ROOT / "models" / "animated" / "best_model.pt"
 DEFAULT_RAW_DIR = PROJECT_ROOT / "data" / "raw"
@@ -56,10 +58,11 @@ TASKS = {
         "description": "7-class full RAVDESS actor-independent emotion model",
         "label_name": "emotion",
         "recommended_modality": "audio",
+        "audio_classifier": RAVDESS_AUDIO_CLASSIFIER if RAVDESS_AUDIO_CLASSIFIER.exists() else None,
         "fallback_metrics": {
-            "best_val_f1": 0.5018801316687249,
-            "test_accuracy": 0.38958333333333334,
-            "test_uar": 0.39955357142857145,
+            "best_val_f1": 0.5882489853905681,
+            "test_accuracy": 0.6,
+            "test_uar": 0.605654761904762,
         },
     },
     "Animated Content Analysis": {
@@ -69,6 +72,7 @@ TASKS = {
         "description": "2-class animated content optimization model",
         "label_name": "class",
         "recommended_modality": "audio",
+        "audio_classifier": None,
         "fallback_metrics": {
             "best_val_f1": 0.457703081232493,
             "test_accuracy": 0.49206349206349204,
@@ -95,6 +99,22 @@ def load_model(checkpoint_path: str) -> tuple[MultimodalEmotionModel, torch.devi
     model.load_state_dict(state_dict)
     model.eval()
     return model, device, class_names
+
+
+@st.cache_resource(show_spinner=False)
+def load_audio_classifier(classifier_path: str | None) -> dict[str, Any] | None:
+    if not classifier_path:
+        return None
+    path = Path(classifier_path)
+    if not path.exists():
+        return None
+    import joblib
+
+    payload = joblib.load(path)
+    if not isinstance(payload, dict) or "model" not in payload:
+        raise ValueError(f"Unsupported audio classifier format: {path}")
+    payload["class_names"] = [str(name) for name in payload.get("class_names", CLASS_NAMES)]
+    return payload
 
 
 @st.cache_resource(show_spinner=False)
@@ -330,6 +350,43 @@ def predict(
     return class_names[prediction_index], float(probabilities[prediction_index].item()), scores, modality
 
 
+def predict_audio_classifier(
+    classifier_payload: dict[str, Any],
+    audio_embedding: torch.Tensor,
+) -> tuple[str, float, pd.DataFrame, str]:
+    classifier = classifier_payload["model"]
+    class_names = [str(name) for name in classifier_payload.get("class_names", CLASS_NAMES)]
+    features = audio_embedding.detach().cpu().float().reshape(1, -1).numpy()
+    prediction_index = int(classifier.predict(features)[0])
+
+    if hasattr(classifier, "decision_function"):
+        raw_scores = np.asarray(classifier.decision_function(features), dtype=np.float64).reshape(-1)
+    elif hasattr(classifier, "predict_proba"):
+        raw_scores = np.asarray(classifier.predict_proba(features), dtype=np.float64).reshape(-1)
+    else:
+        raw_scores = np.zeros(len(class_names), dtype=np.float64)
+        raw_scores[prediction_index] = 1.0
+
+    if raw_scores.size == 1 and len(class_names) == 2:
+        raw_scores = np.array([-raw_scores[0], raw_scores[0]], dtype=np.float64)
+
+    probabilities = np.zeros(len(class_names), dtype=np.float64)
+    classifier_classes = getattr(classifier, "classes_", np.arange(len(class_names)))
+    stable_scores = raw_scores - float(np.max(raw_scores))
+    normalized = np.exp(stable_scores)
+    normalized = normalized / max(float(normalized.sum()), 1e-12)
+    for score_index, class_index in enumerate(classifier_classes):
+        probabilities[int(class_index)] = float(normalized[score_index])
+
+    scores = pd.DataFrame(
+        [
+            {"label": class_names[index], "confidence": round(float(probabilities[index]) * 100.0, 2)}
+            for index in range(len(class_names))
+        ]
+    ).sort_values("confidence", ascending=False)
+    return class_names[prediction_index], float(probabilities[prediction_index]), scores, "audio_svm"
+
+
 def extract_audio_upload(audio_file: Any) -> torch.Tensor:
     audio_processor, audio_model, _visual_processor, _visual_model, backbone_device = load_backbones()
     suffix = Path(audio_file.name).suffix or ".wav"
@@ -430,8 +487,9 @@ def metric_card(label: str, value: str) -> None:
 
 
 def render_prediction(prediction: str, confidence: float, scores: pd.DataFrame, modality: str) -> None:
+    modality_label = modality.replace("_", " ").title()
     st.markdown(
-        f"<div class='prediction'><span>{modality.title()} prediction</span><strong>{prediction}</strong><em>{confidence * 100:.2f}% confidence</em></div>",
+        f"<div class='prediction'><span>{modality_label} prediction</span><strong>{prediction}</strong><em>{confidence * 100:.2f}% confidence</em></div>",
         unsafe_allow_html=True,
     )
     st.bar_chart(scores.sort_values("confidence", ascending=True).set_index("label"), horizontal=True, height=280)
@@ -541,8 +599,13 @@ def main() -> None:
     all_metrics = metrics.get("evaluation_all_metrics.json", {}).get("results", {})
     test_metrics = all_metrics.get("test") or metrics.get("evaluation_metrics.json", {})
     recommended_metrics = metrics.get(f"evaluation_{recommended_modality}_metrics.json", {}) or test_metrics
+    audio_classifier_metrics = metrics.get("audio_svc_metrics.json", {}).get("metrics", {})
+    if task.get("audio_classifier") and recommended_modality == "audio" and audio_classifier_metrics:
+        recommended_metrics = audio_classifier_metrics.get("test", recommended_metrics)
     fallback_metrics = task["fallback_metrics"]
     best_val_f1 = float(summary.get("best_val_f1", fallback_metrics["best_val_f1"]) or 0.0)
+    if task.get("audio_classifier") and recommended_modality == "audio" and audio_classifier_metrics:
+        best_val_f1 = float(audio_classifier_metrics.get("val", {}).get("weighted_f1", best_val_f1) or 0.0)
     train_metrics = all_metrics.get("train", {})
     train_accuracy = float(train_metrics.get("accuracy", 1.0 if task_name == "Emotion Recognition" else fallback_metrics["test_accuracy"]) or 0.0)
     test_accuracy = float(recommended_metrics.get("accuracy", fallback_metrics["test_accuracy"]) or 0.0)
@@ -559,6 +622,7 @@ def main() -> None:
         metric_card("Test UAR", f"{test_uar * 100:.2f}%")
 
     model, device, class_names = load_model(str(checkpoint_path))
+    audio_classifier = load_audio_classifier(str(task.get("audio_classifier")) if task.get("audio_classifier") else None)
 
     with st.sidebar:
         source_options = ["Dataset sample", "Upload files"] if sample_records or has_feature_cache else ["Upload files"]
@@ -624,14 +688,17 @@ def main() -> None:
                 st.error("This sample does not have media for the selected prediction mode.")
                 st.stop()
 
-            prediction, confidence, scores, modality = predict(
-                model,
-                device,
-                class_names,
-                audio_embedding,
-                visual_embedding,
-                preferred_modality=preferred_modality,
-            )
+            if audio_classifier is not None and preferred_modality == "audio" and audio_embedding is not None:
+                prediction, confidence, scores, modality = predict_audio_classifier(audio_classifier, audio_embedding)
+            else:
+                prediction, confidence, scores, modality = predict(
+                    model,
+                    device,
+                    class_names,
+                    audio_embedding,
+                    visual_embedding,
+                    preferred_modality=preferred_modality,
+                )
             with st.chat_message("user"):
                 st.write(f"Sample `{record['sample_id']}` · true label `{record['label']}`")
                 media_columns = st.columns([1, 1, 1])
@@ -675,14 +742,17 @@ def main() -> None:
             if preferred_modality == "visual":
                 audio_embedding = None
 
-            prediction, confidence, scores, modality = predict(
-                model,
-                device,
-                class_names,
-                audio_embedding,
-                visual_embedding,
-                preferred_modality=preferred_modality,
-            )
+            if audio_classifier is not None and preferred_modality == "audio" and audio_embedding is not None:
+                prediction, confidence, scores, modality = predict_audio_classifier(audio_classifier, audio_embedding)
+            else:
+                prediction, confidence, scores, modality = predict(
+                    model,
+                    device,
+                    class_names,
+                    audio_embedding,
+                    visual_embedding,
+                    preferred_modality=preferred_modality,
+                )
             with st.chat_message("user"):
                 st.write(f"Sample `{record['sample_id']}` · true label `{record['label']}`")
                 media_columns = st.columns([1, 1])
@@ -755,14 +825,17 @@ def main() -> None:
                     st.error("No usable audio or visual signal was found for the selected prediction mode.")
                     st.stop()
 
-                prediction, confidence, scores, modality = predict(
-                    model,
-                    device,
-                    class_names,
-                    audio_embedding,
-                    visual_embedding,
-                    preferred_modality=preferred_modality,
-                )
+                if audio_classifier is not None and preferred_modality == "audio" and audio_embedding is not None:
+                    prediction, confidence, scores, modality = predict_audio_classifier(audio_classifier, audio_embedding)
+                else:
+                    prediction, confidence, scores, modality = predict(
+                        model,
+                        device,
+                        class_names,
+                        audio_embedding,
+                        visual_embedding,
+                        preferred_modality=preferred_modality,
+                    )
                 render_prediction(prediction, confidence, scores, modality)
                 render_feedback_form(
                     "upload",
