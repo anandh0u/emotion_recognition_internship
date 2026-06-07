@@ -1,25 +1,27 @@
 # Multi-Dataset Audio Manifest Report
 
 Manifest: `E:\emotion_recognition_data\labels_audio_multi.csv`
-Total audio rows: 1920
+Total audio rows: 12162
 
 ## Rows By Dataset
 
+- crema_d: 7442
 - ravdess: 1440
 - savee: 480
+- tess: 2800
 
 ## Rows By Split
 
-- test: 360
-- train: 1200
-- val: 360
+- test: 2825
+- train: 7829
+- val: 1508
 
 ## Rows By Label
 
-- anger: 252
-- disgust: 252
-- fear: 252
-- happiness: 252
-- neutral: 408
-- sadness: 252
-- surprise: 252
+- anger: 1923
+- disgust: 1923
+- fear: 1923
+- happiness: 1923
+- neutral: 1895
+- sadness: 1923
+- surprise: 652

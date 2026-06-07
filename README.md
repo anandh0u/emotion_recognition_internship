@@ -261,15 +261,29 @@ Do not rely on RAVDESS alone for the final paper-focused system. The repo includ
 Current local combined manifest:
 
 - Output: `E:\emotion_recognition_data\labels_audio_multi.csv`
-- Included datasets: RAVDESS full audio + SAVEE
-- Total audio rows: `1920`
-- Train/validation/test rows: `1200 / 360 / 360`
+- Included datasets: RAVDESS full audio + SAVEE + TESS + CREMA-D AudioMP3
+- Total audio rows: `12162`
+- Train/validation/test rows: `7829 / 1508 / 2825`
 - Summary: `results/multidataset_manifest_report.md`
 
-Build the current RAVDESS + SAVEE manifest:
+Class note: CREMA-D does not provide `surprise`, so the `surprise` class currently comes from RAVDESS, SAVEE, and TESS.
+
+Download TESS with KaggleHub:
 
 ```powershell
-.\.venv311\Scripts\python.exe src\prepare_audio_emotion_manifest.py --manifest E:\emotion_recognition_data\labels_ravdess_full.csv --root data\raw\ALL --output E:\emotion_recognition_data\labels_audio_multi.csv --report results\multidataset_manifest_report.md
+.\.venv311\Scripts\python.exe -c "import kagglehub; print(kagglehub.dataset_download('orvile/toronto-emotional-speech-set-tess'))"
+```
+
+Clone CREMA-D from GitHub:
+
+```powershell
+git clone --depth 1 https://github.com/CheyneyComputerScience/CREMA-D.git E:\emotion_recognition_data\raw\CREMA-D
+```
+
+Build the current RAVDESS + SAVEE + TESS + CREMA-D manifest:
+
+```powershell
+.\.venv311\Scripts\python.exe src\prepare_audio_emotion_manifest.py --manifest E:\emotion_recognition_data\labels_ravdess_full.csv --root data\raw\ALL --root E:\emotion_recognition_data\raw\TESS --root E:\emotion_recognition_data\raw\CREMA-D\AudioMP3 --output E:\emotion_recognition_data\labels_audio_multi.csv --report results\multidataset_manifest_report.md
 ```
 
 When CREMA-D, TESS, or EmoDB are downloaded and extracted, add more `--root` arguments:
