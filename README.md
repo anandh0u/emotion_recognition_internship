@@ -17,6 +17,7 @@ emotion_recognition_internship/
 │   ├── model.py
 │   ├── precompute.py
 │   ├── train.py
+│   ├── train_audio_wav2vec2.py
 │   ├── evaluate.py
 │   ├── zero_shot.py
 │   ├── few_shot.py
@@ -201,6 +202,24 @@ Current full RAVDESS actor-independent results:
 - Best audio SVM validation F1: `58.82%`
 
 These numbers are lower than the earlier Actor_09-only experiment because this split tests on unseen actors. That makes it a better estimate of real-world generalization.
+
+## Stronger Audio Fine-Tuning
+
+The deployed SVM is the best current lightweight model, but the next accuracy jump should come from fine-tuning Wav2Vec2 directly on audio files. This machine currently has CPU-only PyTorch, so full fine-tuning is better suited to Colab, Kaggle GPU, or another CUDA machine.
+
+Smoke test on this machine:
+
+```powershell
+.\.venv311\Scripts\python.exe src\train_audio_wav2vec2.py --labels E:\emotion_recognition_data\labels_ravdess_full.csv --output-dir E:\emotion_recognition_data\models\wav2vec2_smoke --epochs 1 --batch 1 --max-duration 1.0 --freeze-base --unfreeze-last-n 0 --limit-train 2 --limit-val 2 --limit-test 2 --no-save-model
+```
+
+Recommended GPU run:
+
+```powershell
+python src/train_audio_wav2vec2.py --labels E:\emotion_recognition_data\labels_ravdess_full.csv --output-dir E:\emotion_recognition_data\models\wav2vec2_emotion_full --epochs 8 --batch 4 --lr 2e-5 --max-duration 4.0 --freeze-feature-encoder --freeze-base --unfreeze-last-n 2
+```
+
+For a stronger final model, merge RAVDESS with CREMA-D, TESS, SAVEE, and EmoDB into one manifest using the same `sample_id,split,label,audio_path` columns, then train this script on the combined manifest with speaker-independent splits.
 
 ## 1) Precompute embeddings once
 

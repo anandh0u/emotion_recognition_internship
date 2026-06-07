@@ -16,9 +16,13 @@ features/**/*.pt
 features/*.pt
 models/**/*.pt
 models/*.pt
+models/**/*.bin
+models/**/*.safetensors
+models/**/best_model/
 !models/best_model.pt
 !models/animated/best_model.pt
 !models/ravdess/best_model.pt
+!models/ravdess/audio_svc.joblib
 results/**/*.png
 results/*.png
 results/**/*.json
