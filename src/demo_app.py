@@ -28,6 +28,8 @@ from agent_pipeline import (
     AudioEmotionAgent,
     EmotionSupervisorAgent,
     FusionEmotionAgent,
+    ModalityPrediction,
+    SupervisorDecision,
     TextEmotionAgent,
     VisionEmotionAgent,
 )
@@ -423,7 +425,7 @@ def predict_text_classifier(
     return prediction.label, prediction.confidence, scores_dataframe(prediction.scores), prediction.source
 
 
-def predict_with_supervisor(
+def collect_agent_predictions(
     model: MultimodalEmotionModel,
     device: torch.device,
     class_names: list[str],
@@ -432,7 +434,7 @@ def predict_with_supervisor(
     audio_classifier: dict[str, Any] | None = None,
     text: str = "",
     text_classifier: TextEmotionClassifier | None = None,
-) -> tuple[str, float, pd.DataFrame, str]:
+) -> tuple[SupervisorDecision, list[tuple[ModalityPrediction, pd.DataFrame]]]:
     candidate_outputs: list[tuple[ModalityPrediction, pd.DataFrame]] = []
 
     if audio_embedding is not None:
@@ -457,9 +459,7 @@ def predict_with_supervisor(
         )
         prediction = agent.predict()
         scores = scores_dataframe(prediction.scores)
-        candidate_outputs.append(
-            (prediction, scores)
-        )
+        candidate_outputs.append((prediction, scores))
 
     if visual_embedding is not None:
         agent = VisionEmotionAgent(
@@ -498,6 +498,29 @@ def predict_with_supervisor(
         candidate_outputs.append((prediction, scores))
 
     decision = AGENTIC_PIPELINE.supervisor.decide([candidate for candidate, _scores in candidate_outputs])
+    return decision, candidate_outputs
+
+
+def predict_with_supervisor(
+    model: MultimodalEmotionModel,
+    device: torch.device,
+    class_names: list[str],
+    audio_embedding: torch.Tensor | None,
+    visual_embedding: torch.Tensor | None,
+    audio_classifier: dict[str, Any] | None = None,
+    text: str = "",
+    text_classifier: TextEmotionClassifier | None = None,
+) -> tuple[str, float, pd.DataFrame, str]:
+    decision, candidate_outputs = collect_agent_predictions(
+        model,
+        device,
+        class_names,
+        audio_embedding,
+        visual_embedding,
+        audio_classifier=audio_classifier,
+        text=text,
+        text_classifier=text_classifier,
+    )
     selected_scores = next(
         scores
         for candidate, scores in candidate_outputs
@@ -658,6 +681,50 @@ def render_prediction(prediction: str, confidence: float, scores: pd.DataFrame, 
     st.dataframe(scores, hide_index=True, width="stretch")
 
 
+def render_supervisor_breakdown(
+    decision: SupervisorDecision,
+    candidate_outputs: list[tuple[ModalityPrediction, pd.DataFrame]],
+) -> None:
+    rows = []
+    for candidate, _scores in candidate_outputs:
+        rows.append(
+            {
+                "selected": "yes" if candidate.agent_name == decision.selected_agent else "",
+                "agent": candidate.agent_name.replace("_", " "),
+                "signal": candidate.modality.replace("_", " "),
+                "prediction": candidate.label,
+                "confidence": round(candidate.confidence * 100.0, 2),
+                "notes": candidate.notes,
+            }
+        )
+    st.markdown("##### Supervisor candidates")
+    st.dataframe(pd.DataFrame(rows), hide_index=True, width="stretch")
+    st.caption(f"Supervisor reason: {decision.reason}")
+
+
+def render_supervisor_breakdown_from_inputs(
+    model: MultimodalEmotionModel,
+    device: torch.device,
+    class_names: list[str],
+    audio_embedding: torch.Tensor | None,
+    visual_embedding: torch.Tensor | None,
+    audio_classifier: dict[str, Any] | None,
+    text: str,
+    text_classifier: TextEmotionClassifier | None,
+) -> None:
+    decision, candidate_outputs = collect_agent_predictions(
+        model,
+        device,
+        class_names,
+        audio_embedding,
+        visual_embedding,
+        audio_classifier=audio_classifier,
+        text=text,
+        text_classifier=text_classifier,
+    )
+    render_supervisor_breakdown(decision, candidate_outputs)
+
+
 def render_feedback_form(
     source: str,
     sample_id: str,
@@ -695,6 +762,149 @@ def render_feedback_form(
                 video_file=video_file,
             )
             st.success(f"Saved report and uploads to {folder.relative_to(PROJECT_ROOT)}")
+
+
+def render_audio_agent_window(
+    model: MultimodalEmotionModel,
+    device: torch.device,
+    class_names: list[str],
+    audio_classifier: dict[str, Any] | None,
+) -> None:
+    st.subheader("Audio Agent")
+    st.caption("Speech/audio emotion model. This agent is trained separately and can be replaced without changing vision or text.")
+    audio_file = st.file_uploader("Audio for Audio Agent", type=["wav", "mp3", "flac", "ogg", "m4a"], key="audio_agent_file")
+    if audio_file is None:
+        st.info("Upload an audio file to run the Audio Agent.")
+        return
+    st.audio(audio_file)
+    with st.spinner("Running Audio Agent"):
+        audio_embedding = extract_audio_upload(audio_file)
+        if audio_classifier is not None:
+            prediction, confidence, scores, modality = predict_audio_classifier(audio_classifier, audio_embedding)
+        else:
+            prediction, confidence, scores, modality = predict(
+                model, device, class_names, audio_embedding, None, preferred_modality="audio"
+            )
+    render_prediction(prediction, confidence, scores, f"audio agent -> {modality}")
+
+
+def render_vision_agent_window(
+    model: MultimodalEmotionModel,
+    device: torch.device,
+    class_names: list[str],
+) -> None:
+    st.subheader("Vision Agent")
+    st.caption("Image/video-frame emotion model. This agent will become stronger after face cropping and visual-only training.")
+    image_file = st.file_uploader("Image for Vision Agent", type=["png", "jpg", "jpeg", "bmp", "webp"], key="vision_image")
+    video_file = st.file_uploader("Video for Vision Agent", type=["mp4", "mov", "avi", "mkv", "webm"], key="vision_video")
+    if image_file is None and video_file is None:
+        st.info("Upload an image or video to run the Vision Agent.")
+        return
+    with st.spinner("Running Vision Agent"):
+        visual_embedding = None
+        if image_file is not None:
+            st.image(image_file, width="stretch")
+            visual_embedding = extract_image_upload(image_file)
+        elif video_file is not None:
+            st.video(video_file)
+            _audio_embedding, visual_embedding, _preview = extract_video_upload(
+                video_file, need_audio=False, need_visual=True
+            )
+        if visual_embedding is None:
+            st.error("No usable visual signal was found.")
+            return
+        prediction, confidence, scores, modality = predict(
+            model, device, class_names, None, visual_embedding, preferred_modality="visual"
+        )
+    render_prediction(prediction, confidence, scores, f"vision agent -> {modality}")
+
+
+def render_text_agent_window(text_classifier: TextEmotionClassifier, class_names: list[str]) -> None:
+    st.subheader("Text Agent")
+    st.caption("Text/transcript emotion model. This is the paper's text agent path; speech-to-text will feed this agent later.")
+    text_input = st.text_area("Text for Text Agent", placeholder="Type a message or transcript here", key="text_agent_input")
+    if not text_input.strip():
+        st.info("Enter text to run the Text Agent.")
+        return
+    with st.spinner("Running Text Agent"):
+        prediction, confidence, scores, modality = predict_text_classifier(text_classifier, text_input, class_names)
+    render_prediction(prediction, confidence, scores, f"text agent -> {modality}")
+
+
+def render_fusion_agent_window(
+    model: MultimodalEmotionModel,
+    device: torch.device,
+    class_names: list[str],
+) -> None:
+    st.subheader("Fusion Agent")
+    st.caption("Late-fusion model. It combines audio and visual embeddings after both single-modality agents are available.")
+    audio_file = st.file_uploader("Audio for Fusion Agent", type=["wav", "mp3", "flac", "ogg", "m4a"], key="fusion_audio")
+    image_file = st.file_uploader("Image for Fusion Agent", type=["png", "jpg", "jpeg", "bmp", "webp"], key="fusion_image")
+    video_file = st.file_uploader("Video for Fusion Agent", type=["mp4", "mov", "avi", "mkv", "webm"], key="fusion_video")
+    if audio_file is None and image_file is None and video_file is None:
+        st.info("Upload audio + image, or one video, to run the Fusion Agent.")
+        return
+    with st.spinner("Running Fusion Agent"):
+        audio_embedding = extract_audio_upload(audio_file) if audio_file is not None else None
+        visual_embedding = extract_image_upload(image_file) if image_file is not None else None
+        if video_file is not None and (audio_embedding is None or visual_embedding is None):
+            st.video(video_file)
+            video_audio, video_visual, _preview = extract_video_upload(
+                video_file,
+                need_audio=audio_embedding is None,
+                need_visual=visual_embedding is None,
+            )
+            audio_embedding = audio_embedding if audio_embedding is not None else video_audio
+            visual_embedding = visual_embedding if visual_embedding is not None else video_visual
+        if audio_embedding is None or visual_embedding is None:
+            st.error("Fusion Agent needs both audio and visual signals.")
+            return
+        prediction, confidence, scores, modality = predict(
+            model, device, class_names, audio_embedding, visual_embedding, preferred_modality="fusion"
+        )
+    render_prediction(prediction, confidence, scores, f"fusion agent -> {modality}")
+
+
+def render_animation_agent_window() -> None:
+    st.subheader("Animation Agent")
+    st.caption("Separate animated-content task. It is not mixed with the 7-class emotion labels.")
+    if not ANIMATED_CHECKPOINT.exists():
+        st.warning("Animation checkpoint is not available.")
+        return
+    model, device, class_names = load_model(str(ANIMATED_CHECKPOINT))
+    audio_file = st.file_uploader("Animation audio", type=["wav", "mp3", "flac", "ogg", "m4a"], key="animation_audio")
+    image_file = st.file_uploader("Animation image/frame", type=["png", "jpg", "jpeg", "bmp", "webp"], key="animation_image")
+    video_file = st.file_uploader("Animation video", type=["mp4", "mov", "avi", "mkv", "webm"], key="animation_video")
+    if audio_file is None and image_file is None and video_file is None:
+        st.info("Upload animation audio, image/frame, or video.")
+        return
+    with st.spinner("Running Animation Agent"):
+        audio_embedding = extract_audio_upload(audio_file) if audio_file is not None else None
+        visual_embedding = extract_image_upload(image_file) if image_file is not None else None
+        if video_file is not None and (audio_embedding is None or visual_embedding is None):
+            st.video(video_file)
+            video_audio, video_visual, _preview = extract_video_upload(
+                video_file,
+                need_audio=audio_embedding is None,
+                need_visual=visual_embedding is None,
+            )
+            audio_embedding = audio_embedding if audio_embedding is not None else video_audio
+            visual_embedding = visual_embedding if visual_embedding is not None else video_visual
+        prediction, confidence, scores, modality = predict(
+            model, device, class_names, audio_embedding, visual_embedding, preferred_modality="auto"
+        )
+    render_prediction(prediction, confidence, scores, f"animation agent -> {modality}")
+
+
+def render_workspace_registry_window() -> None:
+    st.subheader("Agent Workspaces")
+    st.caption("Official separated training places for each replaceable project.")
+    report_path = PROJECT_ROOT / "results" / "agent_workspace_report.md"
+    registry_path = Path(r"E:\emotion_recognition_data\agents\supervisor\agent_registry.json")
+    if report_path.exists():
+        st.markdown(report_path.read_text(encoding="utf-8"))
+    if registry_path.exists():
+        st.json(json.loads(registry_path.read_text(encoding="utf-8")))
 
 
 def configure_page() -> None:
@@ -790,6 +1000,40 @@ def main() -> None:
     text_classifier = load_text_classifier() if task_name == "Emotion Recognition" else None
 
     with st.sidebar:
+        agent_windows = [
+            "Supervisor Final Result",
+            "Audio Agent",
+            "Vision Agent",
+            "Text Agent",
+            "Fusion Agent",
+            "Animation Agent",
+            "Agent Workspaces",
+        ]
+        selected_agent_window = st.selectbox("Agent window", agent_windows)
+
+    if selected_agent_window == "Audio Agent":
+        render_audio_agent_window(model, device, class_names, audio_classifier)
+        st.stop()
+    if selected_agent_window == "Vision Agent":
+        render_vision_agent_window(model, device, class_names)
+        st.stop()
+    if selected_agent_window == "Text Agent":
+        if text_classifier is None:
+            st.warning("Text Agent is available for the Emotion Recognition task.")
+        else:
+            render_text_agent_window(text_classifier, class_names)
+        st.stop()
+    if selected_agent_window == "Fusion Agent":
+        render_fusion_agent_window(model, device, class_names)
+        st.stop()
+    if selected_agent_window == "Animation Agent":
+        render_animation_agent_window()
+        st.stop()
+    if selected_agent_window == "Agent Workspaces":
+        render_workspace_registry_window()
+        st.stop()
+
+    with st.sidebar:
         source_options = ["Dataset sample", "Upload files"] if sample_records or has_feature_cache else ["Upload files"]
         source = st.radio("Source", source_options, horizontal=False)
         split_options = ["train", "val", "test"]
@@ -880,6 +1124,17 @@ def main() -> None:
                         st.video(str(video_path))
             with st.chat_message("assistant"):
                 render_prediction(prediction, confidence, scores, modality)
+                if preferred_modality == "supervisor":
+                    render_supervisor_breakdown_from_inputs(
+                        model,
+                        device,
+                        class_names,
+                        audio_embedding,
+                        visual_embedding,
+                        audio_classifier,
+                        "",
+                        text_classifier,
+                    )
                 render_feedback_form(
                     "sample",
                     record["sample_id"],
@@ -931,6 +1186,17 @@ def main() -> None:
                         st.image(image, caption=record["label"], width="stretch")
             with st.chat_message("assistant"):
                 render_prediction(prediction, confidence, scores, modality)
+                if preferred_modality == "supervisor":
+                    render_supervisor_breakdown_from_inputs(
+                        model,
+                        device,
+                        class_names,
+                        audio_embedding,
+                        visual_embedding,
+                        audio_classifier,
+                        "",
+                        text_classifier,
+                    )
                 render_feedback_form(
                     "dataset",
                     record["sample_id"],
@@ -1008,6 +1274,17 @@ def main() -> None:
                     text_classifier=text_classifier,
                 )
                 render_prediction(prediction, confidence, scores, modality)
+                if preferred_modality == "supervisor":
+                    render_supervisor_breakdown_from_inputs(
+                        model,
+                        device,
+                        class_names,
+                        audio_embedding,
+                        visual_embedding,
+                        audio_classifier,
+                        text_input,
+                        text_classifier,
+                    )
                 render_feedback_form(
                     "upload",
                     "",

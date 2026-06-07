@@ -81,6 +81,18 @@ The supervisor registry is stored at:
 E:\emotion_recognition_data\agents\supervisor\agent_registry.json
 ```
 
+The Streamlit app mirrors this structure with separate windows:
+
+- Audio Agent
+- Vision Agent
+- Text Agent
+- Fusion Agent
+- Animation Agent
+- Agent Workspaces
+- Supervisor Final Result
+
+The final supervisor window is the paper-style united result: available agent outputs are compared, the candidate table is shown, and the central supervisor returns the final prediction.
+
 ## Data format
 
 `data/labels.csv` should contain one row per multimodal example with these columns:
