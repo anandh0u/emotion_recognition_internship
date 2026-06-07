@@ -18,7 +18,7 @@ Reference papers:
 | Replaceable modules | The audio branch can switch from the current SVM to fine-tuned Wav2Vec2 without rewriting the visual or fusion code. The visual branch can later be replaced with a stronger face model. |
 | End-to-end demo pipeline | `streamlit_app.py` runs the deployed interface. It accepts audio, image, and video uploads, extracts signals, predicts emotion, and records feedback. |
 | Feedback loop | `outputs/feedback.csv` stores whether the user says the prediction was correct and the corrected label when available. This is the start of the self-improvement loop. |
-| Real-world evaluation | RAVDESS uses actor-independent splits so test actors are unseen during training. This gives a more realistic estimate than testing on the same actor distribution. |
+| Real-world evaluation | RAVDESS uses actor-independent splits so test actors are unseen during training. The multi-dataset audio manifest also supports SAVEE, CREMA-D, TESS, and EmoDB to reduce single-dataset bias. |
 
 ## Current Architecture
 
@@ -57,9 +57,9 @@ The project is now paper-focused, but it is not yet a complete reproduction of t
 ## Next Paper-Focused Improvements
 
 1. Finish Wav2Vec2 fine-tuning on the full RAVDESS manifest, then compare it against the current audio SVM.
-2. Add a face-cropping step before ViT so visual predictions use the face region instead of full frames.
-3. Aggregate multiple video frames using mean/attention pooling instead of using only a small frame sample.
-4. Add a text/transcript agent using Whisper for speech-to-text and a transformer text classifier.
-5. Calibrate agent confidence scores on the validation split so the supervisor makes better cross-modal decisions.
-6. Turn `outputs/feedback.csv` into a retraining manifest after manual review.
-
+2. Train the audio agent on the multi-dataset manifest created by `src/prepare_audio_emotion_manifest.py`.
+3. Add a face-cropping step before ViT so visual predictions use the face region instead of full frames.
+4. Aggregate multiple video frames using mean/attention pooling instead of using only a small frame sample.
+5. Add a text/transcript agent using Whisper for speech-to-text and a transformer text classifier.
+6. Calibrate agent confidence scores on the validation split so the supervisor makes better cross-modal decisions.
+7. Turn `outputs/feedback.csv` into a retraining manifest after manual review.

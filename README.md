@@ -248,6 +248,44 @@ This does not beat the deployed audio SVM (`60.00%` accuracy, `59.26%` weighted 
 
 For a stronger final model, merge RAVDESS with CREMA-D, TESS, SAVEE, and EmoDB into one manifest using the same `sample_id,split,label,audio_path` columns, then train this script on the combined manifest with speaker-independent splits.
 
+## Multi-Dataset Audio Training
+
+Do not rely on RAVDESS alone for the final paper-focused system. The repo includes a combined audio-manifest builder that supports common emotion-audio naming formats:
+
+- RAVDESS
+- SAVEE
+- CREMA-D
+- TESS
+- EmoDB
+
+Current local combined manifest:
+
+- Output: `E:\emotion_recognition_data\labels_audio_multi.csv`
+- Included datasets: RAVDESS full audio + SAVEE
+- Total audio rows: `1920`
+- Train/validation/test rows: `1200 / 360 / 360`
+- Summary: `results/multidataset_manifest_report.md`
+
+Build the current RAVDESS + SAVEE manifest:
+
+```powershell
+.\.venv311\Scripts\python.exe src\prepare_audio_emotion_manifest.py --manifest E:\emotion_recognition_data\labels_ravdess_full.csv --root data\raw\ALL --output E:\emotion_recognition_data\labels_audio_multi.csv --report results\multidataset_manifest_report.md
+```
+
+When CREMA-D, TESS, or EmoDB are downloaded and extracted, add more `--root` arguments:
+
+```powershell
+.\.venv311\Scripts\python.exe src\prepare_audio_emotion_manifest.py --manifest E:\emotion_recognition_data\labels_ravdess_full.csv --root data\raw\ALL --root E:\emotion_recognition_data\raw\CREMA-D --root E:\emotion_recognition_data\raw\TESS --root E:\emotion_recognition_data\raw\EmoDB --output E:\emotion_recognition_data\labels_audio_multi.csv --report results\multidataset_manifest_report.md
+```
+
+Train the audio agent on the combined manifest:
+
+```powershell
+.\.venv311\Scripts\python.exe src\train_audio_wav2vec2.py --labels E:\emotion_recognition_data\labels_audio_multi.csv --output-dir E:\emotion_recognition_data\models\wav2vec2_audio_multi --epochs 10 --batch 4 --lr 2e-5 --max-duration 4.0 --freeze-feature-encoder --freeze-base --unfreeze-last-n 2
+```
+
+On CPU this can take a long time. For the strongest result, run the same command on a GPU and increase `--unfreeze-last-n` to `4` or `6`.
+
 ## 1) Precompute embeddings once
 
 This extracts Wav2Vec2 and ViT features and stores them in `features/all_embeddings.pt`.
