@@ -5,6 +5,7 @@ import csv
 import json
 import math
 import random
+import sys
 from collections import Counter
 from pathlib import Path
 from typing import Any
@@ -264,6 +265,8 @@ def main() -> None:
     set_seed(args.seed)
 
     device = torch.device(args.device or ("cuda" if torch.cuda.is_available() else "cpu"))
+    if device.type == "cuda" and not torch.cuda.is_available():
+        raise RuntimeError("CUDA was requested with --device cuda, but torch.cuda.is_available() is False.")
     rows = load_manifest(args.labels)
     train_rows = limit_rows([row for row in rows if row["split"] == "train"], args.limit_train, args.seed)
     val_rows = limit_rows([row for row in rows if row["split"] == "val"], args.limit_val, args.seed)
@@ -319,6 +322,9 @@ def main() -> None:
     warmup_steps = int(math.ceil(total_steps * args.warmup_ratio))
     scheduler = get_cosine_schedule_with_warmup(optimizer, warmup_steps, total_steps)
     use_amp = bool(args.amp and device.type == "cuda")
+    print(f"Using device: {device} | amp={use_amp} | batch={args.batch_size} | grad_accum={args.gradient_accumulation_steps}")
+    if device.type == "cuda":
+        print(f"CUDA device: {torch.cuda.get_device_name(device)}")
 
     config = {
         **{key: str(value) if isinstance(value, Path) else value for key, value in vars(args).items()},
@@ -383,4 +389,18 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except RuntimeError as exc:
+        message = str(exc)
+        if "out of memory" in message.lower() and "cuda" in message.lower():
+            print(
+                "\nCUDA ran out of memory during Wav2Vec2 training.\n"
+                "Use CPU for the stable run, or reduce GPU memory pressure with --batch 1, "
+                "--max-duration 2.0, --freeze-base, and fewer unfrozen layers.\n"
+                "Recommended stable command: .\\run_local_audio_training.ps1 -Mode multi "
+                "-Epochs 10 -Batch 4 -LearningRate 2e-5 -UnfreezeLastN 2 -Device cpu\n",
+                file=sys.stderr,
+            )
+            raise SystemExit(2) from exc
+        raise

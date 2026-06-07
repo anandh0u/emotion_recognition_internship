@@ -272,18 +272,18 @@ These numbers are lower than the earlier Actor_09-only experiment because this s
 
 ## Stronger Audio Fine-Tuning
 
-The deployed SVM is the best current lightweight model, but the next accuracy jump should come from fine-tuning Wav2Vec2 directly on audio files. This machine currently has CPU-only PyTorch, so full fine-tuning is better suited to Colab, Kaggle GPU, or another CUDA machine.
+The deployed SVM is the best current lightweight model, but the next accuracy jump should come from fine-tuning Wav2Vec2 directly on audio files. This laptop has CUDA available, but the RTX 3050 Laptop GPU has limited VRAM, so Wav2Vec2 fine-tuning is more stable on CPU unless you run a very small GPU experiment.
 
 Smoke test on this machine:
 
 ```powershell
-.\.venv311\Scripts\python.exe src\train_audio_wav2vec2.py --labels E:\emotion_recognition_data\labels_ravdess_full.csv --output-dir E:\emotion_recognition_data\models\wav2vec2_smoke --epochs 1 --batch 1 --max-duration 1.0 --freeze-base --unfreeze-last-n 0 --limit-train 2 --limit-val 2 --limit-test 2 --no-save-model
+.\run_local_audio_training.ps1 -Mode smoke -Device cpu
 ```
 
-Recommended GPU run:
+Recommended stable CPU run:
 
 ```powershell
-python src/train_audio_wav2vec2.py --labels E:\emotion_recognition_data\labels_ravdess_full.csv --output-dir E:\emotion_recognition_data\models\wav2vec2_emotion_full --epochs 8 --batch 4 --lr 2e-5 --max-duration 4.0 --freeze-feature-encoder --freeze-base --unfreeze-last-n 2
+.\run_local_audio_training.ps1 -Mode ravdess -Epochs 8 -Batch 4 -LearningRate 2e-5 -UnfreezeLastN 2 -Device cpu
 ```
 
 Completed CPU fine-tuning result on the full actor-independent RAVDESS audio split:
@@ -344,10 +344,35 @@ When CREMA-D, TESS, or EmoDB are downloaded and extracted, add more `--root` arg
 Train the audio agent on the combined manifest:
 
 ```powershell
-.\.venv311\Scripts\python.exe src\train_audio_wav2vec2.py --labels E:\emotion_recognition_data\labels_audio_multi.csv --output-dir E:\emotion_recognition_data\models\wav2vec2_audio_multi --epochs 10 --batch 4 --lr 2e-5 --max-duration 4.0 --freeze-feature-encoder --freeze-base --unfreeze-last-n 2
+.\run_local_audio_training.ps1 -Mode multi -Epochs 10 -Batch 4 -LearningRate 2e-5 -UnfreezeLastN 2 -Device cpu
 ```
 
-On CPU this can take a long time. For the strongest result, run the same command on a GPU and increase `--unfreeze-last-n` to `4` or `6`.
+On CPU this can take a long time, but it avoids GPU memory crashes. Only use CUDA for smaller Wav2Vec2 tests such as `-Batch 1 -MaxDuration 2.0 -UnfreezeLastN 1 -GradientAccumulationSteps 8 -Device cuda -Amp`.
+
+## Build Separate Agent Features
+
+The paper-style agent setup uses separate feature caches for each replaceable module:
+
+```powershell
+.\run_agent_feature_build.ps1 -Mode all -Device cpu
+```
+
+Build one module at a time:
+
+```powershell
+.\run_agent_feature_build.ps1 -Mode audio -Device cpu
+.\run_agent_feature_build.ps1 -Mode vision -Device cpu
+.\run_agent_feature_build.ps1 -Mode multimodal -Device cpu
+.\run_agent_feature_build.ps1 -Mode animation -Device cpu
+```
+
+Train the lightweight feature-head models after the caches are ready:
+
+```powershell
+.\run_agent_feature_training.ps1 -Mode vision -Epochs 30 -Batch 16 -Device cpu
+.\run_agent_feature_training.ps1 -Mode multimodal -Epochs 30 -Batch 16 -Device cpu
+.\run_agent_feature_training.ps1 -Mode animation -Epochs 30 -Batch 16 -Device cpu
+```
 
 ## 1) Precompute embeddings once
 

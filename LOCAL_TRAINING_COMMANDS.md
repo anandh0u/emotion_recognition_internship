@@ -12,7 +12,9 @@ cd E:\emotion_recognition_internship
 .\.venv311\Scripts\python.exe -c "import torch; print('torch', torch.__version__); print('cuda', torch.cuda.is_available())"
 ```
 
-If CUDA prints `False` but `nvidia-smi` works, install CUDA-enabled PyTorch:
+For Wav2Vec2 fine-tuning on this laptop, use CPU first. The RTX 3050 Laptop GPU has limited VRAM, so CUDA can crash during Wav2Vec2 with exit code `-1` or CUDA out-of-memory errors.
+
+If you still want CUDA for short smoke tests or the lightweight feature-head models, install CUDA-enabled PyTorch:
 
 ```powershell
 .\.venv311\Scripts\python.exe -m pip uninstall -y torch torchvision torchaudio
@@ -41,17 +43,17 @@ Expected current size: `12162` audio rows.
 Run this before any long training job:
 
 ```powershell
-.\.venv311\Scripts\python.exe src\train_audio_wav2vec2.py --labels E:\emotion_recognition_data\labels_ravdess_full.csv --output-dir E:\emotion_recognition_data\models\wav2vec2_smoke --epochs 1 --batch 1 --max-duration 1.0 --freeze-base --unfreeze-last-n 0 --limit-train 2 --limit-val 2 --limit-test 2 --no-save-model
+.\run_local_audio_training.ps1 -Mode smoke -Device cpu
 ```
 
 This checks that audio loading, labels, model loading, training, and evaluation all work.
 
 ## 3) RAVDESS Fine-Tuning Run
 
-This is the conservative local run:
+This is the conservative CPU local run:
 
 ```powershell
-.\.venv311\Scripts\python.exe src\train_audio_wav2vec2.py --labels E:\emotion_recognition_data\labels_ravdess_full.csv --output-dir E:\emotion_recognition_data\models\wav2vec2_emotion_full --epochs 8 --batch 4 --lr 2e-5 --max-duration 4.0 --freeze-feature-encoder --freeze-base --unfreeze-last-n 2
+.\run_local_audio_training.ps1 -Mode ravdess -Epochs 8 -Batch 4 -LearningRate 2e-5 -UnfreezeLastN 2 -Device cpu
 ```
 
 Current completed CPU result:
@@ -67,33 +69,66 @@ This did not beat the deployed audio SVM, which is still `60.00%` accuracy.
 This is the next stronger local experiment:
 
 ```powershell
-.\.venv311\Scripts\python.exe src\train_audio_wav2vec2.py --labels E:\emotion_recognition_data\agents\audio\manifests\labels_audio_multi.csv --output-dir E:\emotion_recognition_data\agents\audio\models\wav2vec2_audio_multi --epochs 10 --batch 4 --lr 2e-5 --max-duration 4.0 --freeze-feature-encoder --freeze-base --unfreeze-last-n 2
+.\run_local_audio_training.ps1 -Mode multi -Epochs 10 -Batch 4 -LearningRate 2e-5 -UnfreezeLastN 2 -Device cpu
 ```
 
-If you have CUDA/GPU, increase the useful training capacity:
+Only try this tiny GPU version if you want to test CUDA. If it crashes, go back to the CPU command above:
 
 ```powershell
-.\.venv311\Scripts\python.exe src\train_audio_wav2vec2.py --labels E:\emotion_recognition_data\agents\audio\manifests\labels_audio_multi.csv --output-dir E:\emotion_recognition_data\agents\audio\models\wav2vec2_audio_multi_gpu --epochs 12 --batch 2 --lr 1e-5 --max-duration 4.0 --freeze-feature-encoder --freeze-base --unfreeze-last-n 4 --gradient-accumulation-steps 4 --amp --device cuda
+.\run_local_audio_training.ps1 -Mode multi -Epochs 3 -Batch 1 -LearningRate 1e-5 -MaxDuration 2.0 -UnfreezeLastN 1 -GradientAccumulationSteps 8 -Device cuda -Amp
 ```
 
-## 5) One-Command Runner
+## 5) Build All Agent Feature Caches
+
+This builds CPU-safe Wav2Vec2/ViT embedding caches for the separate agents:
+
+```powershell
+.\run_agent_feature_build.ps1 -Mode all -Device cpu
+```
+
+Build one agent at a time:
+
+```powershell
+.\run_agent_feature_build.ps1 -Mode audio -Device cpu
+.\run_agent_feature_build.ps1 -Mode vision -Device cpu
+.\run_agent_feature_build.ps1 -Mode multimodal -Device cpu
+.\run_agent_feature_build.ps1 -Mode animation -Device cpu
+```
+
+If a cache already exists and you intentionally want to rebuild it:
+
+```powershell
+.\run_agent_feature_build.ps1 -Mode vision -Device cpu -Overwrite
+```
+
+## 6) Train The Lightweight Feature-Head Models
+
+These are much lighter than direct Wav2Vec2 fine-tuning:
+
+```powershell
+.\run_agent_feature_training.ps1 -Mode vision -Epochs 30 -Batch 16 -Device cpu
+.\run_agent_feature_training.ps1 -Mode multimodal -Epochs 30 -Batch 16 -Device cpu
+.\run_agent_feature_training.ps1 -Mode animation -Epochs 30 -Batch 16 -Device cpu
+```
+
+You can use CUDA here if the feature cache already exists, because the backbone is not being trained:
+
+```powershell
+.\run_agent_feature_training.ps1 -Mode vision -Epochs 30 -Batch 16 -Device cuda
+```
+
+## 7) One-Command Audio Runner
 
 The same workflows are available through:
 
 ```powershell
-.\run_local_audio_training.ps1 -Mode smoke
+.\run_local_audio_training.ps1 -Mode smoke -Device cpu
 .\run_local_audio_training.ps1 -Mode manifest
-.\run_local_audio_training.ps1 -Mode ravdess -Epochs 8 -Batch 4
-.\run_local_audio_training.ps1 -Mode multi -Epochs 10 -Batch 4
+.\run_local_audio_training.ps1 -Mode ravdess -Epochs 8 -Batch 4 -Device cpu
+.\run_local_audio_training.ps1 -Mode multi -Epochs 10 -Batch 4 -Device cpu
 ```
 
-For GPU:
-
-```powershell
-.\run_local_audio_training.ps1 -Mode multi -Epochs 12 -Batch 2 -LearningRate 1e-5 -UnfreezeLastN 4 -GradientAccumulationSteps 4 -Device cuda -Amp
-```
-
-## 6) Where Results Go
+## 8) Where Results Go
 
 Each run writes:
 
@@ -109,7 +144,7 @@ E:\emotion_recognition_data\agents\audio\models\wav2vec2_audio_multi\confusion_m
 E:\emotion_recognition_data\agents\audio\models\wav2vec2_audio_multi\best_model\
 ```
 
-## 7) What To Deploy
+## 9) What To Deploy
 
 Only replace the deployed audio SVM if a new model beats:
 

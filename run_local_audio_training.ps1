@@ -8,7 +8,8 @@ param(
     [double]$MaxDuration = 4.0,
     [int]$UnfreezeLastN = 2,
     [int]$GradientAccumulationSteps = 1,
-    [string]$Device = "",
+    [ValidateSet("cpu", "cuda", "auto")]
+    [string]$Device = "cpu",
     [switch]$Amp,
     [switch]$NoSaveModel
 )
@@ -34,6 +35,13 @@ function Invoke-LocalPython {
     param([string[]]$Arguments)
     & $Python @Arguments
     if ($LASTEXITCODE -ne 0) {
+        if (($Arguments -contains "src\train_audio_wav2vec2.py") -and ($Arguments -contains "--device") -and ($Arguments -contains "cuda")) {
+            Write-Host ""
+            Write-Host "CUDA training failed. On a 4 GB GPU, Wav2Vec2 often runs out of memory." -ForegroundColor Yellow
+            Write-Host "Retry safely on CPU:" -ForegroundColor Yellow
+            Write-Host ".\run_local_audio_training.ps1 -Mode $Mode -Epochs $Epochs -Batch $Batch -LearningRate $LearningRate -UnfreezeLastN $UnfreezeLastN -Device cpu" -ForegroundColor Yellow
+            Write-Host ""
+        }
         throw "Python command failed with exit code $LASTEXITCODE"
     }
 }
@@ -83,7 +91,7 @@ if ($Mode -eq "smoke") {
         "--limit-test", "2",
         "--no-save-model"
     )
-    if ($Device) {
+    if ($Device -ne "auto") {
         $arguments += @("--device", $Device)
     }
     Invoke-LocalPython -Arguments $arguments
@@ -113,7 +121,7 @@ $trainArgs = @(
     "--gradient-accumulation-steps", [string]$GradientAccumulationSteps
 )
 
-if ($Device) {
+if ($Device -ne "auto") {
     $trainArgs += @("--device", $Device)
 }
 if ($NoSaveModel) {

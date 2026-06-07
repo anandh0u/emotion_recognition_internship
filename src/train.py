@@ -36,6 +36,7 @@ def build_arg_parser() -> argparse.ArgumentParser:
     parser.add_argument("--models-dir", type=Path, default=DEFAULT_MODELS_DIR, help="Directory for checkpoints")
     parser.add_argument("--results-dir", type=Path, default=DEFAULT_RESULTS_DIR, help="Directory for metrics and plots")
     parser.add_argument("--num-workers", type=int, default=0, help="DataLoader worker count")
+    parser.add_argument("--device", type=str, default=None, help="Device override, for example cpu or cuda")
     return parser
 
 
@@ -200,7 +201,10 @@ def main() -> None:
         raise ValueError("Training, validation, and test splits must each contain at least one sample.")
     class_names = train_dataset.class_names
 
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    device = torch.device(args.device or ("cuda" if torch.cuda.is_available() else "cpu"))
+    if device.type == "cuda" and not torch.cuda.is_available():
+        raise RuntimeError("CUDA was requested with --device cuda, but torch.cuda.is_available() is False.")
+    print(f"Using device: {device}")
     model = MultimodalEmotionModel(num_classes=len(class_names)).to(device)
     criterion = nn.CrossEntropyLoss()
     optimizer = AdamW(model.parameters(), lr=args.lr, weight_decay=args.weight_decay)

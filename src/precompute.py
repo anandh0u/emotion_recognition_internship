@@ -136,7 +136,7 @@ def load_manifest(labels_csv: Path) -> list[dict[str, Any]]:
     with labels_csv.open("r", encoding="utf-8-sig", newline="") as handle:
         reader = csv.DictReader(handle)
         fieldnames = set(reader.fieldnames or [])
-        required = {"sample_id", "label", "audio_path", "image_path"}
+        required = {"sample_id", "label"}
         missing = required - fieldnames
         if missing:
             raise ValueError(f"labels.csv is missing required columns: {sorted(missing)}")
