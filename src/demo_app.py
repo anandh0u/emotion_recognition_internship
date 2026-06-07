@@ -23,6 +23,7 @@ import torch.nn.functional as F
 from PIL import Image
 from transformers import AutoImageProcessor, ViTModel, Wav2Vec2Model, Wav2Vec2Processor
 
+from agent_pipeline import EmotionSupervisorAgent, ModalityPrediction
 from dataset import CLASS_NAMES, load_records
 from model import MultimodalEmotionModel
 from precompute import (
@@ -49,6 +50,7 @@ SAMPLE_MANIFEST = PROJECT_ROOT / "samples" / "sample_manifest.csv"
 OUTPUT_DIR = PROJECT_ROOT / "outputs"
 UPLOAD_DIR = OUTPUT_DIR / "uploads"
 FEEDBACK_FILE = OUTPUT_DIR / "feedback.csv"
+SUPERVISOR_AGENT = EmotionSupervisorAgent()
 
 TASKS = {
     "Emotion Recognition": {
@@ -387,6 +389,131 @@ def predict_audio_classifier(
     return class_names[prediction_index], float(probabilities[prediction_index]), scores, "audio_svm"
 
 
+def scores_to_records(scores: pd.DataFrame) -> list[dict[str, float | str]]:
+    return [
+        {"label": str(row["label"]), "confidence": float(row["confidence"])}
+        for row in scores.to_dict("records")
+    ]
+
+
+def predict_with_supervisor(
+    model: MultimodalEmotionModel,
+    device: torch.device,
+    class_names: list[str],
+    audio_embedding: torch.Tensor | None,
+    visual_embedding: torch.Tensor | None,
+    audio_classifier: dict[str, Any] | None = None,
+) -> tuple[str, float, pd.DataFrame, str]:
+    candidate_outputs: list[tuple[ModalityPrediction, pd.DataFrame]] = []
+
+    if audio_embedding is not None:
+        if audio_classifier is not None:
+            prediction, confidence, scores, modality = predict_audio_classifier(audio_classifier, audio_embedding)
+            candidate_outputs.append(
+                (
+                    ModalityPrediction(
+                        agent_name="audio_svm_agent",
+                        modality=modality,
+                        label=prediction,
+                        confidence=confidence,
+                        scores=scores_to_records(scores),
+                        notes="current strongest actor-independent RAVDESS model",
+                    ),
+                    scores,
+                )
+            )
+        prediction, confidence, scores, modality = predict(
+            model, device, class_names, audio_embedding, None, preferred_modality="audio"
+        )
+        candidate_outputs.append(
+            (
+                ModalityPrediction(
+                    agent_name="audio_agent",
+                    modality=modality,
+                    label=prediction,
+                    confidence=confidence,
+                    scores=scores_to_records(scores),
+                ),
+                scores,
+            )
+        )
+
+    if visual_embedding is not None:
+        prediction, confidence, scores, modality = predict(
+            model, device, class_names, None, visual_embedding, preferred_modality="visual"
+        )
+        candidate_outputs.append(
+            (
+                ModalityPrediction(
+                    agent_name="visual_agent",
+                    modality=modality,
+                    label=prediction,
+                    confidence=confidence,
+                    scores=scores_to_records(scores),
+                ),
+                scores,
+            )
+        )
+
+    if audio_embedding is not None and visual_embedding is not None:
+        prediction, confidence, scores, modality = predict(
+            model, device, class_names, audio_embedding, visual_embedding, preferred_modality="fusion"
+        )
+        candidate_outputs.append(
+            (
+                ModalityPrediction(
+                    agent_name="fusion_agent",
+                    modality=modality,
+                    label=prediction,
+                    confidence=confidence,
+                    scores=scores_to_records(scores),
+                ),
+                scores,
+            )
+        )
+
+    decision = SUPERVISOR_AGENT.decide([candidate for candidate, _scores in candidate_outputs])
+    selected_scores = next(
+        scores
+        for candidate, scores in candidate_outputs
+        if candidate.agent_name == decision.selected_agent and candidate.modality == decision.selected_modality
+    )
+    modality = f"supervisor -> {decision.selected_agent.replace('_', ' ')}"
+    if decision.uncertain:
+        modality = f"{modality} (low confidence)"
+    return decision.label, decision.confidence, selected_scores, modality
+
+
+def run_prediction(
+    model: MultimodalEmotionModel,
+    device: torch.device,
+    class_names: list[str],
+    audio_embedding: torch.Tensor | None,
+    visual_embedding: torch.Tensor | None,
+    preferred_modality: str,
+    audio_classifier: dict[str, Any] | None,
+) -> tuple[str, float, pd.DataFrame, str]:
+    if preferred_modality == "supervisor":
+        return predict_with_supervisor(
+            model,
+            device,
+            class_names,
+            audio_embedding,
+            visual_embedding,
+            audio_classifier=audio_classifier,
+        )
+    if audio_classifier is not None and preferred_modality == "audio" and audio_embedding is not None:
+        return predict_audio_classifier(audio_classifier, audio_embedding)
+    return predict(
+        model,
+        device,
+        class_names,
+        audio_embedding,
+        visual_embedding,
+        preferred_modality=preferred_modality,
+    )
+
+
 def extract_audio_upload(audio_file: Any) -> torch.Tensor:
     audio_processor, audio_model, _visual_processor, _visual_model, backbone_device = load_backbones()
     suffix = Path(audio_file.name).suffix or ".wav"
@@ -636,12 +763,12 @@ def main() -> None:
         split_index = split_options.index("test") if "test" in split_options else 0
         split = st.selectbox("Split", split_options, index=split_index, disabled=source == "Upload files")
         mode_label = st.selectbox("Prediction mode", ["recommended", "video/fusion", "audio", "image"])
-        preferred_modality = recommended_modality if mode_label == "recommended" else mode_label
+        preferred_modality = "supervisor" if mode_label == "recommended" else mode_label
         if preferred_modality == "image":
             preferred_modality = "visual"
         if preferred_modality == "video/fusion":
             preferred_modality = "fusion"
-        st.caption(f"Recommended for this task: {recommended_modality}")
+        st.caption(f"Recommended path: supervisor agent; current strongest single modality is {recommended_modality}")
 
     if source == "Dataset sample":
         if sample_records:
@@ -659,8 +786,8 @@ def main() -> None:
             audio_available = audio_path is not None and audio_path.exists()
             image_available = image_path is not None and image_path.exists()
             video_available = video_path is not None and video_path.exists()
-            need_audio = preferred_modality in ["auto", "fusion", "audio"] or not image_available
-            need_visual = preferred_modality in ["auto", "fusion", "visual"] or not audio_available
+            need_audio = preferred_modality in ["auto", "supervisor", "fusion", "audio"] or not image_available
+            need_visual = preferred_modality in ["auto", "supervisor", "fusion", "visual"] or not audio_available
 
             with st.spinner("Extracting sample embeddings"):
                 audio_embedding = (
@@ -688,17 +815,15 @@ def main() -> None:
                 st.error("This sample does not have media for the selected prediction mode.")
                 st.stop()
 
-            if audio_classifier is not None and preferred_modality == "audio" and audio_embedding is not None:
-                prediction, confidence, scores, modality = predict_audio_classifier(audio_classifier, audio_embedding)
-            else:
-                prediction, confidence, scores, modality = predict(
-                    model,
-                    device,
-                    class_names,
-                    audio_embedding,
-                    visual_embedding,
-                    preferred_modality=preferred_modality,
-                )
+            prediction, confidence, scores, modality = run_prediction(
+                model,
+                device,
+                class_names,
+                audio_embedding,
+                visual_embedding,
+                preferred_modality,
+                audio_classifier,
+            )
             with st.chat_message("user"):
                 st.write(f"Sample `{record['sample_id']}` · true label `{record['label']}`")
                 media_columns = st.columns([1, 1, 1])
@@ -735,24 +860,22 @@ def main() -> None:
                 selected_index = st.selectbox("Sample", range(len(split_records)), format_func=lambda index: labels[index])
             record = split_records[selected_index]
             image = load_sample_image(record["image_path"], record["label"]) if record.get("visual_available") else None
-            audio_embedding = record["audio_embedding"] if preferred_modality in ["auto", "fusion", "audio"] and record.get("audio_available") else None
-            visual_embedding = record["visual_embedding"] if preferred_modality in ["auto", "fusion", "visual"] and record.get("visual_available") else None
+            audio_embedding = record["audio_embedding"] if preferred_modality in ["auto", "supervisor", "fusion", "audio"] and record.get("audio_available") else None
+            visual_embedding = record["visual_embedding"] if preferred_modality in ["auto", "supervisor", "fusion", "visual"] and record.get("visual_available") else None
             if preferred_modality == "audio":
                 visual_embedding = None
             if preferred_modality == "visual":
                 audio_embedding = None
 
-            if audio_classifier is not None and preferred_modality == "audio" and audio_embedding is not None:
-                prediction, confidence, scores, modality = predict_audio_classifier(audio_classifier, audio_embedding)
-            else:
-                prediction, confidence, scores, modality = predict(
-                    model,
-                    device,
-                    class_names,
-                    audio_embedding,
-                    visual_embedding,
-                    preferred_modality=preferred_modality,
-                )
+            prediction, confidence, scores, modality = run_prediction(
+                model,
+                device,
+                class_names,
+                audio_embedding,
+                visual_embedding,
+                preferred_modality,
+                audio_classifier,
+            )
             with st.chat_message("user"):
                 st.write(f"Sample `{record['sample_id']}` · true label `{record['label']}`")
                 media_columns = st.columns([1, 1])
@@ -799,8 +922,8 @@ def main() -> None:
             if audio_file is None and image_file is None and video_file is None:
                 st.info("Upload audio, image, video, or a combination.")
             else:
-                need_audio = preferred_modality in ["auto", "fusion", "audio"]
-                need_visual = preferred_modality in ["auto", "fusion", "visual"]
+                need_audio = preferred_modality in ["auto", "supervisor", "fusion", "audio"]
+                need_visual = preferred_modality in ["auto", "supervisor", "fusion", "visual"]
                 video_only = video_file is not None and audio_file is None and image_file is None
                 try:
                     with st.spinner("Extracting embeddings"):
@@ -825,17 +948,15 @@ def main() -> None:
                     st.error("No usable audio or visual signal was found for the selected prediction mode.")
                     st.stop()
 
-                if audio_classifier is not None and preferred_modality == "audio" and audio_embedding is not None:
-                    prediction, confidence, scores, modality = predict_audio_classifier(audio_classifier, audio_embedding)
-                else:
-                    prediction, confidence, scores, modality = predict(
-                        model,
-                        device,
-                        class_names,
-                        audio_embedding,
-                        visual_embedding,
-                        preferred_modality=preferred_modality,
-                    )
+                prediction, confidence, scores, modality = run_prediction(
+                    model,
+                    device,
+                    class_names,
+                    audio_embedding,
+                    visual_embedding,
+                    preferred_modality,
+                    audio_classifier,
+                )
                 render_prediction(prediction, confidence, scores, modality)
                 render_feedback_form(
                     "upload",

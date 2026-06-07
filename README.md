@@ -1,6 +1,11 @@
 # Multimodal Emotion Recognition Internship Project
 
-Late-fusion emotion recognition for audio + visual inputs using precomputed backbone embeddings.
+Paper-aligned multimodal emotion recognition for audio, image, and video inputs. The system follows a modular agentic design: audio, visual, and fusion agents produce candidate predictions, then a supervisor agent selects the final emotion.
+
+Reference direction:
+
+- "Multimodal Trait and Emotion Recognition via Agentic AI: An End-to-End Pipeline" - ACM Multimedia Workshop 2025, DOI: https://doi.org/10.1145/3746277.3760412
+- "Agent-Based Modular Learning for Multimodal Emotion Recognition in Human-Agent Systems" - arXiv:2512.10975, https://arxiv.org/abs/2512.10975
 
 ## Project layout
 
@@ -13,6 +18,7 @@ emotion_recognition_internship/
 ├── models/           # Model checkpoints
 ├── results/          # Confusion matrix and plots
 ├── src/
+│   ├── agent_pipeline.py
 │   ├── dataset.py
 │   ├── model.py
 │   ├── precompute.py
@@ -25,6 +31,18 @@ emotion_recognition_internship/
 ├── requirements.txt
 └── README.md
 ```
+
+## Paper-focused architecture
+
+The project is now organized around the paper concept of modular emotion-recognition agents:
+
+- Audio Agent: Wav2Vec2 embeddings with the current actor-independent RAVDESS audio SVM, plus a Wav2Vec2 fine-tuning path in `src/train_audio_wav2vec2.py`.
+- Visual Agent: ViT embeddings from uploaded images or extracted video frames.
+- Fusion Agent: late fusion over 256-dimensional audio and visual projections.
+- Supervisor Agent: `src/agent_pipeline.py` compares available modality predictions and selects the final result in the demo's recommended mode.
+- Feedback Agent: the Streamlit demo writes user correction reports to `outputs/feedback.csv`.
+
+Detailed mapping to the reference papers is in `results/paper_alignment.md`.
 
 ## Data format
 
@@ -293,8 +311,8 @@ The app downloads Wav2Vec2 and ViT backbones from Hugging Face on first use, so 
 
 The UI has two tasks:
 
-- Emotion Recognition: recommended mode uses the RAVDESS audio SVM because it currently performs best on the actor-independent test split; image and fusion modes still use the neural checkpoint.
-- Animated Content Analysis: recommended mode uses the audio head because it currently performs best on the test split.
+- Emotion Recognition: recommended mode uses the supervisor agent. The supervisor currently favors the RAVDESS audio SVM when audio is available because it performs best on the actor-independent test split; image and fusion modes remain available for manual comparison.
+- Animated Content Analysis: recommended mode uses the same supervisor pattern and compares available modality agents.
 
 ## 5) Zero-shot baseline
 
