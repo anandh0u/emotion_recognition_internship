@@ -1,6 +1,7 @@
 torch
 torchvision
-transformers
+torchaudio
+transformers==4.40.2
 librosa
 Pillow
 scikit-learn
@@ -9,11 +10,11 @@ seaborn
 tqdm
 wandb
 pandas
-numpy
+numpy==1.26.4
 soundfile
 streamlit
 kaggle
 kagglehub[pandas-datasets]
-opencv-python-headless
+opencv-python-headless==4.9.0.80
 imageio-ffmpeg
 joblib
