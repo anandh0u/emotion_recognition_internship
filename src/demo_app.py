@@ -23,7 +23,14 @@ import torch.nn.functional as F
 from PIL import Image
 from transformers import AutoImageProcessor, ViTModel, Wav2Vec2Model, Wav2Vec2Processor
 
-from agent_pipeline import EmotionSupervisorAgent, ModalityPrediction
+from agent_pipeline import (
+    AgenticEmotionPipeline,
+    AudioEmotionAgent,
+    EmotionSupervisorAgent,
+    FusionEmotionAgent,
+    TextEmotionAgent,
+    VisionEmotionAgent,
+)
 from dataset import CLASS_NAMES, load_records
 from model import MultimodalEmotionModel
 from precompute import (
@@ -34,6 +41,7 @@ from precompute import (
     load_fer2013_image_cache,
     parse_fer2013_reference,
 )
+from text_emotion_agent import TextEmotionClassifier
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_FEATURES = PROJECT_ROOT / "features" / "all_embeddings.pt"
@@ -51,6 +59,7 @@ OUTPUT_DIR = PROJECT_ROOT / "outputs"
 UPLOAD_DIR = OUTPUT_DIR / "uploads"
 FEEDBACK_FILE = OUTPUT_DIR / "feedback.csv"
 SUPERVISOR_AGENT = EmotionSupervisorAgent()
+AGENTIC_PIPELINE = AgenticEmotionPipeline(SUPERVISOR_AGENT)
 
 TASKS = {
     "Emotion Recognition": {
@@ -117,6 +126,11 @@ def load_audio_classifier(classifier_path: str | None) -> dict[str, Any] | None:
         raise ValueError(f"Unsupported audio classifier format: {path}")
     payload["class_names"] = [str(name) for name in payload.get("class_names", CLASS_NAMES)]
     return payload
+
+
+@st.cache_resource(show_spinner=False)
+def load_text_classifier() -> TextEmotionClassifier:
+    return TextEmotionClassifier()
 
 
 @st.cache_resource(show_spinner=False)
@@ -396,6 +410,19 @@ def scores_to_records(scores: pd.DataFrame) -> list[dict[str, float | str]]:
     ]
 
 
+def scores_dataframe(scores: list[dict[str, float | str]]) -> pd.DataFrame:
+    return pd.DataFrame(scores).sort_values("confidence", ascending=False)
+
+
+def predict_text_classifier(
+    text_classifier: TextEmotionClassifier,
+    text: str,
+    class_names: list[str],
+) -> tuple[str, float, pd.DataFrame, str]:
+    prediction = text_classifier.predict(text, class_names)
+    return prediction.label, prediction.confidence, scores_dataframe(prediction.scores), prediction.source
+
+
 def predict_with_supervisor(
     model: MultimodalEmotionModel,
     device: torch.device,
@@ -403,76 +430,74 @@ def predict_with_supervisor(
     audio_embedding: torch.Tensor | None,
     visual_embedding: torch.Tensor | None,
     audio_classifier: dict[str, Any] | None = None,
+    text: str = "",
+    text_classifier: TextEmotionClassifier | None = None,
 ) -> tuple[str, float, pd.DataFrame, str]:
     candidate_outputs: list[tuple[ModalityPrediction, pd.DataFrame]] = []
 
     if audio_embedding is not None:
         if audio_classifier is not None:
-            prediction, confidence, scores, modality = predict_audio_classifier(audio_classifier, audio_embedding)
-            candidate_outputs.append(
-                (
-                    ModalityPrediction(
-                        agent_name="audio_svm_agent",
-                        modality=modality,
-                        label=prediction,
-                        confidence=confidence,
-                        scores=scores_to_records(scores),
-                        notes="current strongest actor-independent RAVDESS model",
-                    ),
-                    scores,
-                )
+            agent = AudioEmotionAgent(
+                agent_name="audio_svm_agent",
+                modality="audio_svm",
+                notes="current strongest actor-independent RAVDESS model",
+                prediction_factory=lambda: (
+                    lambda result: (result[0], result[1], scores_to_records(result[2]), result[3])
+                )(predict_audio_classifier(audio_classifier, audio_embedding)),
             )
-        prediction, confidence, scores, modality = predict(
-            model, device, class_names, audio_embedding, None, preferred_modality="audio"
+            prediction = agent.predict()
+            scores = scores_dataframe(prediction.scores)
+            candidate_outputs.append((prediction, scores))
+        agent = AudioEmotionAgent(
+            agent_name="audio_agent",
+            modality="audio",
+            prediction_factory=lambda: (
+                lambda result: (result[0], result[1], scores_to_records(result[2]), result[3])
+            )(predict(model, device, class_names, audio_embedding, None, preferred_modality="audio")),
         )
+        prediction = agent.predict()
+        scores = scores_dataframe(prediction.scores)
         candidate_outputs.append(
-            (
-                ModalityPrediction(
-                    agent_name="audio_agent",
-                    modality=modality,
-                    label=prediction,
-                    confidence=confidence,
-                    scores=scores_to_records(scores),
-                ),
-                scores,
-            )
+            (prediction, scores)
         )
 
     if visual_embedding is not None:
-        prediction, confidence, scores, modality = predict(
-            model, device, class_names, None, visual_embedding, preferred_modality="visual"
+        agent = VisionEmotionAgent(
+            agent_name="visual_agent",
+            modality="visual",
+            prediction_factory=lambda: (
+                lambda result: (result[0], result[1], scores_to_records(result[2]), result[3])
+            )(predict(model, device, class_names, None, visual_embedding, preferred_modality="visual")),
         )
-        candidate_outputs.append(
-            (
-                ModalityPrediction(
-                    agent_name="visual_agent",
-                    modality=modality,
-                    label=prediction,
-                    confidence=confidence,
-                    scores=scores_to_records(scores),
-                ),
-                scores,
-            )
-        )
+        prediction = agent.predict()
+        scores = scores_dataframe(prediction.scores)
+        candidate_outputs.append((prediction, scores))
 
     if audio_embedding is not None and visual_embedding is not None:
-        prediction, confidence, scores, modality = predict(
-            model, device, class_names, audio_embedding, visual_embedding, preferred_modality="fusion"
+        agent = FusionEmotionAgent(
+            agent_name="fusion_agent",
+            modality="fusion",
+            prediction_factory=lambda: (
+                lambda result: (result[0], result[1], scores_to_records(result[2]), result[3])
+            )(predict(model, device, class_names, audio_embedding, visual_embedding, preferred_modality="fusion")),
         )
-        candidate_outputs.append(
-            (
-                ModalityPrediction(
-                    agent_name="fusion_agent",
-                    modality=modality,
-                    label=prediction,
-                    confidence=confidence,
-                    scores=scores_to_records(scores),
-                ),
-                scores,
-            )
-        )
+        prediction = agent.predict()
+        scores = scores_dataframe(prediction.scores)
+        candidate_outputs.append((prediction, scores))
 
-    decision = SUPERVISOR_AGENT.decide([candidate for candidate, _scores in candidate_outputs])
+    if text.strip() and text_classifier is not None:
+        agent = TextEmotionAgent(
+            agent_name="text_agent",
+            modality="text",
+            prediction_factory=lambda: (
+                lambda result: (result[0], result[1], scores_to_records(result[2]), result[3])
+            )(predict_text_classifier(text_classifier, text, class_names)),
+        )
+        prediction = agent.predict()
+        scores = scores_dataframe(prediction.scores)
+        candidate_outputs.append((prediction, scores))
+
+    decision = AGENTIC_PIPELINE.supervisor.decide([candidate for candidate, _scores in candidate_outputs])
     selected_scores = next(
         scores
         for candidate, scores in candidate_outputs
@@ -492,6 +517,8 @@ def run_prediction(
     visual_embedding: torch.Tensor | None,
     preferred_modality: str,
     audio_classifier: dict[str, Any] | None,
+    text: str = "",
+    text_classifier: TextEmotionClassifier | None = None,
 ) -> tuple[str, float, pd.DataFrame, str]:
     if preferred_modality == "supervisor":
         return predict_with_supervisor(
@@ -501,7 +528,13 @@ def run_prediction(
             audio_embedding,
             visual_embedding,
             audio_classifier=audio_classifier,
+            text=text,
+            text_classifier=text_classifier,
         )
+    if preferred_modality == "text":
+        if text_classifier is None:
+            raise ValueError("Text classifier is not available.")
+        return predict_text_classifier(text_classifier, text, class_names)
     if audio_classifier is not None and preferred_modality == "audio" and audio_embedding is not None:
         return predict_audio_classifier(audio_classifier, audio_embedding)
     return predict(
@@ -578,6 +611,7 @@ def save_report(
     corrected_label: str,
     notes: str,
     scores: pd.DataFrame,
+    text_input: str = "",
     audio_file: Any = None,
     image_file: Any = None,
     video_file: Any = None,
@@ -602,6 +636,7 @@ def save_report(
         "audio_path": audio_path,
         "image_path": image_path,
         "video_path": video_path,
+        "text_input": text_input,
         "scores_json": scores.to_json(orient="records"),
         "notes": notes,
     }
@@ -633,6 +668,7 @@ def render_feedback_form(
     modality: str,
     class_names: list[str],
     label_name: str,
+    text_input: str = "",
     audio_file: Any = None,
     image_file: Any = None,
     video_file: Any = None,
@@ -653,6 +689,7 @@ def render_feedback_form(
                 corrected_label=corrected_label,
                 notes=notes,
                 scores=scores,
+                text_input=text_input,
                 audio_file=audio_file,
                 image_file=image_file,
                 video_file=video_file,
@@ -750,6 +787,7 @@ def main() -> None:
 
     model, device, class_names = load_model(str(checkpoint_path))
     audio_classifier = load_audio_classifier(str(task.get("audio_classifier")) if task.get("audio_classifier") else None)
+    text_classifier = load_text_classifier() if task_name == "Emotion Recognition" else None
 
     with st.sidebar:
         source_options = ["Dataset sample", "Upload files"] if sample_records or has_feature_cache else ["Upload files"]
@@ -762,7 +800,10 @@ def main() -> None:
                 split_options = sorted(available_sample_splits)
         split_index = split_options.index("test") if "test" in split_options else 0
         split = st.selectbox("Split", split_options, index=split_index, disabled=source == "Upload files")
-        mode_label = st.selectbox("Prediction mode", ["recommended", "video/fusion", "audio", "image"])
+        mode_options = ["recommended", "video/fusion", "audio", "image"]
+        if text_classifier is not None:
+            mode_options.append("text")
+        mode_label = st.selectbox("Prediction mode", mode_options)
         preferred_modality = "supervisor" if mode_label == "recommended" else mode_label
         if preferred_modality == "image":
             preferred_modality = "visual"
@@ -823,6 +864,7 @@ def main() -> None:
                 visual_embedding,
                 preferred_modality,
                 audio_classifier,
+                text_classifier=text_classifier,
             )
             with st.chat_message("user"):
                 st.write(f"Sample `{record['sample_id']}` · true label `{record['label']}`")
@@ -875,6 +917,7 @@ def main() -> None:
                 visual_embedding,
                 preferred_modality,
                 audio_classifier,
+                text_classifier=text_classifier,
             )
             with st.chat_message("user"):
                 st.write(f"Sample `{record['sample_id']}` · true label `{record['label']}`")
@@ -905,6 +948,9 @@ def main() -> None:
             audio_file = st.file_uploader("Audio", type=["wav", "mp3", "flac", "ogg", "m4a"])
             image_file = st.file_uploader("Image", type=["png", "jpg", "jpeg", "bmp", "webp"])
             video_file = st.file_uploader("Video", type=["mp4", "mov", "avi", "mkv", "webm"])
+            text_input = ""
+            if text_classifier is not None:
+                text_input = st.text_area("Text or transcript", placeholder="Type text for the text emotion agent")
 
         with st.chat_message("user"):
             media_columns = st.columns([1, 1, 1])
@@ -917,10 +963,12 @@ def main() -> None:
             with media_columns[2]:
                 if video_file is not None:
                     st.video(video_file)
+            if text_input.strip():
+                st.write(text_input.strip())
 
         with st.chat_message("assistant"):
-            if audio_file is None and image_file is None and video_file is None:
-                st.info("Upload audio, image, video, or a combination.")
+            if audio_file is None and image_file is None and video_file is None and not text_input.strip():
+                st.info("Upload audio, image, video, text, or a combination.")
             else:
                 need_audio = preferred_modality in ["auto", "supervisor", "fusion", "audio"]
                 need_visual = preferred_modality in ["auto", "supervisor", "fusion", "visual"]
@@ -944,8 +992,8 @@ def main() -> None:
                     st.error(f"Could not process the uploaded media: {exc}")
                     st.stop()
 
-                if audio_embedding is None and visual_embedding is None:
-                    st.error("No usable audio or visual signal was found for the selected prediction mode.")
+                if audio_embedding is None and visual_embedding is None and not text_input.strip():
+                    st.error("No usable audio, visual, or text signal was found for the selected prediction mode.")
                     st.stop()
 
                 prediction, confidence, scores, modality = run_prediction(
@@ -956,6 +1004,8 @@ def main() -> None:
                     visual_embedding,
                     preferred_modality,
                     audio_classifier,
+                    text=text_input,
+                    text_classifier=text_classifier,
                 )
                 render_prediction(prediction, confidence, scores, modality)
                 render_feedback_form(
@@ -968,6 +1018,7 @@ def main() -> None:
                     modality,
                     class_names,
                     label_name,
+                    text_input=text_input,
                     audio_file=audio_file,
                     image_file=image_file,
                     video_file=video_file,

@@ -16,12 +16,15 @@ emotion_recognition_internship/
 │   └── labels.csv    # Unified multimodal manifest
 ├── features/         # Saved embeddings: features/all_embeddings.pt
 ├── models/           # Model checkpoints
+├── projects/         # Separate agent projects: audio, vision, text, animation, fusion, supervisor
 ├── results/          # Confusion matrix and plots
 ├── src/
 │   ├── agent_pipeline.py
 │   ├── dataset.py
 │   ├── model.py
 │   ├── precompute.py
+│   ├── setup_agent_workspaces.py
+│   ├── text_emotion_agent.py
 │   ├── train.py
 │   ├── train_audio_wav2vec2.py
 │   ├── evaluate.py
@@ -43,6 +46,40 @@ The project is now organized around the paper concept of modular emotion-recogni
 - Feedback Agent: the Streamlit demo writes user correction reports to `outputs/feedback.csv`.
 
 Detailed mapping to the reference papers is in `results/paper_alignment.md`.
+
+## Official Agent Projects
+
+The repo is organized as one main emotion-recognition system with separate projects inside `projects/`:
+
+- `projects/audio_agent`: speech/audio emotion training and evaluation
+- `projects/vision_agent`: face/image/video-frame emotion training
+- `projects/text_agent`: typed text and transcript emotion training
+- `projects/animation_agent`: separate animated-content analysis task
+- `projects/fusion_agent`: multimodal late-fusion experiments
+- `projects/supervisor_agent`: central coordinator that combines replaceable agents
+
+Create or refresh the official training workspaces:
+
+```powershell
+.\.venv311\Scripts\python.exe src\setup_agent_workspaces.py
+```
+
+This creates:
+
+```text
+E:\emotion_recognition_data\agents\audio
+E:\emotion_recognition_data\agents\vision
+E:\emotion_recognition_data\agents\text
+E:\emotion_recognition_data\agents\animation
+E:\emotion_recognition_data\agents\multimodal
+E:\emotion_recognition_data\agents\supervisor
+```
+
+The supervisor registry is stored at:
+
+```text
+E:\emotion_recognition_data\agents\supervisor\agent_registry.json
+```
 
 ## Data format
 

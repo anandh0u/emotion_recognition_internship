@@ -37,6 +37,8 @@ def build_arg_parser() -> argparse.ArgumentParser:
     parser.add_argument("--weight-decay", type=float, default=1e-2)
     parser.add_argument("--warmup-ratio", type=float, default=0.1)
     parser.add_argument("--grad-clip", type=float, default=1.0)
+    parser.add_argument("--gradient-accumulation-steps", type=int, default=1, help="Accumulate gradients across this many batches")
+    parser.add_argument("--amp", action="store_true", help="Use CUDA mixed precision training when a CUDA device is selected")
     parser.add_argument("--max-duration", type=float, default=4.0, help="Audio crop/pad length in seconds")
     parser.add_argument("--num-workers", type=int, default=0)
     parser.add_argument("--seed", type=int, default=42)
@@ -185,6 +187,7 @@ def evaluate(
     loader: DataLoader,
     criterion: nn.Module,
     device: torch.device,
+    use_amp: bool = False,
 ) -> tuple[dict[str, float], list[int], list[int]]:
     model.eval()
     total_loss = 0.0
@@ -196,8 +199,9 @@ def evaluate(
             labels = batch.pop("labels").to(device)
             batch.pop("sample_ids", None)
             inputs = {key: value.to(device) for key, value in batch.items()}
-            logits = model(**inputs).logits
-            loss = criterion(logits, labels)
+            with torch.cuda.amp.autocast(enabled=use_amp):
+                logits = model(**inputs).logits
+                loss = criterion(logits, labels)
             predictions = logits.argmax(dim=-1)
             batch_size = labels.size(0)
             total_loss += loss.item() * batch_size
@@ -217,23 +221,33 @@ def train_one_epoch(
     scheduler: torch.optim.lr_scheduler.LRScheduler,
     device: torch.device,
     grad_clip: float,
+    gradient_accumulation_steps: int,
+    use_amp: bool,
 ) -> dict[str, float]:
     model.train()
     total_loss = 0.0
     total_items = 0
     y_true: list[int] = []
     y_pred: list[int] = []
-    for batch in tqdm(loader, desc="Fine-tuning", leave=False):
+    scaler = torch.cuda.amp.GradScaler(enabled=use_amp)
+    accumulation_steps = max(int(gradient_accumulation_steps), 1)
+    optimizer.zero_grad(set_to_none=True)
+    for step, batch in enumerate(tqdm(loader, desc="Fine-tuning", leave=False), start=1):
         labels = batch.pop("labels").to(device)
         batch.pop("sample_ids", None)
         inputs = {key: value.to(device) for key, value in batch.items()}
-        optimizer.zero_grad(set_to_none=True)
-        logits = model(**inputs).logits
-        loss = criterion(logits, labels)
-        loss.backward()
-        torch.nn.utils.clip_grad_norm_(model.parameters(), grad_clip)
-        optimizer.step()
-        scheduler.step()
+        with torch.cuda.amp.autocast(enabled=use_amp):
+            logits = model(**inputs).logits
+            loss = criterion(logits, labels)
+        scaled_loss = loss / accumulation_steps
+        scaler.scale(scaled_loss).backward()
+        if step % accumulation_steps == 0 or step == len(loader):
+            scaler.unscale_(optimizer)
+            torch.nn.utils.clip_grad_norm_(model.parameters(), grad_clip)
+            scaler.step(optimizer)
+            scaler.update()
+            optimizer.zero_grad(set_to_none=True)
+            scheduler.step()
         predictions = logits.argmax(dim=-1)
         batch_size = labels.size(0)
         total_loss += loss.item() * batch_size
@@ -256,6 +270,9 @@ def main() -> None:
     test_rows = limit_rows([row for row in rows if row["split"] == "test"], args.limit_test, args.seed)
     if not train_rows or not val_rows or not test_rows:
         raise ValueError("Train, validation, and test splits must each contain usable audio rows.")
+
+    if args.gradient_accumulation_steps < 1:
+        raise ValueError("--gradient-accumulation-steps must be at least 1.")
 
     args.output_dir.mkdir(parents=True, exist_ok=True)
     processor = Wav2Vec2Processor.from_pretrained(args.model_name)
@@ -297,9 +314,11 @@ def main() -> None:
     criterion = nn.CrossEntropyLoss(weight=class_weights(train_rows, device))
     trainable_parameters = [parameter for parameter in model.parameters() if parameter.requires_grad]
     optimizer = AdamW(trainable_parameters, lr=args.lr, weight_decay=args.weight_decay)
-    total_steps = max(len(train_loader) * args.epochs, 1)
+    optimizer_steps_per_epoch = int(math.ceil(len(train_loader) / max(args.gradient_accumulation_steps, 1)))
+    total_steps = max(optimizer_steps_per_epoch * args.epochs, 1)
     warmup_steps = int(math.ceil(total_steps * args.warmup_ratio))
     scheduler = get_cosine_schedule_with_warmup(optimizer, warmup_steps, total_steps)
+    use_amp = bool(args.amp and device.type == "cuda")
 
     config = {
         **{key: str(value) if isinstance(value, Path) else value for key, value in vars(args).items()},
@@ -315,8 +334,18 @@ def main() -> None:
     best_dir = args.output_dir / "best_model"
 
     for epoch in range(1, args.epochs + 1):
-        train_metrics = train_one_epoch(model, train_loader, criterion, optimizer, scheduler, device, args.grad_clip)
-        val_metrics, _val_true, _val_pred = evaluate(model, val_loader, criterion, device)
+        train_metrics = train_one_epoch(
+            model,
+            train_loader,
+            criterion,
+            optimizer,
+            scheduler,
+            device,
+            args.grad_clip,
+            args.gradient_accumulation_steps,
+            use_amp,
+        )
+        val_metrics, _val_true, _val_pred = evaluate(model, val_loader, criterion, device, use_amp=use_amp)
         row = {f"train_{key}": value for key, value in train_metrics.items()}
         row.update({f"val_{key}": value for key, value in val_metrics.items()})
         row["epoch"] = float(epoch)
@@ -340,7 +369,7 @@ def main() -> None:
         model.to(device)
     else:
         model = Wav2Vec2ForSequenceClassification.from_pretrained(best_dir).to(device)
-    test_metrics, test_true, test_pred = evaluate(model, test_loader, criterion, device)
+    test_metrics, test_true, test_pred = evaluate(model, test_loader, criterion, device, use_amp=use_amp)
     save_confusion_matrix(test_true, test_pred, args.output_dir / "confusion_matrix.png", CLASS_NAMES, "Wav2Vec2 Audio Test Confusion Matrix")
     summary = {
         "config": config,
