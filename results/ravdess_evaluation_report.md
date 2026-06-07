@@ -39,6 +39,7 @@ This is stricter than a random split because the test actors are unseen during t
 | Modality | Accuracy | Weighted F1 | UAR | Notes |
 |---|---:|---:|---:|---|
 | Deployed audio SVM | 60.00% | 59.26% | 60.57% | Best current recommended mode |
+| Fine-tuned Wav2Vec2 audio agent | 53.33% | 49.34% | 50.45% | Tested on 240 actor-independent audio samples; not deployed because it underperforms the SVM |
 | Neural audio head | 50.42% | 49.84% | 51.93% | Evaluated only on audio-bearing test samples |
 | Neural visual head | 27.08% | 23.74% | 27.53% | Weakest branch |
 | Neural fusion head | 43.33% | 43.27% | 43.01% | Evaluated only on audio+visual test samples |
@@ -49,6 +50,8 @@ This is stricter than a random split because the test actors are unseen during t
 The full RAVDESS result is a more realistic estimate than the earlier Actor_09-only experiment. The earlier result was high because training and testing were too close in actor distribution. The full actor-independent split shows that the neural late-fusion head overfits the training actors and generalizes weakly to unseen actors.
 
 The best deployed recommendation is currently the audio SVM, trained on frozen Wav2Vec2 embeddings. It improves the recommended emotion mode from roughly 50% neural audio accuracy to 60% actor-independent test accuracy.
+
+Direct Wav2Vec2 fine-tuning was also tested on the full actor-independent audio split. It reached 56.03% best validation weighted F1, but only 49.34% weighted F1 on the test split, so it remains an experimental audio agent rather than the deployed recommendation.
 
 ## Next Accuracy Improvements
 
@@ -69,3 +72,4 @@ The best deployed recommendation is currently the audio SVM, trained on frozen W
 - `models\ravdess\best_model.pt`
 - `models\ravdess\audio_svc.joblib`
 - `results\ravdess\audio_svc_metrics.json`
+- `results\wav2vec2_finetune_report.md`

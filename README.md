@@ -237,6 +237,15 @@ Recommended GPU run:
 python src/train_audio_wav2vec2.py --labels E:\emotion_recognition_data\labels_ravdess_full.csv --output-dir E:\emotion_recognition_data\models\wav2vec2_emotion_full --epochs 8 --batch 4 --lr 2e-5 --max-duration 4.0 --freeze-feature-encoder --freeze-base --unfreeze-last-n 2
 ```
 
+Completed CPU fine-tuning result on the full actor-independent RAVDESS audio split:
+
+- Best validation weighted F1: `56.03%`
+- Test accuracy: `53.33%`
+- Test weighted F1: `49.34%`
+- Test UAR: `50.45%`
+
+This does not beat the deployed audio SVM (`60.00%` accuracy, `59.26%` weighted F1), so the SVM remains the recommended audio agent for deployment. The detailed experiment note is in `results/wav2vec2_finetune_report.md`.
+
 For a stronger final model, merge RAVDESS with CREMA-D, TESS, SAVEE, and EmoDB into one manifest using the same `sample_id,split,label,audio_path` columns, then train this script on the combined manifest with speaker-independent splits.
 
 ## 1) Precompute embeddings once
